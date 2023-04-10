@@ -11,7 +11,7 @@ import pl.opole.uni.springWebApp.models.Car;
 import pl.opole.uni.springWebApp.services.CarService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3002")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CarController {
 
 	@Autowired
@@ -26,6 +26,6 @@ public class CarController {
 	
 	@GetMapping("/")
     public String index() {
-        return "index";
-    }
+       return "index";
+   }
 }
