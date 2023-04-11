@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+logging:
+  file: logs/application.log
+  level:
+    root: INFO
+spring:
+  thymeleaf:
+    mode: HTML5
+    cache: true    
