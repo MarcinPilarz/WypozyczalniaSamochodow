@@ -49,5 +49,14 @@
 }
 
 .cars-container .box:hover h2{
-    background: red;
+    background: lightskyblue;
 }
+.box{
+    border: 2px solid black;
+}
+/* .Logo-container
+    /* width: 25em !important; */
+    /* height: 100%; */
+ /* margin-left: 50px; */
+    
+/*  */ 
