@@ -23,7 +23,7 @@
     flex: 1 1 17rem;
     position: relative;
     height: 200px;
-    border-radius: 0.05rem;
+    border-radius: .5rem;
     overflow: hidden;
 }
 .cars-container .box img{
@@ -31,6 +31,7 @@
     height: 100%;
     object-fit: cover;
     overflow: hidden;
+    
 }
 
 .cars-container .box img:hover{
@@ -52,8 +53,12 @@
     background: lightskyblue;
 }
 .box{
-    border: 2px solid black;
+    box-shadow: 10px 10px 15px #888888;
+    
+    /* border: 2px solid black; */
 }
+
+
 /* .Logo-container
     /* width: 25em !important; */
     /* height: 100%; */
