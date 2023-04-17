@@ -1,3 +1,13 @@
+html::-webkit-scrollbar{
+    width: 0.5rem;
+    background: transparent;
+}
+
+html::-webkit-scrollbar{
+   border-radius: 5rem;
+    background: var(--bg-color);
+}
+
 .heading{
     text-align: center;
 }
@@ -10,7 +20,15 @@
     font-weight: 300;
 } 
 
+header.shadow{
+    background: var(--bg-color);
+    box-shadow: 4px 4px 20px rgb(15 54 55/10%);
+    transition: 0.5s ease;
+}
 
+header.shadow #search-icon{
+color:var(--text-color);
+}
 .cars-container{
     display: flex;
     flex-wrap:wrap;
@@ -55,13 +73,69 @@
 .box{
     box-shadow: 10px 10px 15px #888888;
     
-    /* border: 2px solid black; */
+   
 }
 
+.footer{
+    background: black;
+    color: #f6f6f6;
+    border-top: 2px solid red;
+    margin-top:10px;
+}
 
-/* .Logo-container
-    /* width: 25em !important; */
-    /* height: 100%; */
- /* margin-left: 50px; */
-    
-/*  */ 
+.footer-container{
+    display: flex;
+    justify-content: space-between;
+    gap:1rem;
+
+}
+.footer-container .logo{
+    color: var(--bg-color);
+    margin-bottom: 1rem;
+}
+
+.footer-container .footer-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.social{
+    display:flex;
+    align-items: center;
+}
+a{
+    text-decoration: none;
+}
+.social a{
+    font-size:24px;
+    color: var(--bg-color);
+    margin-right: 1rem;
+}
+
+.social a:hover{
+  
+    color: var(--main-color);
+
+}
+
+.footer-box h3{
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.footer-box a, .footer-box p{
+   color: #818181; 
+   margin-bottom:10px;
+}
+
+.footer-box a:hover{
+    color: lightblue;
+}
+
+.copyright{
+    padding: 20px;
+    text-align: center;
+    color:#818181;
+    background-color: black;
+}
