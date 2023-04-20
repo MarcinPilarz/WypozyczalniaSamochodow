@@ -38,16 +38,13 @@ function Footer() {
 
               <div className='footer-box'>
                 <h3>Kontakt</h3>
-                <p>Poland</p>
-                <p>United States</p>
-                <p>Japan</p>
-                <p>Germany</p>
+                <p>carrent@example.com</p>
                 
               </div>
         </div>
     </section>
     <div className='copyright'>
-        <p>&#169; CarpoolVeno, All Right Reserved</p>
+        <p>&#169; CarRent, All Right Reserved</p>
     </div>
     </>
   )
