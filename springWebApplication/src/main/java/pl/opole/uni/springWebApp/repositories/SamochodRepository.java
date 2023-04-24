@@ -1,3 +1,4 @@
+
 package pl.opole.uni.springWebApp.repositories;
 
 import java.util.List;
@@ -12,13 +13,14 @@ import pl.opole.uni.springWebApp.models.Samochod;
 @Repository
 public interface SamochodRepository extends JpaRepository<Samochod, Long> {
 
-    List<Samochod> findByMarka(String marka);
-    
-    List<Samochod> findByModelAndRokProdukcjiGreaterThanEqual(String model, Integer rokProdukcji);
-    
-    @Query("SELECT s FROM Samochod s JOIN s.producent p WHERE p.nazwa = :nazwa")
-    List<Samochod> znajdzPoNazwieProducenta(@Param("nazwa") String nazwa);
-    
-    @Query(value = "SELECT * FROM samochody s WHERE s.rok_produkcji >= :rok", nativeQuery = true)
-    List<Samochod> znajdzStarszeNiz(@Param("rok") Integer rok);
+	List<Samochod> findByMarka(String marka);
+	
+	List<Samochod> findByModel(String model);
+	
+	@Query("SELECT Samochod FROM Samochod Samochod WHERE Samochod.rokProdukcji > :rok_produkcji")
+	List<Samochod> findByRokProdukcjiGreaterThan(@Param("rok_produkcji") int rok_produkcji);
+	
+	@Query(value = "SELECT * FROM samochody WHERE marka = :marka", nativeQuery = true)
+    List<Samochod> findByMarkaNative(@Param("marka") String marka);
 }
+
