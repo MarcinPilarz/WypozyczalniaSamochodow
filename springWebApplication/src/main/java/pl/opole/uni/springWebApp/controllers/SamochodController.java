@@ -22,11 +22,19 @@ public class SamochodController {
 	private SamochodService samochodService;
 	
 	@GetMapping("/samochod")
-	public List<Samochod> getSamochod(){
+	public List<Samochod> getSamochod(@RequestParam(required = false) String marka, Integer rokProdukcji){
+		if (marka == null)
+			{
+			if (rokProdukcji== null)
+				return samochodService.findAllItems();
+			else 
+				return samochodService.findRokProduckji(rokProdukcji);
+
+			}
+		else
+			return samochodService.findSamochody(marka);
 		
-		return samochodService.findAllItems();
-		
-	}
+			}
 	
 	@PostMapping(value="/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestBody Samochod nowySamochow){
