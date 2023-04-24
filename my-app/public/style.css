@@ -170,6 +170,7 @@ header{
 }
 .about-text span{
     font-weight: 500;
+    font-size: 1.5rem;
     color: var(--main-color);
 }
 .about-text h2{
@@ -215,11 +216,10 @@ font-size: 1.7rem;
     height: 150px;
     object-fit: contain;
     object-position: center;
-    margin-bottom: 1rem;
 }
 .car-details-container .box h3{
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
     display: flex;
     justify-content:center;
 }

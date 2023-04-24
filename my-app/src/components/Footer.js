@@ -25,7 +25,6 @@ function Footer() {
                 <h3>Strona</h3>
                 <a href='#'>Start</a>
                 <a href='#'>Oferta</a>
-                <a href='#'>Wynajem długoterminowy</a>
                 <a href='#'>Kontakt</a>
               </div>
               <div className='footer-box'>
@@ -38,7 +37,8 @@ function Footer() {
 
               <div className='footer-box'>
                 <h3>Kontakt</h3>
-                <p>carrent@example.com</p>
+                <p class="bx bx-phone"> +48 676 687 972 </p>
+                <p class="bx bx-envelope"> carrent@example.com</p>
                 
               </div>
         </div>
