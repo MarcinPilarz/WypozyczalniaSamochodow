@@ -1,3 +1,4 @@
+
 package pl.opole.uni.springWebApp.repositories;
 
 import java.util.List;
@@ -22,3 +23,4 @@ public interface SamochodRepository extends JpaRepository<Samochod, Long> {
 	@Query(value = "SELECT * FROM samochody WHERE marka = :marka", nativeQuery = true)
     List<Samochod> findByMarkaNative(@Param("marka") String marka);
 }
+

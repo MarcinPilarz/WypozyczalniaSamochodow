@@ -13,12 +13,6 @@ public class Samochod {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "marka")
-    private String marka;
-
-    @Column(name = "model")
-    private String model;
-
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
@@ -32,6 +26,14 @@ public class Samochod {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "samochody_ubezpieczenia", joinColumns = @JoinColumn(name = "id_samochodu"), inverseJoinColumns = @JoinColumn(name = "id_ubezpieczenia"))
     private List<Ubezpieczenie> ubezpieczenia;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_producenta")
+    private ProducentSamochodow producent;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_modelu")
+    private ModelSamochodu modelSamochodu;
 
 	public Long getId() {
 		return id;
@@ -39,22 +41,6 @@ public class Samochod {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getMarka() {
-		return marka;
-	}
-
-	public void setMarka(String marka) {
-		this.marka = marka;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
 	}
 
 	public Integer getRokProdukcji() {
@@ -73,5 +59,40 @@ public class Samochod {
 		this.klienci = klienci;
 	}
 
+	public Oddzial getOddzial() {
+		return oddzial;
+	}
+
+	public void setOddzial(Oddzial oddzial) {
+		this.oddzial = oddzial;
+	}
+
+	public List<Ubezpieczenie> getUbezpieczenia() {
+		return ubezpieczenia;
+	}
+
+	public void setUbezpieczenia(List<Ubezpieczenie> ubezpieczenia) {
+		this.ubezpieczenia = ubezpieczenia;
+	}
+
+	public ProducentSamochodow getProducent() {
+		return producent;
+	}
+
+	public void setProducent(ProducentSamochodow producent) {
+		this.producent = producent;
+	}
+
+	public ModelSamochodu getModelSamochodu() {
+		return modelSamochodu;
+	}
+
+	public void setModelSamochodu(ModelSamochodu modelSamochodu) {
+		this.modelSamochodu = modelSamochodu;
+	}
+
+    
+    
+    
     
 }
