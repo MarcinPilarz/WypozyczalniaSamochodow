@@ -16,6 +16,10 @@ public class Samochod {
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
+    @Column(name="model")
+    private String model;
+    @Column(name="marka")
+    private String marka;
     @ManyToMany(mappedBy = "samochody")
     private List<Klient> klienci;
     
@@ -34,6 +38,8 @@ public class Samochod {
     @ManyToOne
     @JoinColumn(name = "id_modelu")
     private ModelSamochodu modelSamochodu;
+    
+    
 
 	public Long getId() {
 		return id;

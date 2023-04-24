@@ -34,8 +34,8 @@ public class SamochodController {
 		else
 			return samochodService.findSamochody(marka);
 		
-			}
-	
+		}
+
 	@PostMapping(value="/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestBody Samochod nowySamochow){
 		samochodService.addItem(nowySamochow);
