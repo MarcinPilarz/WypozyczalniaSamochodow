@@ -56,13 +56,13 @@ public class Oddzial {
 //		this.wypozyczalnia = wypozyczalnia;
 //	}
 
-	public List<Samochod> getSamochody() {
-		return samochody;
-	}
-
-	public void setSamochody(List<Samochod> samochody) {
-		this.samochody = samochody;
-	}
+//	public List<Samochod> getSamochody() {
+//		return samochody;
+//	}
+//
+//	public void setSamochody(List<Samochod> samochody) {
+//		this.samochody = samochody;
+//	}
 
     
 }

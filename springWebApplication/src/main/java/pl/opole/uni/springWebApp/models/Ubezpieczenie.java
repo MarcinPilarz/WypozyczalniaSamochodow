@@ -6,15 +6,15 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ubezpieczenia")
+@Table(name = "ubezpieczenie")
 public class Ubezpieczenie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_ubezpieczenie")
     private Long id;
 
-    @Column(name = "typ")
+    @Column(name = "typ_ubezpieczenie")
     private String typ;
 
     @Column(name = "cena")
