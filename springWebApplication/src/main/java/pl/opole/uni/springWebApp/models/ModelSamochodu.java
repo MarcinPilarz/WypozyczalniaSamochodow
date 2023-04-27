@@ -24,9 +24,9 @@ public class ModelSamochodu {
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
-    @ManyToOne
-    @JoinColumn(name = "id_producenta")
-    private ProducentSamochodow producent;
+//    @ManyToOne
+//    @JoinColumn(name = "id_producenta")
+//    private ProducentSamochodow producent;
 
 	public Long getId() {
 		return id;
@@ -52,13 +52,13 @@ public class ModelSamochodu {
 		this.rokProdukcji = rokProdukcji;
 	}
 
-	public ProducentSamochodow getProducent() {
-		return producent;
-	}
-
-	public void setProducent(ProducentSamochodow producent) {
-		this.producent = producent;
-	}
-
+//	public ProducentSamochodow getProducent() {
+//		return producent;
+//	}
+//
+//	public void setProducent(ProducentSamochodow producent) {
+//		this.producent = producent;
+//	}
+//sdada
     
 }

@@ -3,59 +3,59 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "klienci")
+@Table(name = "klient")
 public class Klient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id_klient")
+    private Long id_klient;
 
-    @Column(name = "imie")
-    private String imie;
+    @Column(name = "imie_klient")
+    private String imie_klient;
 
-    @Column(name = "nazwisko")
-    private String nazwisko;
+    @Column(name = "nazwisko_klient")
+    private String nazwisko_klient;
 
     @Column(name = "nr_telefonu")
-    private String nrTelefonu;
+    private String nrTelefonu_klient;
 
     @ManyToMany
     @JoinTable(name = "wypozyczenia",
-            joinColumns = @JoinColumn(name = "id_klienta"),
-            inverseJoinColumns = @JoinColumn(name = "id_samochodu"))
+            joinColumns = @JoinColumn(name = "id_klient"),
+            inverseJoinColumns = @JoinColumn(name = "id_samochod"))
     private List<Samochod> samochody;
 
 	public Long getId() {
-		return id;
+		return id_klient;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id_klient= id;
 	}
 
 	public String getImie() {
-		return imie;
+		return imie_klient;
 	}
 
 	public void setImie(String imie) {
-		this.imie = imie;
+		this.imie_klient = imie;
 	}
 
 	public String getNazwisko() {
-		return nazwisko;
+		return nazwisko_klient;
 	}
 
 	public void setNazwisko(String nazwisko) {
-		this.nazwisko = nazwisko;
+		this.nazwisko_klient = nazwisko;
 	}
 
 	public String getNrTelefonu() {
-		return nrTelefonu;
+		return nrTelefonu_klient;
 	}
 
 	public void setNrTelefonu(String nrTelefonu) {
-		this.nrTelefonu = nrTelefonu;
+		this.nrTelefonu_klient = nrTelefonu;
 	}
 
 	public List<Samochod> getSamochody() {

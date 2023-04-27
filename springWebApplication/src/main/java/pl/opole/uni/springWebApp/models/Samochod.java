@@ -12,6 +12,8 @@ public class Samochod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    
+    
 
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
@@ -31,9 +33,9 @@ public class Samochod {
     @JoinTable(name = "samochody_ubezpieczenia", joinColumns = @JoinColumn(name = "id_samochodu"), inverseJoinColumns = @JoinColumn(name = "id_ubezpieczenia"))
     private List<Ubezpieczenie> ubezpieczenia;
     
-    @ManyToOne
-    @JoinColumn(name = "id_producenta")
-    private ProducentSamochodow producent;
+//    @ManyToOne
+//    @JoinColumn(name = "id_producenta")
+//    private ProducentSamochodow producent;
     
     @ManyToOne
     @JoinColumn(name = "id_modelu")
@@ -81,13 +83,13 @@ public class Samochod {
 		this.ubezpieczenia = ubezpieczenia;
 	}
 
-	public ProducentSamochodow getProducent() {
-		return producent;
-	}
-
-	public void setProducent(ProducentSamochodow producent) {
-		this.producent = producent;
-	}
+//	public ProducentSamochodow getProducent() {
+//		return producent;
+//	}
+//
+//	public void setProducent(ProducentSamochodow producent) {
+//		this.producent = producent;
+//	}
 
 	public ModelSamochodu getModelSamochodu() {
 		return modelSamochodu;

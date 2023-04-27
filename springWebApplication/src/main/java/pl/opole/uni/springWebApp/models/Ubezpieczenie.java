@@ -1,6 +1,6 @@
 package pl.opole.uni.springWebApp.models;
 
-import java.math.BigDecimal;
+import java.math.BigDecimal; 
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ public class Ubezpieczenie {
     private String typ;
 
     @Column(name = "cena")
-    private BigDecimal cena;
+    private Double cena;
 
     @ManyToMany(mappedBy = "ubezpieczenia")
     private List<Samochod> samochody;
@@ -39,11 +39,11 @@ public class Ubezpieczenie {
         this.typ = typ;
     }
 
-    public BigDecimal getCena() {
+    public Double getCena() {
         return cena;
     }
 
-    public void setCena(BigDecimal cena) {
+    public void setCena(Double cena) {
         this.cena = cena;
     }
 
