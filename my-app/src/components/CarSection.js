@@ -10,9 +10,9 @@ function CarSection() {
         <span>Nasza Oferta</span>
     
     </div>
-    <div className='cars-container container'>
+    <div id='bottom' className='cars-container container'>
         <div className='box'onClick={()=>console.log('Audi')}>
-        <img className='Logo-container' src='./LogoBrandsImg/AudiLogo1.png' alt='Logo Audi'/>
+        <img className='Logo-container'  src='./LogoBrandsImg/AudiLogo1.png' alt='Logo Audi'/>
         <h2>AUDI</h2>
         </div>
         <div className='box' onClick={()=>console.log('BMW')}> 

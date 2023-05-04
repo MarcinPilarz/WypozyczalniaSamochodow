@@ -37,8 +37,8 @@ function Footer() {
 
               <div className='footer-box'>
                 <h3>Kontakt</h3>
-                <p class="bx bx-phone"> +48 676 687 972 </p>
-                <p class="bx bx-envelope"> carrent@example.com</p>
+                <p className="bx bx-phone"> +48 676 687 972 </p>
+                <p className="bx bx-envelope"> carrent@example.com</p>
                 
               </div>
         </div>

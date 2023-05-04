@@ -3,11 +3,11 @@ import '../App.css';
 
 function AboutUsSection(){
     return(
-        <section class="about container" id="about">
-        <div class="about-img">
+        <section className="about container" id="about">
+        <div className="about-img">
           <img src="img/abmw trans.png" alt="" />
         </div>
-        <div class="about-text">
+        <div className="about-text">
           <span>O nas</span>
           <h2>
             Lorem ipsum dolor sit<br />
@@ -17,7 +17,7 @@ function AboutUsSection(){
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa
             voluptas sapiente ratione placeat vel minus, sed et. Nisi, in?
           </p>
-          <a href="#" class="btn">Dowiedz się więcej</a>
+          <a href="#" className="btn" onClick={()=>console.log('dsw')}>Dowiedz się więcej</a>
         </div>
       </section>
     )
