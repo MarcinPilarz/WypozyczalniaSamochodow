@@ -22,7 +22,7 @@ public class User {
 
     private String username;
 
-    private String password;
+    private String passwordHash;
 
     private boolean enabled;
 
@@ -49,12 +49,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public boolean isEnabled() {
@@ -73,7 +73,10 @@ public class User {
 		this.roles = roles;
 	}
 
+    
+
+}
 	
 
     
-}
+
