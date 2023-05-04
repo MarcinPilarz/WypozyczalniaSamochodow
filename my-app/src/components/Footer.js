@@ -1,4 +1,5 @@
 import React from 'react'
+import CarSection from './CarSection'
 
 function Footer() {
     // let header=document.querySelector('header');
@@ -12,7 +13,7 @@ function Footer() {
     <section className= 'footer' >
         <div className= 'footer-container container'>
             <div className='footer-box'>
-                <a href='#' className='logo'>Car<span>Rent</span></a>
+                <a href='#'   className='logo'>Car<span>Rent</span></a>
                 <div className='social'>
                 <a href='#'><i className='bx bxl-facebook'></i></a>
                 <a href='#'><i className='bx bxl-twitter'></i></a>
@@ -36,7 +37,7 @@ function Footer() {
               </div>
 
               <div className='footer-box'>
-                <h3>Kontakt</h3>
+                <h3 >Kontakt</h3>
                 <p className="bx bx-phone"> +48 676 687 972 </p>
                 <p className="bx bx-envelope"> carrent@example.com</p>
                 
@@ -44,8 +45,8 @@ function Footer() {
         </div>
     </section>
     <div className='copyright'>
-        <p>&#169; CarRent, All Right Reserved</p>
-    </div>
+        <p >&#169; CarRent, All Right Reserved</p>
+    </div >
     </>
   )
 }

@@ -4,7 +4,7 @@ import '../App.css';
 function CarDetailsSection() {
     return(
         <section className="car-details" id="car-details">
-        <div className="car-details-heading">
+        <div className="car-details-heading" id="111">
           <h2>BMW</h2>
           <p>Elektryczne</p>
         </div>
@@ -13,7 +13,7 @@ function CarDetailsSection() {
             <h3>BMW I3</h3>
             <img src="img/bmw-i3 transpppp.png" alt="" />
             <span>199.00PLN</span>
-            <a href="#" className="btn">Wynajmij</a>
+            <a href="#" id='111' className="btn">Wynajmij</a>
             <a href="#" className="details">Wyświetl szczegóły</a>
           </div>
           <div className="box">
