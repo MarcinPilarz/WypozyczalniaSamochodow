@@ -15,11 +15,12 @@ function App() {
     <AboutUsSection />
     {/* <CarDetailsSection /> */}
     <CarSection/>
+  
 
     <nav>
-        <Link to="/"> Home </Link>
-        <Link to="login"> Login </Link>
-        <Link to="products/search"> Products </Link>
+        <Link to="/">  </Link>
+        <Link to="login">  </Link>
+        <Link to="products/search">  </Link>
       </nav>
       <Routes>
         <Route path="/1" element={<CarDetailsSection />} />

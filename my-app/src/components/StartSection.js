@@ -11,10 +11,10 @@ function StartSection() {
   return (
     <section className="home" id="">
       <div className="home-text">
-        <h1>Lorem, <span>ipsum</span> dolor.</h1>
+        <h1>Zaplanuj <span>swoją</span> podróż.</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, <br />
-          adipisicing elit. Ullam, molestias.
+        Przyszłość już jest – wynajmij samochód elektryczny <br />
+        Odkryj nowy sposób na podróżowanie
         </p>
         <a href="#botstom"   className="btn" onClick={handleButtonClick}>
           Sprawdź naszą ofertę
