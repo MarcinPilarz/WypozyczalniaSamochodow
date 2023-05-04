@@ -21,15 +21,15 @@ public class Part {
 	private String name;
 	private String status;
 	
-	@ManyToMany(mappedBy = "partList")
-	private List<Car> carList;
+//	@ManyToMany(mappedBy = "partList")
+//	private List<Car> carList;
 	
-	public List<Car> getCarList() {
-		return carList;
-	}
-	public void setCarList(List<Car> carList) {
-		this.carList = carList;
-	}
+//	public List<Car> getCarList() {
+//		return carList;
+//	}
+//	public void setCarList(List<Car> carList) {
+//		this.carList = carList;
+//	}
 	public long getId() {
 		return id;
 	}

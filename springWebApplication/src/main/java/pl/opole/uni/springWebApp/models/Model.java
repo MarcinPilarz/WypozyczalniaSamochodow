@@ -23,6 +23,7 @@ public class Model {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 
+	
 	private String symbol;
 	private String name;
 

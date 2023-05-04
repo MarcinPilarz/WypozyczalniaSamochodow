@@ -23,8 +23,58 @@ public class Klient {
     @ManyToMany
     @JoinTable(name = "wypozyczenia",
             joinColumns = @JoinColumn(name = "id_klient"),
-            inverseJoinColumns = @JoinColumn(name = "id_samochod"))
+            		 inverseJoinColumns = {
+            		 @JoinColumn(name = "id_samochod"),
+//            		 @JoinColumn(name = "id_okres_wypozyczenia")
+             })
     private List<Samochod> samochody;
+
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "id_okres_wypozyczenia")
+    private OkresWypozyczenia okres_wypozyczenia;
+    
+    
+	public Long getId_klient() {
+		return id_klient;
+	}
+
+	public void setId_klient(Long id_klient) {
+		this.id_klient = id_klient;
+	}
+
+	public String getImie_klient() {
+		return imie_klient;
+	}
+
+	public void setImie_klient(String imie_klient) {
+		this.imie_klient = imie_klient;
+	}
+
+	public String getNazwisko_klient() {
+		return nazwisko_klient;
+	}
+
+	public void setNazwisko_klient(String nazwisko_klient) {
+		this.nazwisko_klient = nazwisko_klient;
+	}
+
+	public String getNrTelefonu_klient() {
+		return nrTelefonu_klient;
+	}
+
+	public void setNrTelefonu_klient(String nrTelefonu_klient) {
+		this.nrTelefonu_klient = nrTelefonu_klient;
+	}
+
+	public OkresWypozyczenia getOkres_wypozyczenia() {
+		return okres_wypozyczenia;
+	}
+
+	public void setOkres_wypozyczenia(OkresWypozyczenia okres_wypozyczenia) {
+		this.okres_wypozyczenia = okres_wypozyczenia;
+	}
 
 	public Long getId() {
 		return id_klient;

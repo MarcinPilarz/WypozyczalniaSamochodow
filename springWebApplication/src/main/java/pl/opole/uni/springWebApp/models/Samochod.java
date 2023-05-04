@@ -13,15 +13,26 @@ public class Samochod {
     @Column(name = "id")
     private Long id;
     
+    @Column(name="pojemnosc_baterii")
+    private Integer pojemnosc_baterii;
+    
+    @Column(name="iloscDrzwi")
+    private String ilosc_drzwi;
+    
+    @Column(name="kolor_samochodu")
+    private String kolor_samochodu;
+    
+    @Column(name="moc_silnika")
+    private Integer moc_silnika;
     
 
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
-    @Column(name="model")
-    private String model;
-    @Column(name="marka")
-    private String marka;
+//    @Column(name="model")
+//    private String model;
+//    @Column(name="marka")
+//    private String marka;
     @ManyToMany(mappedBy = "samochody")
     private List<Klient> klienci;
     
@@ -98,6 +109,54 @@ public class Samochod {
 	public void setModelSamochodu(ModelSamochodu modelSamochodu) {
 		this.modelSamochodu = modelSamochodu;
 	}
+
+	public Integer getPojemnosc_baterii() {
+		return pojemnosc_baterii;
+	}
+
+	public void setPojemnosc_baterii(Integer pojemnosc_baterii) {
+		this.pojemnosc_baterii = pojemnosc_baterii;
+	}
+
+	public String getIlosc_drzwi() {
+		return ilosc_drzwi;
+	}
+
+	public void setIlosc_drzwi(String ilosc_drzwi) {
+		this.ilosc_drzwi = ilosc_drzwi;
+	}
+
+	public String getKolor_samochodu() {
+		return kolor_samochodu;
+	}
+
+	public void setKolor_samochodu(String kolor_samochodu) {
+		this.kolor_samochodu = kolor_samochodu;
+	}
+
+	public Integer getMoc_silnika() {
+		return moc_silnika;
+	}
+
+	public void setMoc_silnika(Integer moc_silnika) {
+		this.moc_silnika = moc_silnika;
+	}
+
+//	public String getModel() {
+//		return model;
+//	}
+//
+//	public void setModel(String model) {
+//		this.model = model;
+//	}
+//
+//	public String getMarka() {
+//		return marka;
+//	}
+//
+//	public void setMarka(String marka) {
+//		this.marka = marka;
+//	}
 
     
     

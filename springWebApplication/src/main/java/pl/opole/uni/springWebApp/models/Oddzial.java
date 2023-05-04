@@ -4,7 +4,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "oddzial")
-public class Oddzial {
+public  class Oddzial {
+	//abstract
+//	protected String nazwa_oddzialu;
+//	protected String adres;
+//	protected String numer_telefonu;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,13 +20,14 @@ public class Oddzial {
 
     @Column(name = "adres")
     private String adres_oddzial;
-
+//
 //    @ManyToOne
 //    @JoinColumn(name = "id_wypozyczalni")
 //    private Wypozyczalnia wypozyczalnia;
 
-    @OneToMany(mappedBy = "oddzial")
-    private List<Samochod> samochody;
+   
+//    @OneToMany(mappedBy = "oddzial")
+//    private List<Samochod> samochody;
 
 	public Long getId() {
 		return id_oddzial;

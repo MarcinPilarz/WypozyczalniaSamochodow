@@ -13,14 +13,14 @@ import pl.opole.uni.springWebApp.models.Samochod;
 @Repository
 public interface SamochodRepository extends JpaRepository<Samochod, Long> {
 
-	List<Samochod> findByMarka(String marka);
-	
-	List<Samochod> findByModel(String model);
-	
-	@Query("SELECT Samochod FROM Samochod Samochod WHERE Samochod.rokProdukcji > :rok_produkcji")
-	List<Samochod> findByRokProdukcjiGreaterThan(@Param("rok_produkcji") int rok_produkcji);
-	
-	@Query(value = "SELECT * FROM samochody WHERE marka = :marka", nativeQuery = true)
-    List<Samochod> findByMarkaNative(@Param("marka") String marka);
+//	List<Samochod> findByMarka(String marka);
+//	
+//	List<Samochod> findByModel(String model);
+//	
+//	@Query("SELECT Samochod FROM Samochod Samochod WHERE Samochod.rokProdukcji > :rok_produkcji")
+//	List<Samochod> findByRokProdukcjiGreaterThan(@Param("rok_produkcji") int rok_produkcji);
+//	
+//	@Query(value = "SELECT * FROM samochody WHERE marka = :marka", nativeQuery = true)
+//    List<Samochod> findByMarkaNative(@Param("marka") String marka);
 }
 

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +17,9 @@ public class OkresWypozyczenia {
 
 	
 	  @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "id_okres_wypozyczenia")
-	    private Long id_okres_wypozyczenia;
+	  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	  @Column(name = "id_okres_wypozyczenia")
+	  private Long id_okres_wypozyczenia;
 	  
 	  @Column(name="termin_wypozyczenia")
 	  private Date terminWypozyczenia;
@@ -27,7 +29,12 @@ public class OkresWypozyczenia {
 	  
 	  @Column(name="jest_wypozyczony")
 	  private Boolean jestWypozyczony;
-
+	  
+	 // @OneToMany(mappedBy = "okres_wypozyczenia")
+//	  @JoinColumn(name = "id_oddzialu")
+	//  private Wypo;
+	  
+	  
 	public Long getId_okres_wypozyczenia() {
 		return id_okres_wypozyczenia;
 	}

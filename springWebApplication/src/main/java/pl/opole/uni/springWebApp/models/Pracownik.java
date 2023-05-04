@@ -17,6 +17,12 @@ public class Pracownik {
     @Column(name = "nazwisko_pracownik")
     private String nazwisko_pracownik;
 
+    
+    
+   @ManyToOne
+   @JoinColumn(name="id_klient")
+   private Klient klient;
+    
 	public Long getId() {
 		return id_pracownik;
 	}
@@ -39,6 +45,38 @@ public class Pracownik {
 
 	public void setNazwisko(String nazwisko) {
 		this.nazwisko_pracownik = nazwisko;
+	}
+
+	public Long getId_pracownik() {
+		return id_pracownik;
+	}
+
+	public void setId_pracownik(Long id_pracownik) {
+		this.id_pracownik = id_pracownik;
+	}
+
+	public String getImie_pracownik() {
+		return imie_pracownik;
+	}
+
+	public void setImie_pracownik(String imie_pracownik) {
+		this.imie_pracownik = imie_pracownik;
+	}
+
+	public String getNazwisko_pracownik() {
+		return nazwisko_pracownik;
+	}
+
+	public void setNazwisko_pracownik(String nazwisko_pracownik) {
+		this.nazwisko_pracownik = nazwisko_pracownik;
+	}
+
+	public Klient getKlient() {
+		return klient;
+	}
+
+	public void setKlient(Klient klient) {
+		this.klient = klient;
 	}
 
     

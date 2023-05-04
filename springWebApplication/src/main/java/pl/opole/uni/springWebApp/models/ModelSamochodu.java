@@ -10,16 +10,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "modele_samochodow")
+@Table(name = "model_samochodu")
 public class ModelSamochodu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id_model_samochodu")
+    private Long id_model_samochodu;
 
-    @Column(name = "nazwa")
-    private String nazwa;
+    @Column(name = "nazwa_model_samochodu")
+    private String nazwa_model_samochodu;
 
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
@@ -29,19 +29,19 @@ public class ModelSamochodu {
 //    private ProducentSamochodow producent;
 
 	public Long getId() {
-		return id;
+		return id_model_samochodu;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id_model_samochodu = id;
 	}
 
 	public String getNazwa() {
-		return nazwa;
+		return nazwa_model_samochodu;
 	}
 
 	public void setNazwa(String nazwa) {
-		this.nazwa = nazwa;
+		this.nazwa_model_samochodu = nazwa;
 	}
 
 	public Integer getRokProdukcji() {

@@ -27,10 +27,10 @@ public class Car {
 	@JoinColumn(name="id_model")
 	private Model id_model;
 
-	@ManyToMany
-	@JoinTable(name="car_part", joinColumns = {@JoinColumn(name="id_car")},
-	inverseJoinColumns = {@JoinColumn(name="id_part")})
-	private List<Part> partList;
+//	@ManyToMany
+//	@JoinTable(name="car_part", joinColumns = {@JoinColumn(name="id_car")},
+//	inverseJoinColumns = {@JoinColumn(name="id_part")})
+//	private List<Part> partList;
 	
 	
 	public long getId() {
@@ -73,14 +73,14 @@ public class Car {
 	}
 
 
-	public List<Part> getPartList() {
-		return partList;
-	}
-
-
-	public void setPartList(List<Part> partList) {
-		this.partList = partList;
-	}
+//	public List<Part> getPartList() {
+//		return partList;
+//	}
+//
+//
+//	public void setPartList(List<Part> partList) {
+//		this.partList = partList;
+//	}
 
 
 	
