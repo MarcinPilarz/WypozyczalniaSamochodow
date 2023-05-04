@@ -5,12 +5,14 @@ import '../App.css';
 function CarSection() {
   return (
   <section>
-    <div className='heading'>
+   <div id='bottom' className='bottom' style={{ width: '60px', height: '60px' }}></div>
+
+    <div  className='heading'>
 
         <span>Nasza Oferta</span>
     
     </div>
-    <div id='bottom' className='cars-container container'>
+    <div  className='cars-container container'>
         <div className='box'onClick={()=>console.log('Audi')}>
         <img className='Logo-container'  src='./LogoBrandsImg/AudiLogo1.png' alt='Logo Audi'/>
         <h2>AUDI</h2>
