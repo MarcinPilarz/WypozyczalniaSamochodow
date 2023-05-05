@@ -24,7 +24,7 @@ function CarSection() {
     
     </div>
     <div className="cars-container container">
-        <Link to="/1" className="box">
+        <Link to="/2" className="box">
           <img className="Logo-container" src="./LogoBrandsImg/AudiLogo1.png" alt="Logo Audi" />
           <h2>AUDI</h2>
         </Link>
