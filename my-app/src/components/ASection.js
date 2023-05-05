@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useEffect } from 'react';
 
-function AudiSection() {
+function ASection() {
 
 
   useEffect(() => {
@@ -48,4 +48,4 @@ function AudiSection() {
     )
 }
 
-export default AudiSection
+export default ASection

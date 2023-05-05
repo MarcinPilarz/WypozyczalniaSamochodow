@@ -47,9 +47,9 @@ function Footer() {
             </div>  
               <div className='footer-box'>
                 <h3>Strona</h3>
-                <a href='#'>Start</a>
+                <a href='/'>Start</a>
                 <a  onClick={handleButtonClick3}  >Oferta</a>
-                <a href='#'>Kontakt</a>
+                <a href='/Contact'>Kontakt</a>
               </div>
               <div className='footer-box'>
                 <h3>Legal</h3>

@@ -19,7 +19,7 @@ function NavBar() {
             <li><a href="/" className="active">Start</a></li>
             <li><a href="#Oferta">O nas</a></li>
             <li><a onClick={handleButtonClick}>Oferta</a></li>
-            <li><a href="#Kontakt">Kontakt</a></li>
+            <li><a href="/Contact">Kontakt</a></li>
           </ul>
           <i className="bx bx-search" id="search-icon"></i>
           <div className="search-box container">

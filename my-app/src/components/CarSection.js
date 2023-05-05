@@ -41,9 +41,11 @@ function CarSection() {
       </div>
     <div className='cars-container container'>
 
-        <div className='box' onClick={()=>console.log('Tesla')}>
+        <div className='box' >
+        <Link to="/3" className="box">
         <img  className='Logo-container' src='./LogoBrandsImg/TeslaLogo.png' alt='Logo Tesli'/>
         <h2>Tesla</h2>
+        </Link>
         </div>
         <div className='box' onClick={()=>console.log('Toyota')}>
         <img className='Logo-container' src='./LogoBrandsImg/ToyotaLogo2.png' alt='Logo Honda'/>
