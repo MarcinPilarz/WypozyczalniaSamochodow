@@ -15,10 +15,10 @@ function Footer() {
             <div className='footer-box'>
                 <a href='#'   className='logo'>Car<span>Rent</span></a>
                 <div className='social'>
-                <a href='#'><i className='bx bxl-facebook'></i></a>
-                <a href='#'><i className='bx bxl-twitter'></i></a>
-                <a href='#'><i className='bx bxl-instagram'></i></a>
-                <a href='#'><i className='bx bxl-youtube'></i></a>
+                <a href='https://www.facebook.com/'><i className='bx bxl-facebook'></i></a>
+                <a href='https://twitter.com'><i className='bx bxl-twitter'></i></a>
+                <a href='https://www.instagram.com'><i className='bx bxl-instagram'></i></a>
+                <a href='https://www.youtube.com'><i className='bx bxl-youtube'></i></a>
 
                 </div>
             </div>  

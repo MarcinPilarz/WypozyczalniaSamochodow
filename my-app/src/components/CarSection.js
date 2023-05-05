@@ -32,7 +32,7 @@ function CarSection() {
           <h2>AUDI</h2>
         </Link>
 
-        <Link to="/1" className="box" onClick={handleButtonClick2}>
+        <Link to="/1" className="box" >
           <img className="Logo-container" src="./LogoBrandsImg/bmwLogo3.png" alt="BMW Logo" />
           <h2>BMW</h2>
         </Link>

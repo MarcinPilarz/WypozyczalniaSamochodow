@@ -1,11 +1,16 @@
 import React from 'react'
 import '../App.css';
+import NavBar from './NavBar';
+import Footer from './Footer';
 
 function CarDetailsSection() {
     return(
+      <>
+      <NavBar/>
+     
         <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
-          <h2>BMW</h2>
+          <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
         </div>
         <div className="car-details-container container">
@@ -32,6 +37,8 @@ function CarDetailsSection() {
           </div>
         </div>
       </section>
+      <Footer/>
+      </>
     )
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../App.css';
+import Home from '../Home';
 
 function NavBar() {
     return (
@@ -7,9 +8,9 @@ function NavBar() {
         <header>
         <div className="nav container">
           <i className="bx bx-menu" id="menu-icon"></i>
-          <a href="#" className="logo">Car<span>Rent</span></a>
+          <a href="/" className="logo">Car<span>Rent</span></a>
           <ul className="navbar">
-            <li><a href="#Start" className="active">Start</a></li>
+            <li><a href="/" className="active">Start</a></li>
             <li><a href="#Oferta">O nas</a></li>
             <li><a href="#Wynajem">Oferta</a></li>
             <li><a href="#Kontakt">Kontakt</a></li>
