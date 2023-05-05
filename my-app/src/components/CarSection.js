@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route , Link} from "react-router-dom";
 import '../App.css';
-import '../components/CarDetailsSection';
+import './BMWSection';
 import '../components/Footer'
 
 //import './LogoBrandsImg';
@@ -10,10 +10,7 @@ function CarSection() {
 
 
 
-    const handleButtonClick2 = () => {
-        const element = document.getElementById('111');
-        element.scrollIntoView({ behavior: 'smooth' });
-      };
+   
   return (
 
 

@@ -16,7 +16,7 @@ function StartSection() {
         Przyszłość już jest – wynajmij samochód elektryczny <br />
         Odkryj nowy sposób na podróżowanie
         </p>
-        <a href="#botstom"   className="btn" onClick={handleButtonClick}>
+        <a    className="btn" onClick={handleButtonClick}>
           Sprawdź naszą ofertę
         </a>
       </div>

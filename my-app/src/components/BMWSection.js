@@ -1,9 +1,15 @@
-import React from 'react'
+
 import '../App.css';
 import NavBar from './NavBar';
 import Footer from './Footer';
+import React, { useEffect } from 'react';
 
-function CarDetailsSection() {
+function BMWSection() {
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
     return(
       <>
       <NavBar/>
@@ -42,4 +48,4 @@ function CarDetailsSection() {
     )
 }
 
-export default CarDetailsSection
+export default BMWSection

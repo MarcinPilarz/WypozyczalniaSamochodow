@@ -1,8 +1,14 @@
 import React from 'react'
 import '../App.css';
-import Home from '../Home';
+import Home from './Home';
 
 function NavBar() {
+
+
+  const handleButtonClick = () => {
+    const element = document.getElementById('bottom');
+    element.scrollIntoView({ behavior: 'smooth' });
+  };
     return (
 
         <header>
@@ -12,7 +18,7 @@ function NavBar() {
           <ul className="navbar">
             <li><a href="/" className="active">Start</a></li>
             <li><a href="#Oferta">O nas</a></li>
-            <li><a href="#Wynajem">Oferta</a></li>
+            <li><a onClick={handleButtonClick}>Oferta</a></li>
             <li><a href="#Kontakt">Kontakt</a></li>
           </ul>
           <i className="bx bx-search" id="search-icon"></i>

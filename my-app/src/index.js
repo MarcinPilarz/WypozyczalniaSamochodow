@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import CarDetailsSection from './components/CarDetailsSection';
-import Home from './Home';
+import CarDetailsSection from './components/BMWSection';
+import Home from './components/Home';
 
 
 function MyComponent() {
