@@ -19,8 +19,9 @@ public class ModelSamochodu {
     private Long id_model_samochodu;
 
     @Column(name = "nazwa_model_samochodu")
-    private String nazwa_model_samochodu;
+    private String nazwaModelu;
 
+    
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
@@ -37,11 +38,11 @@ public class ModelSamochodu {
 	}
 
 	public String getNazwa() {
-		return nazwa_model_samochodu;
+		return nazwaModelu;
 	}
 
 	public void setNazwa(String nazwa) {
-		this.nazwa_model_samochodu = nazwa;
+		this.nazwaModelu = nazwa;
 	}
 
 	public Integer getRokProdukcji() {

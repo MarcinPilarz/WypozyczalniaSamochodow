@@ -21,10 +21,10 @@ public class SamochodService implements MainService<Samochod>{
 		return samochodRepo.findAll();
 	}
 
-//	public List<Samochod> findSamochody(String marka) {
-//		// TODO Auto-generated method stub
-//		return samochodRepo.findByMarkaNative(marka);
-//	}
+	public List<Samochod> findSamochody(String marka) {
+		// TODO Auto-generated method stub
+		return samochodRepo.findByMarkaNative(marka);
+	}
 //	
 //	public List<Samochod> findRokProduckji(Integer rok_Produkcji) {
 //		// TODO Auto-generated method stub
@@ -55,5 +55,12 @@ public class SamochodService implements MainService<Samochod>{
 		// TODO Auto-generated method stub
 		return samochodRepo.findById(id).orElse(null);
 	}
+
+
+	public List<Samochod> sortByPriceAsc(){
+		return samochodRepo.findByOrderByCenaSamochodu();
+	}
+	
+	
 
 }

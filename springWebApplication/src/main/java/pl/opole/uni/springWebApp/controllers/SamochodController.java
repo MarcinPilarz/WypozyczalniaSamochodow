@@ -21,15 +21,22 @@ public class SamochodController {
 	@Autowired
 	private SamochodService samochodService;
 	
-	@GetMapping("/samochod")
-	public List<Samochod> getSamochod(){
-		return samochodService.findAllItems();
-	}
-	
 //	@GetMapping("/samochod")
-//	public List<Samochod> getSamochod(@RequestParam(required = false) String marka, Integer rokProdukcji){
+//	public List<Samochod> getSamochod(){
+//		return samochodService.findAllItems();
+//	}
+	
+	@GetMapping("/samochod")
+	public List<Samochod> getSamochod(@RequestParam(required = false) String marka){
+		
+		if(marka==null) 
+			return samochodService.findAllItems();
+		else
+			return samochodService.findSamochody(marka);
+		
+		
 //		if (marka == null)
-//			{
+//			{d
 //			if (rokProdukcji== null)
 //				return samochodService.findAllItems();
 //			else 
@@ -39,7 +46,12 @@ public class SamochodController {
 //		else
 //			return samochodService.findSamochody(marka);
 //		
-//		}
+		}
+	
+	@GetMapping("sortowanieCena")
+	public List<Samochod> sortByPriceAsc(){
+		return samochodService.sortByPriceAsc();
+	}
 
 	@PostMapping(value="/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestBody Samochod nowySamochow){
@@ -65,4 +77,6 @@ public class SamochodController {
 		samochodService.deleteItem(samochodService.findById(id));
 		return ResponseEntity.noContent().build();
 	}
+	
+	
 }

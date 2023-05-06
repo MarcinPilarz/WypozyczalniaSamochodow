@@ -13,8 +13,11 @@ public class Samochod {
     @Column(name = "id")
     private Long id;
     
+    @Column(name="marka")
+    private String marka;
+    
     @Column(name="pojemnosc_baterii")
-    private Integer pojemnosc_baterii;
+    private int pojemnosc_baterii;
     
     @Column(name="iloscDrzwi")
     private String ilosc_drzwi;
@@ -23,11 +26,14 @@ public class Samochod {
     private String kolor_samochodu;
     
     @Column(name="moc_silnika")
-    private Integer moc_silnika;
+    private int moc_silnika;
     
 
     @Column(name = "rok_produkcji")
-    private Integer rokProdukcji;
+    private int rokProdukcji;
+    
+    @Column(name="cena_samochodu")
+    private double cenaSamochodu;
 
 //    @Column(name="model")
 //    private String model;
@@ -62,11 +68,11 @@ public class Samochod {
 		this.id = id;
 	}
 
-	public Integer getRokProdukcji() {
+	public int getRokProdukcji() {
 		return rokProdukcji;
 	}
 
-	public void setRokProdukcji(Integer rokProdukcji) {
+	public void setRokProdukcji(int rokProdukcji) {
 		this.rokProdukcji = rokProdukcji;
 	}
 
@@ -90,6 +96,14 @@ public class Samochod {
 		return ubezpieczenia;
 	}
 
+	public String getMarka() {
+		return marka;
+	}
+
+	public void setMarka(String marka) {
+		this.marka = marka;
+	}
+
 	public void setUbezpieczenia(List<Ubezpieczenie> ubezpieczenia) {
 		this.ubezpieczenia = ubezpieczenia;
 	}
@@ -110,11 +124,11 @@ public class Samochod {
 		this.modelSamochodu = modelSamochodu;
 	}
 
-	public Integer getPojemnosc_baterii() {
+	public int getPojemnosc_baterii() {
 		return pojemnosc_baterii;
 	}
 
-	public void setPojemnosc_baterii(Integer pojemnosc_baterii) {
+	public void setPojemnosc_baterii(int pojemnosc_baterii) {
 		this.pojemnosc_baterii = pojemnosc_baterii;
 	}
 
@@ -134,14 +148,23 @@ public class Samochod {
 		this.kolor_samochodu = kolor_samochodu;
 	}
 
-	public Integer getMoc_silnika() {
+	public int getMoc_silnika() {
 		return moc_silnika;
 	}
 
-	public void setMoc_silnika(Integer moc_silnika) {
+	public void setMoc_silnika(int moc_silnika) {
 		this.moc_silnika = moc_silnika;
 	}
 
+	public double getCenaSamochodu() {
+		return cenaSamochodu;
+	}
+
+	public void setCenaSamochodu(double cenaSamochodu) {
+		this.cenaSamochodu = cenaSamochodu;
+	}
+
+	
 //	public String getModel() {
 //		return model;
 //	}

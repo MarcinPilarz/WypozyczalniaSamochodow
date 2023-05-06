@@ -53,6 +53,30 @@ public  class Oddzial {
 		this.adres_oddzial = adres;
 	}
 
+	public Long getId_oddzial() {
+		return id_oddzial;
+	}
+
+	public void setId_oddzial(Long id_oddzial) {
+		this.id_oddzial = id_oddzial;
+	}
+
+	public String getNazwa_oddzial() {
+		return nazwa_oddzial;
+	}
+
+	public void setNazwa_oddzial(String nazwa_oddzial) {
+		this.nazwa_oddzial = nazwa_oddzial;
+	}
+
+	public String getAdres_oddzial() {
+		return adres_oddzial;
+	}
+
+	public void setAdres_oddzial(String adres_oddzial) {
+		this.adres_oddzial = adres_oddzial;
+	}
+
 //	public Wypozyczalnia getWypozyczalnia() {
 //		return wypozyczalnia;
 //	}
