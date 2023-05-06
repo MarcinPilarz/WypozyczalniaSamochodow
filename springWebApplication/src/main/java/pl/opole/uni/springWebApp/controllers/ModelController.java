@@ -21,9 +21,18 @@ public class ModelController {
 	@Autowired
 	private ModelService modelService;
 	
+//	@GetMapping("/model")
+//	public List<ModelSamochodu> getModelSamochodu(){
+//		return modelService.findAllItems();
+//	}
+	
 	@GetMapping("/model")
-	public List<ModelSamochodu> getModelSamochodu(){
+	public List<ModelSamochodu> getModelSamochodu(@RequestParam(required=false) String nazwaModelu){
+		
+		if(nazwaModelu==null)
 		return modelService.findAllItems();
+		else
+		return modelService.findNazwaModelu(nazwaModelu);
 	}
 	
 	@PostMapping(value="/model")

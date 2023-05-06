@@ -21,6 +21,14 @@ public class ModelService implements MainService<ModelSamochodu> {
 		return modelRepo.findAll();
 	}
 
+	
+	 
+	public List<ModelSamochodu> findNazwaModelu(String nazwaModelu){
+		return modelRepo.findByNazwaModelu(nazwaModelu);
+	}
+	
+	
+	
 	@Override
 	public void addItem(ModelSamochodu modelSamochodu) {
 		// TODO Auto-generated method stub

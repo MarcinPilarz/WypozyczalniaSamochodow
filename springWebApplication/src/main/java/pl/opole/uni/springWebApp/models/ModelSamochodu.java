@@ -16,7 +16,7 @@ public class ModelSamochodu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_model_samochodu")
-    private Long id_model_samochodu;
+    private Long id;
 
     @Column(name = "nazwa_model_samochodu")
     private String nazwaModelu;
@@ -30,11 +30,11 @@ public class ModelSamochodu {
 //    private ProducentSamochodow producent;
 
 	public Long getId() {
-		return id_model_samochodu;
+		return id;
 	}
 
 	public void setId(Long id) {
-		this.id_model_samochodu = id;
+		this.id= id;
 	}
 
 	public String getNazwa() {
