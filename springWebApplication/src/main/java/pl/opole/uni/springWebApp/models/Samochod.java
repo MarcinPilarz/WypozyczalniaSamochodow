@@ -34,7 +34,9 @@ public class Samochod {
     
     @Column(name="cena_samochodu")
     private double cenaSamochodu;
-
+    
+    @Column(name="czy_wypozyczony")
+    private boolean czyWypozyczony;
 //    @Column(name="model")
 //    private String model;
 //    @Column(name="marka")
@@ -162,6 +164,14 @@ public class Samochod {
 
 	public void setCenaSamochodu(double cenaSamochodu) {
 		this.cenaSamochodu = cenaSamochodu;
+	}
+
+	public boolean isCzyWypozyczony() {
+		return czyWypozyczony;
+	}
+
+	public void setCzyWypozyczony(boolean czyWypozyczony) {
+		this.czyWypozyczony = czyWypozyczony;
 	}
 
 	

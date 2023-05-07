@@ -1,5 +1,8 @@
 package pl.opole.uni.springWebApp.models;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -30,12 +33,15 @@ public class Klient {
     private List<Samochod> samochody;
 
     
+//    
+//    @ManyToOne
+//    @JoinColumn(name = "id_okres_wypozyczenia")
+//    private OkresWypozyczenia okres_wypozyczenia;
     
-    @ManyToOne
-    @JoinColumn(name = "id_okres_wypozyczenia")
-    private OkresWypozyczenia okres_wypozyczenia;
-    
-    
+    @JsonIgnore
+    @OneToMany(mappedBy="klient")
+    private List<OkresWypozyczenia> wypozyczenia;
+    //sda
 	public Long getId_klient() {
 		return id_klient;
 	}
@@ -68,13 +74,13 @@ public class Klient {
 		this.nrTelefonu_klient = nrTelefonu_klient;
 	}
 
-	public OkresWypozyczenia getOkres_wypozyczenia() {
-		return okres_wypozyczenia;
-	}
-
-	public void setOkres_wypozyczenia(OkresWypozyczenia okres_wypozyczenia) {
-		this.okres_wypozyczenia = okres_wypozyczenia;
-	}
+//	public OkresWypozyczenia getOkres_wypozyczenia() {
+//		return okres_wypozyczenia;
+//	}
+//
+//	public void setOkres_wypozyczenia(OkresWypozyczenia okres_wypozyczenia) {
+//		this.okres_wypozyczenia = okres_wypozyczenia;
+//	}
 
 	public Long getId() {
 		return id_klient;
@@ -114,6 +120,14 @@ public class Klient {
 
 	public void setSamochody(List<Samochod> samochody) {
 		this.samochody = samochody;
+	}
+
+	public List<OkresWypozyczenia> getWypozyczenia() {
+		return wypozyczenia;
+	}
+
+	public void setWypozyczenia(List<OkresWypozyczenia> wypozyczenia) {
+		this.wypozyczenia = wypozyczenia;
 	}
 
     
