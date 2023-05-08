@@ -12,6 +12,8 @@ import BMWSection from './components/BMWSection';
 import TSection from './components/TSection';
 import ContactSection from './components/ContactSection';
 import NoPage from './components/404';
+import ToyotaSection from './components/ToyotaSection';
+import VolvoSection from './components/VolvoSection';
 function App() {
   return (
     <BrowserRouter>
@@ -21,9 +23,11 @@ function App() {
   
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path="/1" element={<BMWSection />} />
-        <Route path='/2' element={<ASection/>}/>
-        <Route path='/3' element={<TSection/>}/>
+        <Route path="/BMW" element={<BMWSection />} />
+        <Route path='/Audi' element={<ASection/>}/>
+        <Route path='/Tesla' element={<TSection/>}/>
+        <Route path='/Toyota' element={<ToyotaSection/>}/>
+        <Route path='/Volvo' element={<VolvoSection/>}/>
         <Route path="/about" element={<AboutUsSection />} />
         <Route path="/cars" element={<CarSection />} />
         <Route path="/car-details/:carName" element={<BMWSection />} />
