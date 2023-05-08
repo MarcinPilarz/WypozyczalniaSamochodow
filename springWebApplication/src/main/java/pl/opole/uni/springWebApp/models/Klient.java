@@ -2,6 +2,7 @@ package pl.opole.uni.springWebApp.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class Klient {
 //    private OkresWypozyczenia okres_wypozyczenia;
     
     @JsonIgnore
+    //Properties(value={"klient", "samochod"})
     @OneToMany(mappedBy="klient")
     private List<OkresWypozyczenia> wypozyczenia;
     //sda

@@ -27,6 +27,7 @@ public class OkresWypozyczenia {
 	  @ManyToOne
 	  private Klient klient;
 	  
+	  
 	  @ManyToOne
 	  private Samochod samochod;
 	  
