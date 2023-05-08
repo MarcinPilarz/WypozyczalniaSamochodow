@@ -11,7 +11,7 @@ public class Samochod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long idSamochodu;
     
     @Column(name="marka")
     private String marka;
@@ -62,12 +62,12 @@ public class Samochod {
     
     
 
-	public Long getId() {
-		return id;
+	public Long getIdSamochodu() {
+		return idSamochodu;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdSamochodu(Long idSamochodu) {
+		this.idSamochodu = idSamochodu;
 	}
 
 	public int getRokProdukcji() {

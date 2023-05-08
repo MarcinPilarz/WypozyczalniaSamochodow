@@ -68,7 +68,7 @@ public class SamochodController {
 		if(samochod ==null) {
 			return ResponseEntity.notFound().build();
 		}
-		updateSamochod.setId(samochod.getId());
+		updateSamochod.setIdSamochodu(samochod.getIdSamochodu());
 		samochodService.updateItem(updateSamochod);
 		return ResponseEntity.ok(updateSamochod);
 	}
