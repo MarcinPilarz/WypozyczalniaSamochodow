@@ -25,11 +25,11 @@ public class SamochodService implements MainService<Samochod>{
 		// TODO Auto-generated method stub
 		return samochodRepo.findByMarkaNative(marka);
 	}
-	
-	public List<Samochod> findRokProduckji(Integer rok_Produkcji) {
-		// TODO Auto-generated method stub
-		return samochodRepo.findByRokProdukcjiGreaterThan(rok_Produkcji);
-	}
+//	
+//	public List<Samochod> findRokProduckji(Integer rok_Produkcji) {
+//		// TODO Auto-generated method stub
+//		return samochodRepo.findByRokProdukcjiGreaterThan(rok_Produkcji);
+//	}
 	
 	@Override
 	public void addItem(Samochod samochod) {
@@ -55,5 +55,12 @@ public class SamochodService implements MainService<Samochod>{
 		// TODO Auto-generated method stub
 		return samochodRepo.findById(id).orElse(null);
 	}
+
+
+	public List<Samochod> sortByPriceAsc(){
+		return samochodRepo.findByOrderByCenaSamochodu();
+	}
+	
+	
 
 }

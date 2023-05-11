@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,25 +17,43 @@ import pl.opole.uni.springWebApp.models.Samochod;
 import pl.opole.uni.springWebApp.services.SamochodService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class SamochodController {
 
 	@Autowired
 	private SamochodService samochodService;
 	
+//	@GetMapping("/samochod")
+//	public List<Samochod> getSamochod(){
+//		return samochodService.findAllItems();
+//	}
+	
 	@GetMapping("/samochod")
-	public List<Samochod> getSamochod(@RequestParam(required = false) String marka, Integer rokProdukcji){
-		if (marka == null)
-			{
-			if (rokProdukcji== null)
-				return samochodService.findAllItems();
-			else 
-				return samochodService.findRokProduckji(rokProdukcji);
-
-			}
+	public List<Samochod> getSamochod(@RequestParam(required = false) String marka){
+		
+		if(marka==null) 
+			return samochodService.findAllItems();
 		else
 			return samochodService.findSamochody(marka);
 		
+		
+//		if (marka == null)
+//			{d
+//			if (rokProdukcji== null)
+//				return samochodService.findAllItems();
+//			else 
+//				return samochodService.findRokProduckji(rokProdukcji);
+//
+//			}
+//		else
+//			return samochodService.findSamochody(marka);
+//		
 		}
+	
+	@GetMapping("sortowanieCena")
+	public List<Samochod> sortByPriceAsc(){
+		return samochodService.sortByPriceAsc();
+	}
 
 	@PostMapping(value="/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestBody Samochod nowySamochow){
@@ -49,7 +68,7 @@ public class SamochodController {
 		if(samochod ==null) {
 			return ResponseEntity.notFound().build();
 		}
-		updateSamochod.setId(samochod.getId());
+		updateSamochod.setIdSamochodu(samochod.getIdSamochodu());
 		samochodService.updateItem(updateSamochod);
 		return ResponseEntity.ok(updateSamochod);
 	}
@@ -60,4 +79,6 @@ public class SamochodController {
 		samochodService.deleteItem(samochodService.findById(id));
 		return ResponseEntity.noContent().build();
 	}
+	
+	
 }

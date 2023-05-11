@@ -10,38 +10,39 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "modele_samochodow")
+@Table(name = "model_samochodu")
 public class ModelSamochodu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_model_samochodu")
     private Long id;
 
-    @Column(name = "nazwa")
-    private String nazwa;
+    @Column(name = "nazwa_model_samochodu")
+    private String nazwaModelu;
 
+    
     @Column(name = "rok_produkcji")
     private Integer rokProdukcji;
 
-    @ManyToOne
-    @JoinColumn(name = "id_producenta")
-    private ProducentSamochodow producent;
+//    @ManyToOne
+//    @JoinColumn(name = "id_producenta")
+//    private ProducentSamochodow producent;
 
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id= id;
 	}
 
 	public String getNazwa() {
-		return nazwa;
+		return nazwaModelu;
 	}
 
 	public void setNazwa(String nazwa) {
-		this.nazwa = nazwa;
+		this.nazwaModelu = nazwa;
 	}
 
 	public Integer getRokProdukcji() {
@@ -52,13 +53,13 @@ public class ModelSamochodu {
 		this.rokProdukcji = rokProdukcji;
 	}
 
-	public ProducentSamochodow getProducent() {
-		return producent;
-	}
-
-	public void setProducent(ProducentSamochodow producent) {
-		this.producent = producent;
-	}
-
+//	public ProducentSamochodow getProducent() {
+//		return producent;
+//	}
+//
+//	public void setProducent(ProducentSamochodow producent) {
+//		this.producent = producent;
+//	}
+//sdada
     
 }
