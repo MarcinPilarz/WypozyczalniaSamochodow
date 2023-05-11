@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import CarDetailsSection from './components/BMWSection';
+import Home from './components/Home';
 
 
 function MyComponent() {
@@ -57,7 +59,9 @@ console.log("test");
  const root = ReactDOM.createRoot(document.getElementById('root'));
  root.render(
    <React.StrictMode>
+     
      <App />
+     
    </React.StrictMode>
  );
 
