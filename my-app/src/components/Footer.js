@@ -55,7 +55,7 @@ function Footer() {
                 <h3>Legal</h3>
                 <a href='#'>Prywatność</a>
                 <a href='#'>Polityka Zwrotów</a>
-                <a href='#'>Polityka Cookie</a>
+                <a href='/Cookies'>Polityka Cookie</a>
                 
               </div>
 

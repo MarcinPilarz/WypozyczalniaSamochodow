@@ -347,3 +347,38 @@ font-size: 1.7rem;
     }
 
 }
+
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  
+  .column {
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .column-1 {
+   
+    flex-basis: 20%;
+  }
+  
+  .column-2 {
+    color: #000000;
+   font-size: 20px;
+   text-align: justify;
+    flex-basis: 60%;
+     font-family: 'Roboto', sans-serif;;
+     font-weight: 700;
+
+  }
+  
+  .column-3 {
+    
+    flex-basis: 20%;
+  }
+  

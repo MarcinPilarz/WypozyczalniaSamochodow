@@ -7,7 +7,16 @@ function NavBar() {
 
   const handleButtonClick = () => {
     const element = document.getElementById('bottom');
-    element.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = "/";
+    }
+    
+    const element2 = document.getElementById('bottom');
+    if (element2) {
+      element2.scrollIntoView({ behavior: 'smooth' });
+    }
   };
     return (
 
