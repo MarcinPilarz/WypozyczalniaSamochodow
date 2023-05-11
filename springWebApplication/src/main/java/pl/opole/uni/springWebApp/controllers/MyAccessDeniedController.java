@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.security.access.AccessDeniedException;
 
 @ControllerAdvice
-public class AccessDeniedController {
+public class MyAccessDeniedController {
 
     @ExceptionHandler(AccessDeniedException.class)
     public String handleAccessDeniedException() {

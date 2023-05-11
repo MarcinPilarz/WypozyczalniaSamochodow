@@ -59,7 +59,7 @@ public class UserController {
         user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         
         try {
-            userService.save(user);
+            userService.saveUser(user);
             mav.setViewName("redirect:/login?success");
             return mav;
         } catch (Exception e) {
