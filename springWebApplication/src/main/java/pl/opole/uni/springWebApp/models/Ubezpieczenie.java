@@ -20,7 +20,7 @@ public class Ubezpieczenie {
     @Column(name = "cena")
     private Double cena;
 
-    @ManyToMany(mappedBy = "ubezpieczenia")
+    @ManyToMany(fetch=FetchType.LAZY,mappedBy = "ubezpieczenia")
     private List<Samochod> samochody;
 
     public Long getId() {
