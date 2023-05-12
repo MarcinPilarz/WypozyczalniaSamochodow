@@ -25,7 +25,7 @@ public class OkresWypozyczenia {
 	  private Long id_okres_wypozyczenia;
 	  
 	  //tworzenie transakcji
-	  @ManyToOne
+	  @ManyToOne(fetch=FetchType.EAGER)
 	  private Klient klient;
 	  
 	  
