@@ -26,12 +26,14 @@ function BMWSection() {
       setExpandedBoxes([...expandedBoxes, boxId]);
     }
   };
+  const [popup, setPop] = useState(false);
 
-  const handleRentClick = (carName) => {
-    setRentalFormData({ ...rentalFormData, carName });
-    setRentalFormVisible(true);
-  };
-
+  const handleRentClick = () => {
+    setPop(!popup);
+  }
+  const closePopUp = () => {
+    setPop(false)
+  }
   const handleFormInputChange = (e) => {
     const { name, value } = e.target;
     setRentalFormData({ ...rentalFormData, [name]: value });
@@ -65,6 +67,32 @@ function BMWSection() {
           <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
         </div>
+        <div>
+          {popup ?
+            <div className="popup-container">
+              <div className="popup">
+                <div className="popup-header">
+                  <h3 className="popup-header-text">Formularz wynajmu</h3>
+                  <button className="close-btn" onClick={closePopUp}>X</button>
+                </div>
+                <div className="popup-inputs-container">
+                  <p className="popup-input-headers">Data wynajmu</p>
+                  <input className="datepicker" type="date"></input>
+                  <p className="popup-input-headers">Miejsce odbioru</p>
+                  <input type="text" placeholder="Podaj miejsce odbioru pojazdu"></input>
+                  <p className="popup-input-headers">Data zwrotu</p>
+                  <input type="date"></input>
+
+                  <p className="popup-input-headers">Miejsce zwrotu</p>
+                  <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
+                  <p className="popup-input-headers">Dodatkowe informacje</p>
+                  <textarea type="text" placeholder=""></textarea>
+                  <button className="popup-inputs-button">Zapisz i prześlij</button>
+                </div>
+              </div>
+
+            </div> : ""}
+        </div>
         <div className="car-details-container container">
           <div className={`box ${expandedBoxes.includes('box1') ? 'expanded' : ''}`}>
             <h3>I3</h3>
@@ -79,12 +107,13 @@ function BMWSection() {
                 <p>Ilość drzwi:</p>
               </div>
             )}
-            <a href="#" id="111" className="btn" onClick={() => handleRentClick('I3')}>
+            <a href="#" className="btn" onClick={handleRentClick}>
               Wynajmij
             </a>
+
             <a href="#" className="details" onClick={() => handleDetailsClick('box1')}>
               {getDetailsButtonText('box1')}
-              </a>
+            </a>
           </div>
           <div className={`box ${expandedBoxes.includes('box3') ? 'expanded' : ''}`}>
             <h3>IX</h3>
