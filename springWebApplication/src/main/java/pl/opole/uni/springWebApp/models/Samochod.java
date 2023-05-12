@@ -41,10 +41,11 @@ public class Samochod {
 //    private String model;
 //    @Column(name="marka")
 //    private String marka;
-    @ManyToMany(mappedBy = "samochody")
+    
+    @ManyToMany( fetch=FetchType.LAZY, mappedBy = "samochody")
     private List<Klient> klienci;
     
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "id_oddzialu")
     private Oddzial oddzial;
     
@@ -56,7 +57,7 @@ public class Samochod {
 //    @JoinColumn(name = "id_producenta")
 //    private ProducentSamochodow producent;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_modelu")
     private ModelSamochodu modelSamochodu;
     
