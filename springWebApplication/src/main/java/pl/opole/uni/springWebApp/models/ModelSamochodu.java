@@ -53,6 +53,15 @@ public class ModelSamochodu {
 		this.rokProdukcji = rokProdukcji;
 	}
 
+	public String getNazwaModelu() {
+		return nazwaModelu;
+	}
+
+	public void setNazwaModelu(String nazwaModelu) {
+		this.nazwaModelu = nazwaModelu;
+	}
+
+	
 //	public ProducentSamochodow getProducent() {
 //		return producent;
 //	}

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.ui.Model;
@@ -17,8 +18,7 @@ import pl.opole.uni.springWebApp.models.User;
 import pl.opole.uni.springWebApp.repositories.RoleRepository;
 import pl.opole.uni.springWebApp.services.UserService;
 
-@Controller
-@RequestMapping("/users")
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -32,16 +32,16 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/register")
+    //@GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping("/register")
+    //@PostMapping("/register")
     public ModelAndView registerUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView();
-
+System.out.println("testttttttttttt");
         if (bindingResult.hasErrors()) {
             mav.setViewName("register");
             return mav;
@@ -60,12 +60,17 @@ public class UserController {
         
         try {
             userService.saveUser(user);
-            mav.setViewName("redirect:/login?success");
+            //mav.setViewName("redirect:/login?success");
             return mav;
         } catch (Exception e) {
             mav.addObject("errorMessage", "Wystąpił błąd podczas zapisywania użytkownika.");
             mav.setViewName("register");
             return mav;
         }
+    }
+    
+    //@GetMapping("/login")
+    public String login() {
+    	return "login";
     }
 }

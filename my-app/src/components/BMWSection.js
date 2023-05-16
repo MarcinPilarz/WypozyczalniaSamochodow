@@ -4,12 +4,38 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import axios from 'axios';
+
 
 function BMWSection() {
+
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    fetchCarsFromSpring();
+  }, []);
+
+  const fetchCarsFromSpring = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/samochod'); 
+      setCars(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
+  const filteredCarsByBrandId = (brandId) => {
+    debugger
+    //
+    return cars.filter((car) => car.marka.idMarka === brandId);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  
   const [expandedBoxes, setExpandedBoxes] = useState([]);
   const [rentalFormVisible, setRentalFormVisible] = useState(false);
   const [rentalFormData, setRentalFormData] = useState({
@@ -57,12 +83,14 @@ function BMWSection() {
   const getDetailsButtonText = (boxId) => {
     return expandedBoxes.includes(boxId) ? 'Zwiń szczegóły' : 'Wyświetl szczegóły';
   };
+ 
+  //const cars2 = cars.filter((car) => car.marka.idMarka === 2)
 
   return (
     <>
       <NavBar />
 
-      <section className="car-details" id="car-details">
+      {/* <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
           <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
@@ -156,7 +184,7 @@ function BMWSection() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <Modal 
         isOpen={rentalFormVisible}
@@ -201,6 +229,37 @@ function BMWSection() {
         </div>
       </Modal> */}
 
+
+<section className="car-details" id="car-details">
+        <div className="car-details-heading" id="111">
+          <h2 style={{ margin: '30px' }}>BMW</h2>
+          <p>Elektryczne</p>
+        </div>
+        <div className="car-details-container container">
+          {filteredCarsByBrandId(2).map((car) => (
+            <div key={car.id} className={`box ${expandedBoxes.includes(car.id) ? 'expanded' : ''}`}>
+              <h3>{car.modelSamochodu.nazwa}</h3>
+              <img src="img/bmw-i3 transpppp.png" alt="" />
+              <span>{car.cenaSamochodu} PLN</span>
+              {expandedBoxes.includes(car.id) && (
+                <div className="additional-details">
+                  <p>Moc silnika: {car.moc_silnika}</p>
+                  <p>Pojemność baterii: {car.pojemnosc_baterii}</p>
+                  <p>Rok produkcji: {car.rokProdukcji}</p>
+                  <p>Kolor samochodu: {car.kolor_samochodu}</p>
+                  <p>Ilość drzwi: {car.ilosc_drzwi}</p>
+                </div>
+              )}
+              <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.model)}>
+                Wynajmij
+              </a>
+              <a href="#" className="details" onClick={() => handleDetailsClick(car.id)}>
+                {getDetailsButtonText(car.id)}
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
       <Footer />
     </>
   );

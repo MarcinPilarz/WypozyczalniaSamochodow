@@ -51,7 +51,7 @@ function MyComponent() {
     </div>
   );
 }
-axios.create({baseURL: 'http://localhost:8080'}).get('/cars').then(response => {
+axios.create({baseURL: 'http://localhost:8080'}).get('/samochod').then(response => {
  console.log(response.data);
 });
 

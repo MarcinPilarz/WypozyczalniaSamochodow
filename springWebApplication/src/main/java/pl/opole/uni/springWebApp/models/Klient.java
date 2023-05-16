@@ -41,7 +41,7 @@ public class Klient {
     
     @JsonIgnore
     //Properties(value={"klient", "samochod"})
-    @OneToMany(mappedBy="klient")
+    @OneToMany(fetch= FetchType.LAZY, mappedBy="klient")
     private List<OkresWypozyczenia> wypozyczenia;
     //sda
 

@@ -19,7 +19,7 @@ public class Pracownik {
 
     
     
-   @ManyToOne
+   @ManyToOne(fetch=FetchType.LAZY)
    @JoinColumn(name="id_klient")
    private Klient klient;
     
