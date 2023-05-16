@@ -235,6 +235,32 @@ function BMWSection() {
           <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
         </div>
+        <div>
+          {popup ?
+            <div className="popup-container">
+              <div className="popup">
+                <div className="popup-header">
+                  <h3 className="popup-header-text">Formularz wynajmu</h3>
+                  <button className="close-btn" onClick={closePopUp}>X</button>
+                </div>
+                <div className="popup-inputs-container">
+                  <p className="popup-input-headers">Data wynajmu</p>
+                  <input className="datepicker" type="date"></input>
+                  <p className="popup-input-headers">Miejsce odbioru</p>
+                  <input type="text" placeholder="Podaj miejsce odbioru pojazdu"></input>
+                  <p className="popup-input-headers">Data zwrotu</p>
+                  <input type="date"></input>
+
+                  <p className="popup-input-headers">Miejsce zwrotu</p>
+                  <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
+                  <p className="popup-input-headers">Dodatkowe informacje</p>
+                  <textarea type="text" placeholder=""></textarea>
+                  <button className="popup-inputs-button">Zapisz i prześlij</button>
+                </div>
+              </div>
+
+            </div> : ""}
+        </div>
         <div className="car-details-container container">
           {filteredCarsByBrandId(2).map((car) => (
             <div key={car.id} className={`box ${expandedBoxes.includes(car.id) ? 'expanded' : ''}`}>
