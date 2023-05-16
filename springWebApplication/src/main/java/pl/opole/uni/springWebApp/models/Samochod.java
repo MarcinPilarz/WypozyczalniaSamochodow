@@ -37,6 +37,10 @@ public class Samochod {
     
     @Column(name="czy_wypozyczony")
     private boolean czyWypozyczony;
+    
+//    @Lob
+//    @Column
+//    private byte[] zdjecie;
 //    @Column(name="model")
 //    private String model;
 //    @Column(name="marka")
@@ -56,6 +60,7 @@ public class Samochod {
 //    @ManyToOne
 //    @JoinColumn(name = "id_producenta")
 //    private ProducentSamochodow producent;
+    
     
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_modelu")

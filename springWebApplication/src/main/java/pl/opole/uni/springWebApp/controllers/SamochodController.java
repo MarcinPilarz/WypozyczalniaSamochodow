@@ -81,4 +81,8 @@ public class SamochodController {
 	}
 	
 	
+//	public String dodanieZdjecia() {
+//		return "Udało się!";
+//	}
+	
 }
