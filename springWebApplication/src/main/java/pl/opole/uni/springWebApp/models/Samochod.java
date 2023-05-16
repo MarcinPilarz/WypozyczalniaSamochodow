@@ -13,9 +13,9 @@ public class Samochod {
     @Column(name = "id")
     private Long idSamochodu;
     
-    @Column(name="marka")
-    private String marka;
-    
+//    @Column(name="marka")
+//    private String marka;
+//    
     @Column(name="pojemnosc_baterii")
     private int pojemnosc_baterii;
     
@@ -61,7 +61,9 @@ public class Samochod {
     @JoinColumn(name = "id_modelu")
     private ModelSamochodu modelSamochodu;
     
-    
+    @ManyToOne
+    @JoinColumn(name = "id_marka_samochodu")
+    private Marka marka;
 
 	public Long getIdSamochodu() {
 		return idSamochodu;
@@ -99,13 +101,13 @@ public class Samochod {
 		return ubezpieczenia;
 	}
 
-	public String getMarka() {
-		return marka;
-	}
-
-	public void setMarka(String marka) {
-		this.marka = marka;
-	}
+//	public String getMarka() {
+//		return marka;
+//	}
+//
+//	public void setMarka(String marka) {
+//		this.marka = marka;
+//	}
 
 	public void setUbezpieczenia(List<Ubezpieczenie> ubezpieczenia) {
 		this.ubezpieczenia = ubezpieczenia;
@@ -175,6 +177,16 @@ public class Samochod {
 		this.czyWypozyczony = czyWypozyczony;
 	}
 
+	public Marka getMarka() {
+		return marka;
+	}
+
+	public void setMarka(Marka marka) {
+		this.marka = marka;
+	}
+
+	
+	
 	
 //	public String getModel() {
 //		return model;

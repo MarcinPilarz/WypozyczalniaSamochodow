@@ -16,8 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
-@Order(2)
+//@EnableWebSecurity
+//@Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -30,18 +30,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/css/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
+                .antMatchers("/login", "/register", "/css/**", "/samochod").permitAll()
+                .anyRequest().authenticated();
+                //.and()
+                //.formLogin()
+                //.loginPage("/login")
+                //.defaultSuccessUrl("/")
+                //.and()
+                //.logout()
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                //.logoutSuccessUrl("/login?logout")
+                //.invalidateHttpSession(true)
+                //.deleteCookies("JSESSIONID");
     }
 
     @Override

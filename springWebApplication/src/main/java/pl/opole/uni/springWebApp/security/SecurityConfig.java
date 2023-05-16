@@ -16,10 +16,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.opole.uni.springWebApp.controllers.MyAccessDeniedController;
 import pl.opole.uni.springWebApp.services.UserService;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(1)
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/samochod","/wypozyczenie/wypozyczenia","/model","/sortowanieCena", "/home", "/register").permitAll()
+                .antMatchers("/samochod","/wypozyczenie/wypozyczenia","/model","/sortowanieCena", "/home", "/users/register").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
@@ -52,6 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
+        		//dodane
+//                .and()
+//        		.csrf().disable()
+//        		.httpBasic()
+//        		.and()
+//        		.cors();
 
     }
 
