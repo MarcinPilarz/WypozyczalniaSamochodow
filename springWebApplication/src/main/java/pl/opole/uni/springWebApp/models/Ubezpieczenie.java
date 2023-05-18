@@ -14,6 +14,7 @@ public class Ubezpieczenie {
     @Column(name = "id_ubezpieczenie")
     private Long id;
 
+    
     @Column(name = "typ_ubezpieczenie")
     private String typ;
 

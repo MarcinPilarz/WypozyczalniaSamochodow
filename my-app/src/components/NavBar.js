@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Home from './Home';
-import Modal from 'react-modal';
+
+
+
+import BMWSection from './BMWSection';
 
 function NavBar() {
   const [showPassword, setShowPassword] = useState(false);
@@ -176,6 +179,7 @@ function NavBar() {
       </header>
     </>
   );
+
 }
 
 export default NavBar;

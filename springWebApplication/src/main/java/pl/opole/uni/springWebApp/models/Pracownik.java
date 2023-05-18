@@ -1,5 +1,6 @@
 package pl.opole.uni.springWebApp.models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -11,12 +12,14 @@ public class Pracownik {
     @Column(name = "id_pracownik")
     private Long id_pracownik;
 
+    @NotNull
     @Column(name = "imie_pracownik")
     private String imie_pracownik;
 
+    @NotNull
     @Column(name = "nazwisko_pracownik")
     private String nazwisko_pracownik;
-
+    
     
     
    @ManyToOne(fetch=FetchType.LAZY)

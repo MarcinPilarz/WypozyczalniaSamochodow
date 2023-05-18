@@ -2,6 +2,8 @@ package pl.opole.uni.springWebApp.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,13 +38,13 @@ public class ModelController {
 	}
 	
 	@PostMapping(value="/model")
-	public ResponseEntity<ModelSamochodu> editModelSamochodu(@RequestBody ModelSamochodu nowyModel){
+	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestBody ModelSamochodu nowyModel){
 		modelService.addItem(nowyModel);
 		return ResponseEntity.ok(nowyModel);
 	}
 	
 	@PutMapping(value="/model")
-	public ResponseEntity<ModelSamochodu> editModelSamochodu(@RequestParam Long id, @RequestBody ModelSamochodu updateModel){
+	public ResponseEntity<ModelSamochodu> editModelSamochodu( @Valid @RequestParam Long id, @RequestBody ModelSamochodu updateModel){
 		ModelSamochodu modelSamochodu= modelService.findById(id);
 		if(modelSamochodu == null) {
 			return ResponseEntity.notFound().build();

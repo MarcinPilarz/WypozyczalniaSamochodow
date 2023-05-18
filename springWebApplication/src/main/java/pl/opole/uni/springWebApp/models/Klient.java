@@ -1,5 +1,6 @@
 package pl.opole.uni.springWebApp.models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,17 +11,21 @@ import java.util.List;
 @Table(name = "klient")
 public class Klient {
 
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_klient")
     private Long idKlienta;
 
+	@NotNull
     @Column(name = "imie_klient")
     private String imie_klient;
 
+	@NotNull
     @Column(name = "nazwisko_klient")
     private String nazwisko_klient;
 
+	@NotNull
     @Column(name = "nr_telefonu")
     private String nrTelefonu_klient;
 

@@ -1,5 +1,7 @@
 package pl.opole.uni.springWebApp.models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -15,9 +17,11 @@ public  class Oddzial {
     @Column(name = "id_oddzial")
     private Long idOddzial;
 
+    @NotNull
     @Column(name = "nazwa_oddzial")
     private String nazwaOddzial;
 
+    @NotNull
     @Column(name = "adres")
     private String adresOddzial;
 //
