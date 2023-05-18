@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css';
 import Home from './Home';
-
+import BMWSection from './BMWSection';
 function NavBar() {
 
 
@@ -40,6 +40,7 @@ function NavBar() {
           </div>
         </div>
       </header>
+     
     )
 }
 export default NavBar

@@ -1,6 +1,24 @@
 package pl.opole.uni.springWebApp.controllers.DTO;
 
-public record SamochodDTO(Long id, double cenaSamochodu,boolean czyWypozyczony,String nazwaModelu, String adresOddzial, String nazwaMarka) {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public record SamochodDTO(
+		
+		
+		
+	@NotNull(message="IdSamochodu nie może być pusta")	Long id, 
+	
+		
+	@NotBlank(message="CenaSamochodu nie może być pusta")double cenaSamochodu,
+		
+		boolean czyWypozyczony,
+		
+	@NotNull(message = "NazwaModelu nie może być pusta ")	String nazwaModelu, 
+		
+		String adresOddzial,
+		
+		@NotBlank(message="NazwaMarka nie może być pusta")	String nazwaMarka) {
 
 
 }
