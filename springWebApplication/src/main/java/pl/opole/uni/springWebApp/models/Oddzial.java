@@ -3,66 +3,73 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "oddzialy")
-public class Oddzial {
+@Table(name = "oddzial")
+public  class Oddzial {
+	//abstract
+//	protected String nazwa_oddzialu;
+//	protected String adres;
+//	protected String numer_telefonu;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id_oddzial")
+    private Long idOddzial;
 
-    @Column(name = "nazwa")
-    private String nazwa;
+    @Column(name = "nazwa_oddzial")
+    private String nazwaOddzial;
 
     @Column(name = "adres")
-    private String adres;
+    private String adresOddzial;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "id_wypozyczalni")
+//    private Wypozyczalnia wypozyczalnia;
 
-    @ManyToOne
-    @JoinColumn(name = "id_wypozyczalni")
-    private Wypozyczalnia wypozyczalnia;
-
-    @OneToMany(mappedBy = "oddzial")
-    private List<Samochod> samochody;
-
-	public Long getId() {
-		return id;
+	public Long getIdOddzial() {
+		return idOddzial;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdOddzial(Long idOddzial) {
+		this.idOddzial = idOddzial;
 	}
 
-	public String getNazwa() {
-		return nazwa;
+	public String getNazwaOddzial() {
+		return nazwaOddzial;
 	}
 
-	public void setNazwa(String nazwa) {
-		this.nazwa = nazwa;
+	public void setNazwaOddzial(String nazwaOddzial) {
+		this.nazwaOddzial = nazwaOddzial;
 	}
 
-	public String getAdres() {
-		return adres;
+	public String getAdresOddzial() {
+		return adresOddzial;
 	}
 
-	public void setAdres(String adres) {
-		this.adres = adres;
+	public void setAdresOddzial(String adresOddzial) {
+		this.adresOddzial = adresOddzial;
 	}
 
-	public Wypozyczalnia getWypozyczalnia() {
-		return wypozyczalnia;
-	}
+   
+//    @OneToMany(mappedBy = "oddzial")
+//    private List<Samochod> samochody;
 
-	public void setWypozyczalnia(Wypozyczalnia wypozyczalnia) {
-		this.wypozyczalnia = wypozyczalnia;
-	}
 
-	public List<Samochod> getSamochody() {
-		return samochody;
-	}
 
-	public void setSamochody(List<Samochod> samochody) {
-		this.samochody = samochody;
-	}
+//	public Wypozyczalnia getWypozyczalnia() {
+//		return wypozyczalnia;
+//	}
+//
+//	public void setWypozyczalnia(Wypozyczalnia wypozyczalnia) {
+//		this.wypozyczalnia = wypozyczalnia;
+//	}
+
+//	public List<Samochod> getSamochody() {
+//		return samochody;
+//	}
+//
+//	public void setSamochody(List<Samochod> samochody) {
+//		this.samochody = samochody;
+//	}
 
     
 }
