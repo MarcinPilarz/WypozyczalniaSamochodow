@@ -7,7 +7,7 @@ public class BladOdpowiedz {
 	 private String wiadomosc;
 	    private List<BladAtrybutu> atrybutyBledow;
 
-	    public BladOdpowiedz(String string, List<BladOdpowiedz> bladOdpowiedzi) {
+	    public BladOdpowiedz(String string, String string2) {
 	        this.atrybutyBledow = new ArrayList<>();
 	    }
 

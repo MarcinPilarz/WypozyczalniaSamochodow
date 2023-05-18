@@ -3,6 +3,7 @@ package pl.opole.uni.springWebApp.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +33,7 @@ public class WypozyczenieController {
 		return wypozyczeniaService.getWypozyczenie();
 	}
 	@PostMapping("/nowe")
-	public void wypozyczSamochod(@RequestParam Long idKlienta, @RequestParam Long idSamochodu,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminWypozyczenia, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminOddania) {
+	public void wypozyczSamochod( @Valid @RequestParam Long idKlienta, @Valid @RequestParam Long idSamochodu,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminWypozyczenia, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminOddania) {
 	
 		wypozyczeniaService.wypozyczSamochod(idKlienta, idSamochodu, terminWypozyczenia, terminOddania);
 	}
