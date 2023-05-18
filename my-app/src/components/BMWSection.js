@@ -113,11 +113,18 @@ function BMWSection() {
 
                   <p className="popup-input-headers">Miejsce zwrotu</p>
                   <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
-                  <p className="popup-input-headers">Dodatkowe informacje</p>
-                  <textarea type="text" placeholder=""></textarea>
+                  {/* <p className="popup-input-headers">Dodatkowe informacje</p>
+                  <textarea type="text" placeholder=""></textarea> */}
                   <p className="popup-input-headers" >Metoda płatności </p>
                   <input type="text"  placeholder=" Numer karty płatniczej"></input>
-                  <p className="popup-input-headers" >BLIK </p>
+
+                  <div className='popup-card-container'>
+                    <input type="text"  placeholder="02 "></input>
+                    <input type="text"  placeholder=" "></input>
+                    <input type="text"  placeholder=" Numer karty płatniczej"></input>
+                  </div>
+                  
+                  <p className="popup-input-headers"  >BLIK </p>
                   <input type="text" placeholder="Kod Blik" ></input>
 
                   <button className="popup-inputs-button">Zapisz i prześlij</button>
