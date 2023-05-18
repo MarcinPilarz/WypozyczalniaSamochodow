@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="marka_samochodu")
@@ -17,6 +18,7 @@ public class Marka {
     @Column(name = "id_marka_samochodu")
     private Long idMarka;
 
+	@NotNull
     @Column(name = "nazwa_marki_samochodu")
     private String nazwaMarka;
 
