@@ -26,7 +26,7 @@ function BMWSection() {
 
   
   const filteredCarsByBrandId = (brandId) => {
-    debugger
+    
     //
     return cars.filter((car) => car.marka.idMarka === brandId);
   };

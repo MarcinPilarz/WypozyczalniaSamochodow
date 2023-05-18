@@ -1,6 +1,15 @@
 package pl.opole.uni.springWebApp.models;
 
 import javax.persistence.*;
+
+
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -37,6 +46,15 @@ public class Samochod {
     
     @Column(name="czy_wypozyczony")
     private boolean czyWypozyczony;
+    
+    @Lob
+    @Column(name="zdjecie")
+    private Blob image;
+    
+    
+//    @Lob
+//    @Column
+//    private byte[] zdjecie;
 //    @Column(name="model")
 //    private String model;
 //    @Column(name="marka")
@@ -57,6 +75,7 @@ public class Samochod {
 //    @JoinColumn(name = "id_producenta")
 //    private ProducentSamochodow producent;
     
+    
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_modelu")
     private ModelSamochodu modelSamochodu;
@@ -65,6 +84,9 @@ public class Samochod {
     @JoinColumn(name = "id_marka_samochodu")
     private Marka marka;
 
+    
+    
+    
 	public Long getIdSamochodu() {
 		return idSamochodu;
 	}
@@ -185,8 +207,17 @@ public class Samochod {
 		this.marka = marka;
 	}
 
+	public Blob getImage() {
+		return image;
+	}
+
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+
 	
 	
+
 	
 //	public String getModel() {
 //		return model;
