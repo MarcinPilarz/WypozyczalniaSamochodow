@@ -314,6 +314,16 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
   }
+  input[type=password], select {
+    width: 100%;
+    padding: 8px 2px;
+    margin-bottom: 10px ;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
   input[type=date], select {
     width: 100%;
     padding: 8px 2px;
@@ -344,4 +354,9 @@ input[type=text], select {
 
 
 
+  }
+
+  .popup-login-show-password {
+      display: flex;
+      
   }
