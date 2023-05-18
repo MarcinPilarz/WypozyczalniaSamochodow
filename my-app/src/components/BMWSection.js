@@ -90,7 +90,7 @@ function BMWSection() {
     <>
       <NavBar />
 
-      {/* <section className="car-details" id="car-details">
+      <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
           <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
@@ -115,6 +115,11 @@ function BMWSection() {
                   <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
                   <p className="popup-input-headers">Dodatkowe informacje</p>
                   <textarea type="text" placeholder=""></textarea>
+                  <p className="popup-input-headers" >Metoda płatności </p>
+                  <input type="text"  placeholder=" Numer karty płatniczej"></input>
+                  <p className="popup-input-headers" >BLIK </p>
+                  <input type="text" placeholder="Kod Blik" ></input>
+
                   <button className="popup-inputs-button">Zapisz i prześlij</button>
                 </div>
               </div>
@@ -184,7 +189,7 @@ function BMWSection() {
             </a>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* <Modal 
         isOpen={rentalFormVisible}
@@ -230,7 +235,7 @@ function BMWSection() {
       </Modal> */}
 
 
-<section className="car-details" id="car-details">
+{/* <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
           <h2 style={{ margin: '30px' }}>BMW</h2>
           <p>Elektryczne</p>
@@ -285,7 +290,7 @@ function BMWSection() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
       <Footer />
     </>
   );
