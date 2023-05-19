@@ -1,5 +1,6 @@
 package pl.opole.uni.springWebApp.controllers;
 
+import java.io.IOException;
 import java.util.List; 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import pl.opole.uni.springWebApp.controllers.DTO.PostDTO;
 import pl.opole.uni.springWebApp.controllers.DTO.SamochodDTO;
@@ -90,10 +94,27 @@ public class SamochodController {
 	}
 	
 	@PostMapping(value="/samochod")
-	public ResponseEntity<Samochod> editSamochod(@RequestBody @Valid Samochod nowySamochod){
+	public ResponseEntity<Samochod> editSamochod(@RequestPart(value="zdjecie", required=false)MultipartFile zdjecie, @RequestBody @Valid Samochod nowySamochod){
+		//try {
+		//nowySamochod.setZdjecie(zdjecie.getBytes());
+		if(zdjecie != null)
+		{
+			try {
+				byte[] zdjecieBytes=zdjecie.getBytes();
+				nowySamochod.setZdjecie(zdjecieBytes);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
+		//} catch(IOException e) {
+		//	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	  //  }
+		//}@RequestParam("zdjecie") MultipartFile zdjecie
+	
 	
 	
 	@PutMapping(value="/samochod/dto/{id}")
@@ -136,7 +157,9 @@ public class SamochodController {
 		Samochod samochod = samochodService.findById(id);
 	    
 	    if (samochod != null) {
-	        samochodService.deleteItem(samochod);
+	    	
+	    	samochodService.deleteItem(samochodService.findById(id));
+	        //samochodService.deleteItem(samochod);
 	        return ResponseEntity.noContent().build();
 	    } else {
 	        return ResponseEntity.notFound().build();

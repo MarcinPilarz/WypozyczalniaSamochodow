@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+//import base64Img from 'base64-img';
 
 function ASection() {
 
@@ -24,6 +24,10 @@ function ASection() {
     }
   };
 
+  // const getBase64Image = (car) => {
+  //   const base64Data = base64Img.base64Sync(car.zdjecie);
+  //   return `data:image/jpeg;base64,${base64Data}`;
+  // };
   
   const filteredCarsByBrandId = (brandId) => {
     
@@ -151,7 +155,7 @@ function ASection() {
           {filteredCarsByBrandId(1).map((car) => (
             <div key={car.id} className={`box ${expandedBoxes.includes(car.id) ? 'expanded' : ''}`}>
               <h3>{car.modelSamochodu.nazwa}</h3>
-              <img src="img/bmw-i3 transpppp.png" alt="" />
+              <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>
               {expandedBoxes.includes(car.id) && (
                 <div className="additional-details">
