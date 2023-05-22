@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -77,6 +78,7 @@ public class SamochodController {
 		return samochodService.sortByPriceAsc();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value="/samochod/dto")
 	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto){
 		
@@ -93,6 +95,8 @@ public class SamochodController {
 		return ResponseEntity.ok(samochod);
 	}
 	
+	 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value="/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestPart(value="zdjecie", required=false)MultipartFile zdjecie, @RequestBody @Valid Samochod nowySamochod){
 		//try {
@@ -116,7 +120,7 @@ public class SamochodController {
 		//}@RequestParam("zdjecie") MultipartFile zdjecie
 	
 	
-	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value="/samochod/dto/{id}")
 	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto){
 		Samochod samochod = new Samochod();
@@ -138,6 +142,7 @@ public class SamochodController {
 //		return ResponseEntity.ok(updateSamochod);
 	}
 	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value="/samochod{id}")
 	public ResponseEntity<Samochod> editSamochod(@RequestParam Long id, @RequestBody Samochod updateSamochod){
 		
@@ -150,6 +155,7 @@ public class SamochodController {
 		return ResponseEntity.ok(updateSamochod);
 	}
 	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value= "/samochod")
 	public ResponseEntity<Samochod> deleteSamochod(@RequestParam Long id){
 		

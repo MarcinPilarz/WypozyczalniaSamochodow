@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,18 +24,23 @@ public class KlientController {
 	@Autowired
 	private KlientService klientService;
 	
+	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value="/klienci")
 	public List<Klient> getKlient(){
 		return klientService.findAllItems();
 	}
 	
 	
+	 
 	@PostMapping(value="/klienci")
 	public ResponseEntity<Klient> editKlient(@Valid @RequestBody Klient nowyKlient){
 		klientService.addItem(nowyKlient);
 		return ResponseEntity.ok(nowyKlient);
 	}
 	
+	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value="/klienci")
 	public ResponseEntity<Klient> editKlient(@Valid @RequestParam Long id, @RequestBody Klient updateKlient){
 		Klient klient=klientService.findById(id);
