@@ -80,15 +80,21 @@ function NavBar() {
           </div>
           <div className="btn-login-container">
             {isLoggedIn ? (
-              <button className="btn-login" onClick={handleLogoutClick}>
-                Wyloguj
-              </button>
+              <div className="dropdown">
+                <button className="btn-login">Profil</button>
+                <div className="dropdown-content">
+                  <a href="/User">Wyświetl profil</a>
+                  <a href="#" onClick={handleLogoutClick}>
+                    Wyloguj
+                  </a>
+                </div>
+              </div>
             ) : (
               <>
-                <button className="btn-login" href="#Logowanie" onClick={handleLoginClick}>
+                <button className="btn-login" onClick={handleLoginClick}>
                   Logowanie
                 </button>
-                <button className="btn-login" href="#Rejestracja" onClick={handleRegisterClick}>
+                <button className="btn-login" onClick={handleRegisterClick}>
                   Rejestracja
                 </button>
               </>
