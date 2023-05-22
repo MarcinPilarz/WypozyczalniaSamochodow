@@ -22,6 +22,12 @@ public class Pracownik {
     
     
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    
+    
    @ManyToOne(fetch=FetchType.LAZY)
    @JoinColumn(name="id_klient")
    private Klient klient;
@@ -80,6 +86,14 @@ public class Pracownik {
 
 	public void setKlient(Klient klient) {
 		this.klient = klient;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
     

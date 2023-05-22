@@ -3,10 +3,13 @@ package pl.opole.uni.springWebApp.models;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,8 +23,14 @@ private static final long serialVersionUID=1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@Column(name="username")
 	private String username;
+	
+	@Column(name="password")
 	private String password;
+	
+	@Column(name="role")
 	private String role;
 	
 	public User() {
@@ -40,6 +49,13 @@ private static final long serialVersionUID=1L;
 		return Collections.singleton(new SimpleGrantedAuthority(role));
 	}
 
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Klient klient;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Pracownik pracownik;
+    
 	@Override
 	public String getPassword() {
 		return password;
