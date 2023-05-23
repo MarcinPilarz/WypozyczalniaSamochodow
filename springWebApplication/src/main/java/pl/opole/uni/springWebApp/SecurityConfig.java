@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.csrf().disable()
 		.authorizeRequests()
-        .antMatchers( "/klienci").hasRole("ADMIN")
-        .antMatchers("/samochod", "/model").permitAll()
-        .anyRequest().authenticated()
+        .antMatchers().hasRole("ADMIN")
+        .antMatchers("/samochod", "/model", "/rejestracjaUzytkownika","/klienci").permitAll()
+      //  .anyRequest().authenticated()
         //.and()
        // .formLogin()
 //            .loginPage("/login") // Własna strona logowania
@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	{
 		return new BCryptPasswordEncoder();
 	}
-	
+//	
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void establishUsers()
 //	{

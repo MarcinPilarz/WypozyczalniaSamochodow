@@ -26,6 +26,10 @@ public class Klient {
     private String nazwisko_klient;
 
 	@NotNull
+    @Column(name = "email")
+    private String email;
+	
+	@NotNull
     @Column(name = "nr_telefonu")
     private String nrTelefonu_klient;
 
@@ -123,6 +127,16 @@ public class Klient {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Home from './Home';
-
-
+import axios from 'axios';
+import Modal from 'react-modal';
 
 import BMWSection from './BMWSection';
-
+Modal.setAppElement('#root');
 function NavBar() {
+  //const [popupLogin, setPopupLogin] = useState(false);
+  //const [popupRegister, setPopupRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [registrationData, setRegistrationData] = useState({
+    username: '',
+    imie: '',
+    nazwisko: '',
+    email: '',
+    telefon: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const [showRegistrationSuccess, setShowRegistrationSuccess] = useState(false);
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -44,6 +57,42 @@ function NavBar() {
 
   const closePopUpRegister = () => {
     setPopRegister(false);
+  };
+  
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setRegistrationData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  
+  const handleRegistrationSuccess = () => {
+    setShowRegistrationSuccess(true);
+    closePopUpRegister();
+  };
+
+  // const handleModalClose = () => {
+  //   setShowRegistrationSuccess(false);
+  // };
+  const handleRegisterSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/klienci', registrationData);
+      console.log(response.data); // Odpowiedź z serwera
+  
+      // Wyczyść pola formularza po udanym zarejestrowaniu
+      setRegistrationData({
+        username: '',
+        imie: '',
+        nazwisko: '',
+        email: '',
+        telefon: '',
+        password: ''
+      });
+      handleRegistrationSuccess(true);
+  } catch (error) {
+    console.log(error); // Obsługa błędu
+  }
   };
   
   return (
@@ -135,28 +184,70 @@ function NavBar() {
                     </button>
                   </div>
                   <div className="popup-inputs-container">
+                  <p className="popup-input-headers">Nazwa użytkownika</p>
+                    <input 
+                    type="text" 
+                    name="username"
+                    placeholder="Podaj nazwe użytkownika"
+                    value={registrationData.username}
+                    onChange={handleInputChange}
+                    />
                   <p className="popup-input-headers">Imię</p>
-                    <input type="text" placeholder="Podaj Imię"></input>
+                    <input 
+                    type="text" 
+                    name="imie"
+                    placeholder="Podaj Imię"
+                    value={registrationData.imie}
+                    onChange={handleInputChange}
+                    />
                     <p className="popup-input-headers">Nazwisko</p>
-                    <input type="text" placeholder="Podaj Nazwisko"></input>
+                    <input 
+                    type="text" 
+                    name="nazwisko"
+                    placeholder="Podaj Nazwisko"
+                    value={registrationData.nazwisko}
+                    onChange={handleInputChange}
+                    />
+
+                    
                     <p className="popup-input-headers">Adres email</p>
-                    <input type="text" placeholder="Podaj adres email"></input>
+                    <input 
+                    type="text"
+                    name="email" 
+                    placeholder="Podaj adres email"
+                    value={registrationData.email}
+                    onChange={handleInputChange}
+                    />
+
+                    
                     <p className="popup-input-headers">Nr. kontaktowy</p>
-                    <input type="text" placeholder="Podaj nr. kontaktowy"></input>
+                    <input 
+                    type="text" 
+                    name="telefon"
+                    placeholder="Podaj nr. kontaktowy"
+                    value={registrationData.telefon}
+                    onChange={handleInputChange}
+                    />
                     <p className="popup-input-headers">Ustaw hasło</p>
                     <input
                       type={showPassword ? 'text' : 'password'}
+                      name="password"
                       placeholder="Podaj hasło"
                       id="passwordInput"
-                    ></input>
+                      value={registrationData.password}
+                      onChange={handleInputChange}
+                    />
                     <div className="popup-login-show-password">
                      
                     </div>
                     <p className="popup-input-headers">Powtórz hasło</p>
                     <input
                       type={showPassword ? 'text' : 'password'}
+                      name="confirmPassword"
                       placeholder="Powtórz hasło"
                       id="passwordInput"
+                      value={registrationData.confirmPassword}
+                      onChange={handleInputChange}
                     ></input>
                     <div className="popup-login-show-password">
                       <input
@@ -166,7 +257,7 @@ function NavBar() {
                       />
                       <p>Pokaż hasło</p>
                     </div>
-                    <button className="popup-inputs-button">Zarejestruj</button>
+                    <button className="popup-inputs-button" onClick={handleRegisterSubmit}>Zarejestruj</button>
                   </div>
                 </div>
               </div>
@@ -177,6 +268,9 @@ function NavBar() {
         </section>
         {/* Rejestracja end */}
       </header>
+        {/* Modal z wiadomością o udanej rejestracji */}
+       {/* Okno z wiadomością o udanej rejestracji */}
+     
     </>
   );
 
