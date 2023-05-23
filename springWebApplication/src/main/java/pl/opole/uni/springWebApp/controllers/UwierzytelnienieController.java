@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pl.opole.uni.springWebApp.models.User;
 import pl.opole.uni.springWebApp.services.UzytkownikService;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UwierzytelnienieController {
 
