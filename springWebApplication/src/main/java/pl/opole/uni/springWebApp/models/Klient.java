@@ -40,6 +40,11 @@ public class Klient {
 
     
 //    
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 //    @ManyToOne
 //    @JoinColumn(name = "id_okres_wypozyczenia")
 //    private OkresWypozyczenia okres_wypozyczenia;
@@ -109,8 +114,22 @@ public class Klient {
 	public void setWypozyczenia(List<OkresWypozyczenia> wypozyczenia) {
 		this.wypozyczenia = wypozyczenia;
 	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 	
 
+	
+	
     //ccccccccccccccccccccccccccccccccccccc
 //	public Long getId_klient() {
 //		return idKlienta;

@@ -1,5 +1,6 @@
 package pl.opole.uni.springWebApp.controllers;
 
+import java.io.IOException;
 import java.util.List; 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,7 +8,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import pl.opole.uni.springWebApp.controllers.DTO.PostDTO;
 import pl.opole.uni.springWebApp.controllers.DTO.SamochodDTO;
@@ -73,6 +78,7 @@ public class SamochodController {
 		return samochodService.sortByPriceAsc();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value="/samochod/dto")
 	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto){
 		
@@ -89,13 +95,32 @@ public class SamochodController {
 		return ResponseEntity.ok(samochod);
 	}
 	
+	 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value="/samochod")
-	public ResponseEntity<Samochod> editSamochod(@RequestBody @Valid Samochod nowySamochod){
+	public ResponseEntity<Samochod> editSamochod(@RequestPart(value="zdjecie", required=false)MultipartFile zdjecie, @RequestBody @Valid Samochod nowySamochod){
+		//try {
+		//nowySamochod.setZdjecie(zdjecie.getBytes());
+		if(zdjecie != null)
+		{
+			try {
+				byte[] zdjecieBytes=zdjecie.getBytes();
+				nowySamochod.setZdjecie(zdjecieBytes);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
+		//} catch(IOException e) {
+		//	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	  //  }
+		//}@RequestParam("zdjecie") MultipartFile zdjecie
 	
 	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value="/samochod/dto/{id}")
 	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto){
 		Samochod samochod = new Samochod();
@@ -117,6 +142,7 @@ public class SamochodController {
 //		return ResponseEntity.ok(updateSamochod);
 	}
 	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value="/samochod{id}")
 	public ResponseEntity<Samochod> editSamochod(@RequestParam Long id, @RequestBody Samochod updateSamochod){
 		
@@ -129,6 +155,7 @@ public class SamochodController {
 		return ResponseEntity.ok(updateSamochod);
 	}
 	
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value= "/samochod")
 	public ResponseEntity<Samochod> deleteSamochod(@RequestParam Long id){
 		
@@ -136,7 +163,9 @@ public class SamochodController {
 		Samochod samochod = samochodService.findById(id);
 	    
 	    if (samochod != null) {
-	        samochodService.deleteItem(samochod);
+	    	
+	    	samochodService.deleteItem(samochodService.findById(id));
+	        //samochodService.deleteItem(samochod);
 	        return ResponseEntity.noContent().build();
 	    } else {
 	        return ResponseEntity.notFound().build();

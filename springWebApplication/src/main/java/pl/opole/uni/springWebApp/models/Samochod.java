@@ -1,11 +1,13 @@
 package pl.opole.uni.springWebApp.models;
 
-import javax.persistence.*;
+import javax.persistence.*; 
 
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.IOException;
 import java.sql.Blob;
@@ -46,12 +48,14 @@ public class Samochod {
     
     @Column(name="czy_wypozyczony")
     private boolean czyWypozyczony;
+//    
     
     @Lob
     @Column(name="zdjecie")
-    private Blob image;
-    
-    
+   private byte[] zdjecie;
+//    
+//    @Column(name="zdjecie")
+//    private String zdjecie;
 //    @Lob
 //    @Column
 //    private byte[] zdjecie;
@@ -84,7 +88,9 @@ public class Samochod {
     @JoinColumn(name = "id_marka_samochodu")
     private Marka marka;
 
-    
+//    @OneToOne
+//    @JoinColumn(name="id_zdjecie")
+//    private Zdjecie zdjecie;
     
     
 	public Long getIdSamochodu() {
@@ -207,13 +213,40 @@ public class Samochod {
 		this.marka = marka;
 	}
 
-	public Blob getImage() {
-		return image;
+	public byte[] getZdjecie() {
+		return zdjecie;
 	}
 
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setZdjecie(byte[] zdjecie) {
+		this.zdjecie = zdjecie;
 	}
+
+//	public String getZdjecie() {
+//		return zdjecie;
+//	}
+
+	
+
+//	public Zdjecie getZdjecie() {
+//		return zdjecie;
+//	}
+//
+//	public void setZdjecie(Zdjecie zdjecie) {
+//		this.zdjecie = zdjecie;
+//	}
+
+	
+	
+//	public byte[] getZdjecie() {
+//		return zdjecie;
+//	}
+//
+//	public void setZdjecie(byte[] zdjecie) {
+//		this.zdjecie = zdjecie;
+//	}
+//
+//	
+	
 
 	
 	
@@ -236,7 +269,7 @@ public class Samochod {
 //	}
 
     
-    
+	
     
     
 }
