@@ -21,20 +21,24 @@ import pl.opole.uni.springWebApp.services.WypozyczeniaService;
 public class WypozyczenieController {
 
 	private WypozyczeniaService wypozyczeniaService;
-	
+
 	@Autowired
 	public WypozyczenieController(WypozyczeniaService wypozyczeniaService) {
-		
-		this.wypozyczeniaService=wypozyczeniaService;
+
+		this.wypozyczeniaService = wypozyczeniaService;
 	}
-	
+
 	@GetMapping("/wypozyczenia")
-	public List<OkresWypozyczenia> getWypozyczenie(){
+	public List<OkresWypozyczenia> getWypozyczenie() {
 		return wypozyczeniaService.getWypozyczenie();
 	}
+
 	@PostMapping("/nowe")
-	public void wypozyczSamochod( @Valid @RequestParam Long idKlienta, @Valid @RequestParam Long idSamochodu,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminWypozyczenia, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminOddania) {
-	
+	public void wypozyczSamochod(@Valid @RequestParam Long idKlienta, @Valid @RequestParam Long idSamochodu,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminWypozyczenia,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminOddania) {
+
 		wypozyczeniaService.wypozyczSamochod(idKlienta, idSamochodu, terminWypozyczenia, terminOddania);
 	}
 }
+//

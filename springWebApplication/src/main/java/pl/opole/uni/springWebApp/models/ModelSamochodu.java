@@ -14,29 +14,25 @@ import javax.validation.constraints.NotNull;
 @Table(name = "model_samochodu")
 public class ModelSamochodu {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_model_samochodu")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_model_samochodu")
+	private Long id;
 
-    @NotNull
-    @Column(name = "nazwa_model_samochodu")
-    private String nazwaModelu;
+	@NotNull
+	@Column(name = "nazwa_model_samochodu")
+	private String nazwaModelu;
 
-    @NotNull
-    @Column(name = "rok_produkcji")
-    private Integer rokProdukcji;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_producenta")
-//    private ProducentSamochodow producent;
+	@NotNull
+	@Column(name = "rok_produkcji")
+	private Integer rokProdukcji;
 
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
-		this.id= id;
+		this.id = id;
 	}
 
 	public String getNazwa() {
@@ -62,15 +58,4 @@ public class ModelSamochodu {
 	public void setNazwaModelu(String nazwaModelu) {
 		this.nazwaModelu = nazwaModelu;
 	}
-
-	
-//	public ProducentSamochodow getProducent() {
-//		return producent;
-//	}
-//
-//	public void setProducent(ProducentSamochodow producent) {
-//		this.producent = producent;
-//	}
-//sdada
-    
 }
