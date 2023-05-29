@@ -31,82 +31,71 @@ public class KlientController {
 
 	@Autowired
 	private UzytkownikService uzytkownikService;
-	
-	@Autowired
-    private KlientService klientService;
-	
-	@Autowired
-    private PasswordEncoder passwordEncoder;
 
-    public KlientController(UzytkownikService uzytkownikService, KlientService klientService,PasswordEncoder passwordEncoder) {
-        this.uzytkownikService = uzytkownikService;
-        this.klientService = klientService;
-        this.passwordEncoder = passwordEncoder;
-    }
+	@Autowired
+	private KlientService klientService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	public KlientController(UzytkownikService uzytkownikService, KlientService klientService,
+			PasswordEncoder passwordEncoder) {
+		this.uzytkownikService = uzytkownikService;
+		this.klientService = klientService;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	// @PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping(value="/klienci")
-	public List<Klient> getKlient(){
+	@GetMapping(value = "/klienci")
+	public List<Klient> getKlient() {
 		return klientService.findAllItems();
 	}
 
-	
-	 
-	@PostMapping(value="/klienci")
+	@PostMapping(value = "/klienci")
 	public ResponseEntity<String> createKlientWithUser(@RequestBody TworzenieKlientazUzytkownikiemDTO dto) {
 		try {
-            // Tworzenie obiektu User na podstawie przesłanych danych
-            User user = new User();
-            user.setUsername(dto.getUsername());
-            String encodedPassword = passwordEncoder.encode(dto.getPassword());
-            user.setPassword(encodedPassword);
-            user.setRole("USER");
+			// Tworzenie obiektu User na podstawie przesłanych danych
+			User user = new User();
+			user.setUsername(dto.getUsername());
+			String encodedPassword = passwordEncoder.encode(dto.getPassword());
+			user.setPassword(encodedPassword);
+			user.setRole("USER");
 
-            uzytkownikService.saveUser(user);
-            
-            // Tworzenie obiektu Klient na podstawie przesłanych danych
-            Klient klient = new Klient();
-            klient.setImie_klient(dto.getImie());
-            klient.setNazwisko_klient(dto.getNazwisko());
-            klient.setEmail(dto.getEmail());
-            klient.setNrTelefonu_klient(dto.getTelefon());
-            klient.setUser(user);
-            // Zapisanie użytkownika
-          
+			uzytkownikService.saveUser(user);
 
-            // Zapisanie klienta
-            klientService.addItem(klient);
+			// Tworzenie obiektu Klient na podstawie przesłanych danych
+			Klient klient = new Klient();
+			klient.setImie_klient(dto.getImie());
+			klient.setNazwisko_klient(dto.getNazwisko());
+			klient.setEmail(dto.getEmail());
+			klient.setNrTelefonu_klient(dto.getTelefon());
+			klient.setUser(user);
+			// Zapisanie użytkownika
 
-            return ResponseEntity.ok("Klient i użytkownik zostali pomyślnie zapisani.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Wystąpił błąd podczas tworzenia klienta i użytkownika.");
-        }
-    }
+			// Zapisanie klienta
+			klientService.addItem(klient);
 
+			return ResponseEntity.ok("Klient i użytkownik zostali pomyślnie zapisani.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Wystąpił błąd podczas tworzenia klienta i użytkownika.");
+		}
+	}
 
-
-
-    
-        
-	
-
-	
-	
-	 @PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping(value="/klienci")
-	public ResponseEntity<Klient> editKlient(@Valid @RequestParam Long id, @RequestBody Klient updateKlient){
-		Klient klient=klientService.findById(id);
-		if(klient == null) {
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PutMapping(value = "/klienci")
+	public ResponseEntity<Klient> editKlient(@Valid @RequestParam Long id, @RequestBody Klient updateKlient) {
+		Klient klient = klientService.findById(id);
+		if (klient == null) {
 			return ResponseEntity.notFound().build();
 		}
 		updateKlient.setIdKlienta(klient.getIdKlienta());
 		klientService.updateItem(updateKlient);
 		return ResponseEntity.ok(updateKlient);
 	}
-	
-	@DeleteMapping(value="/klienci")
-	public ResponseEntity<Klient> deleteKlient(@RequestParam Long id){
+
+	@DeleteMapping(value = "/klienci")
+	public ResponseEntity<Klient> deleteKlient(@RequestParam Long id) {
 		klientService.deleteItem(klientService.findById(id));
 		return ResponseEntity.noContent().build();
 	}

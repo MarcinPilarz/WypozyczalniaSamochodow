@@ -21,36 +21,39 @@ public class WypozyczeniaService {
 	private KlientRepository klientRepo;
 	private SamochodRepository samochodRepo;
 	private WypozyczenieRepository wypozyczenieRepo;
-	
+
 	@Autowired
-   public WypozyczeniaService(KlientRepository klientRepo, SamochodRepository samochodRepo,WypozyczenieRepository wypozyczenieRepo) {
-		this.klientRepo=klientRepo;
-		this.samochodRepo=samochodRepo;
-		this.wypozyczenieRepo=wypozyczenieRepo;
+	public WypozyczeniaService(KlientRepository klientRepo, SamochodRepository samochodRepo,
+			WypozyczenieRepository wypozyczenieRepo) {
+		this.klientRepo = klientRepo;
+		this.samochodRepo = samochodRepo;
+		this.wypozyczenieRepo = wypozyczenieRepo;
 	}
-	
+
 	public List<OkresWypozyczenia> getWypozyczenie() {
-	    return wypozyczenieRepo.findAll();
+		return wypozyczenieRepo.findAll();
 	}
-	
-	public void wypozyczSamochod(Long idKlienta, Long idSamochodu, LocalDate terminWypozyczenia, LocalDate terminOddania) {
-		Klient klient= klientRepo.findById(idKlienta).orElseThrow(() -> new RuntimeException("Nie znaleziono klienta o id: "+ idKlienta));
-		Samochod samochod = samochodRepo.findById(idSamochodu).orElseThrow(() -> new RuntimeException ("Nie znaleziono samochodu o id: " + idSamochodu));
-	
-	if(samochod.isCzyWypozyczony()) {
-		throw new RuntimeException("Ten samochod jest juz wypożyczony.");
+
+	public void wypozyczSamochod(Long idKlienta, Long idSamochodu, LocalDate terminWypozyczenia,
+			LocalDate terminOddania) {
+		Klient klient = klientRepo.findById(idKlienta)
+				.orElseThrow(() -> new RuntimeException("Nie znaleziono klienta o id: " + idKlienta));
+		Samochod samochod = samochodRepo.findById(idSamochodu)
+				.orElseThrow(() -> new RuntimeException("Nie znaleziono samochodu o id: " + idSamochodu));
+
+		if (samochod.isCzyWypozyczony()) {
+			throw new RuntimeException("Ten samochod jest juz wypożyczony.");
+		}
+
+		samochod.setCzyWypozyczony(true);
+
+		OkresWypozyczenia wypozyczenia = new OkresWypozyczenia();
+		wypozyczenia.setKlient(klient);
+		wypozyczenia.setSamochod(samochod);
+		wypozyczenia.setTerminWypozyczenia(terminWypozyczenia);
+		wypozyczenia.setTerminOddania(terminOddania);
+
+		wypozyczenieRepo.save(wypozyczenia);
 	}
-	
-	samochod.setCzyWypozyczony(true);
-	
-	OkresWypozyczenia wypozyczenia = new OkresWypozyczenia();
-	wypozyczenia.setKlient(klient);
-	wypozyczenia.setSamochod(samochod);
-	wypozyczenia.setTerminWypozyczenia(terminWypozyczenia);
-	wypozyczenia.setTerminOddania(terminOddania);
-	
-	wypozyczenieRepo.save(wypozyczenia);
-	}
-	
-	
+
 }

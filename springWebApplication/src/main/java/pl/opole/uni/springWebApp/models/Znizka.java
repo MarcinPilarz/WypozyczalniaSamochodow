@@ -1,9 +1,17 @@
 package pl.opole.uni.springWebApp.models;
 
+import javax.persistence.DiscriminatorColumn; 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.MappedSuperclass;
-
-@MappedSuperclass
+import javax.persistence.Table;
+import javax.persistence.InheritanceType;
+//@MappedSuperclass
+@Entity
+@Table(name = "znizka")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "typ_znizki")
 public class Znizka {
 
 	

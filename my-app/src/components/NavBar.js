@@ -22,6 +22,11 @@ function NavBar() {
 
   const [showRegistrationSuccess, setShowRegistrationSuccess] = useState(false);
 
+
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: ''
+  });
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
   };
@@ -95,6 +100,34 @@ function NavBar() {
   }
   };
   
+  const handleLoginInputChange = (event) => {
+    const { name, value } = event.target;
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    
+    try {
+      // Wykonaj żądanie logowania na serwerze
+      const response = await axios.post('http://localhost:8080/login', loginData);
+      console.log(response.data); // Odpowiedź z serwera
+  
+      // Zresetuj pola formularza logowania
+      setLoginData({
+        username: '',
+        password: ''
+      });
+  
+      // Przetwórz odpowiedź z serwera i wykonaj odpowiednie akcje (np. przechowywanie tokena, przekierowanie użytkownika itp.)
+    } catch (error) {
+      console.log(error); // Obsługa błędu
+    }
+  };
   return (
     <>
       <header>
@@ -146,13 +179,23 @@ function NavBar() {
                   </div>
                   <div className="popup-inputs-container">
                     <p className="popup-input-headers">Nazwa użytkownika/Adres email</p>
-                    <input type="text" placeholder="Podaj adres email"></input>
+                    <input 
+                    type="text"
+                    name="username"
+                    placeholder="Podaj adres email"
+                    value={loginData.username}
+                    onChange={handleLoginInputChange}
+                  
+                     />
                     <p className="popup-input-headers">Hasło</p>
                     <input
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Podaj hasło"
+                      name="password"
                       id="passwordInput"
-                    ></input>
+                      value={loginData.password}
+                      onChange={handleLoginInputChange}
+                    />
                     <div className="popup-login-show-password">
                       <input
                         type="checkbox"
@@ -161,7 +204,8 @@ function NavBar() {
                       />
                       <p>Pokaż hasło</p>
                     </div>
-                    <button className="popup-inputs-button">Zaloguj</button>
+                    <button type='submit' onClick={handleLoginSubmit} className="popup-inputs-button">Zaloguj</button>
+                    
                   </div>
                 </div>
               </div>

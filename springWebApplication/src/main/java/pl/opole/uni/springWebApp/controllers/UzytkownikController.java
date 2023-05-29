@@ -15,23 +15,25 @@ import pl.opole.uni.springWebApp.services.UzytkownikService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class UzytkownikController {
 
-	private  UzytkownikService uzytkownikService;
+	private UzytkownikService uzytkownikService;
 
-	private  PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+
 	public UzytkownikController(UzytkownikService uzytkownikService, PasswordEncoder passwordEncoder) {
-        this.uzytkownikService = uzytkownikService;
-        this.passwordEncoder = passwordEncoder;
-    }
-    
-    @PostMapping(value="/rejestracjaUzytkownika")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        try {
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            uzytkownikService.saveUser(user);
-            return ResponseEntity.ok("Użytkownik został pomyślnie zapisany.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Wystąpił błąd podczas zapisywania użytkownika.");
-        }
-    }
+		this.uzytkownikService = uzytkownikService;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	@PostMapping(value = "/rejestracjaUzytkownika")
+	public ResponseEntity<String> createUser(@RequestBody User user) {
+		try {
+			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
+			uzytkownikService.saveUser(user);
+			return ResponseEntity.ok("Użytkownik został pomyślnie zapisany.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Wystąpił błąd podczas zapisywania użytkownika.");
+		}
+	}
 }
