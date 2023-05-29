@@ -10,17 +10,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="marka_samochodu")
+@Table(name = "marka_samochodu")
 public class Marka {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_marka_samochodu")
-    private Long idMarka;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_marka_samochodu")
+	private Long idMarka;
 
 	@NotNull
-    @Column(name = "nazwa_marki_samochodu")
-    private String nazwaMarka;
+	@Column(name = "nazwa_marki_samochodu")
+	private String nazwaMarka;
 
 	public Long getIdMarka() {
 		return idMarka;
@@ -38,7 +38,4 @@ public class Marka {
 		this.nazwaMarka = nazwaMarka;
 	}
 
-    
-    
-    
 }

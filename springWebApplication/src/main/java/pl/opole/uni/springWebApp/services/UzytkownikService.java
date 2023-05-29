@@ -23,63 +23,60 @@ import pl.opole.uni.springWebApp.repositories.UzytkownikRepository;
 @Service
 public class UzytkownikService implements UserDetailsService {
 
-	
-	private static final String SECRET_KEY = "tajnyKluczDoPodpisuTokena"; // Klucz do podpisu tokena (możesz wygenerować losowy klucz)
+	private static final String SECRET_KEY = "tajnyKluczDoPodpisuTokena"; // Klucz do podpisu tokena (możesz wygenerować
+																			// losowy klucz)
 	@Autowired
 	UzytkownikRepository uzytkownikRepo;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		
-		User user=uzytkownikRepo.findByUsername(username);
-		 if (user == null) {
-	            throw new UsernameNotFoundException("Uzytkownik nie został znaleziony");
-	        }
-	        return user;
-		
-		//return uzytkownikRepo.findByUsername(username);
+
+		User user = uzytkownikRepo.findByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("Uzytkownik nie został znaleziony");
+		}
+		return user;
+
+		// return uzytkownikRepo.findByUsername(username);
 	}
 
-	public void saveUser(User user){
+	public void saveUser(User user) {
 		uzytkownikRepo.save(user);
 	}
-	
-	
-	
-	//Generowanie tokena
+
+	// Generowanie tokena
 	public String generateToken(UserDetails userDetails) {
-		 SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+		SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-        Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + 86400000); // Token wygasa po 24 godzinach
+		Date now = new Date();
+		Date expirationDate = new Date(now.getTime() + 86400000); // Token wygasa po 24 godzinach
 
-        return Jwts.builder()
-        		.setSubject(userDetails.getUsername())
-                .signWith(key)
-                .compact();
-	
-}
-	
-	 public String loginUser(String username, String password) {
-	        UserDetails userDetails = loadUserByUsername(username);
-	        // Sprawdź poprawność hasła (może być potrzebna dodatkowa logika weryfikacji hasła)
+		return Jwts.builder().setSubject(userDetails.getUsername()).signWith(key).compact();
 
-	        if (!passwordMatches(password, userDetails.getPassword())) {
-	            throw new BadCredentialsException("Nieprawidłowe hasło");
-	        }
-	        
-	        // Generuj token JWT
-	        String token = generateToken(userDetails);
+	}
 
-	        return token;
-	    }
-	 private boolean passwordMatches(String rawPassword, String encodedPassword) {
-	        return passwordEncoder().matches(rawPassword, encodedPassword);
-	    }
-	 
-	 private PasswordEncoder passwordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
-	 
+	public String loginUser(String username, String password) {
+		UserDetails userDetails = loadUserByUsername(username);
+		// Sprawdź poprawność hasła (może być potrzebna dodatkowa logika weryfikacji
+		// hasła)
+
+		if (!passwordMatches(password, userDetails.getPassword())) {
+			throw new BadCredentialsException("Nieprawidłowe hasło");
+		}
+
+		// Generuj token JWT
+		String token = generateToken(userDetails);
+
+		return token;
+	}
+
+	private boolean passwordMatches(String rawPassword, String encodedPassword) {
+		return passwordEncoder().matches(rawPassword, encodedPassword);
+	}
+
+	private PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 }

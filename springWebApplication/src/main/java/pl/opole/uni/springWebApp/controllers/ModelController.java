@@ -24,41 +24,37 @@ public class ModelController {
 
 	@Autowired
 	private ModelService modelService;
-	
-//	@GetMapping("/model")
-//	public List<ModelSamochodu> getModelSamochodu(){
-//		return modelService.findAllItems();
-//	}
-	
+
 	@GetMapping("/model")
-	public List<ModelSamochodu> getModelSamochodu(@RequestParam(required=false) String nazwaModelu){
-		
-		if(nazwaModelu==null)
-		return modelService.findAllItems();
+	public List<ModelSamochodu> getModelSamochodu(@RequestParam(required = false) String nazwaModelu) {
+
+		if (nazwaModelu == null)
+			return modelService.findAllItems();
 		else
-		return modelService.findNazwaModelu(nazwaModelu);
+			return modelService.findNazwaModelu(nazwaModelu);
 	}
-	
-	@PostMapping(value="/model")
-	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestBody ModelSamochodu nowyModel){
+
+	@PostMapping(value = "/model")
+	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestBody ModelSamochodu nowyModel) {
 		modelService.addItem(nowyModel);
 		return ResponseEntity.ok(nowyModel);
 	}
-	
-	@PutMapping(value="/model")
-	public ResponseEntity<ModelSamochodu> editModelSamochodu( @Valid @RequestParam Long id, @RequestBody ModelSamochodu updateModel){
-		ModelSamochodu modelSamochodu= modelService.findById(id);
-		if(modelSamochodu == null) {
+
+	@PutMapping(value = "/model")
+	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestParam Long id,
+			@RequestBody ModelSamochodu updateModel) {
+		ModelSamochodu modelSamochodu = modelService.findById(id);
+		if (modelSamochodu == null) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		updateModel.setId(modelSamochodu.getId());
 		modelService.updateItem(updateModel);
 		return ResponseEntity.ok(updateModel);
 	}
-	
-	@DeleteMapping(value="/model")
-	public ResponseEntity<ModelSamochodu> deleteModelSamochodu(@RequestParam Long id){
+
+	@DeleteMapping(value = "/model")
+	public ResponseEntity<ModelSamochodu> deleteModelSamochodu(@RequestParam Long id) {
 		modelService.deleteItem(modelService.findById(id));
 		return ResponseEntity.noContent().build();
 	}

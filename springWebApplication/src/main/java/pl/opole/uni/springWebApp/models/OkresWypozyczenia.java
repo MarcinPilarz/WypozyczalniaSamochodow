@@ -18,37 +18,24 @@ import javax.persistence.Table;
 @Table(name = "okres_wypozyczenia")
 public class OkresWypozyczenia {
 
-	
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  @Column(name = "id_okres_wypozyczenia")
-	  private Long id_okres_wypozyczenia;
-	  
-	  //tworzenie transakcji
-	  @ManyToOne(fetch=FetchType.EAGER)
-	  private Klient klient;
-	  
-	  
-	  @ManyToOne(fetch = FetchType.EAGER)
-	  private Samochod samochod;
-	  
-	  //
-	  
-	  @Column(name="termin_wypozyczenia")
-	  private LocalDate terminWypozyczenia;
-	  
-	  @Column(name="termin_oddania")
-	  private LocalDate terminOddania;
-	  
-	 // @Column(name="jest_wypozyczony")
-	//  private Boolean jestWypozyczony;
-	  
-	 // @OneToMany(mappedBy = "okres_wypozyczenia")
-//	  @JoinColumn(name = "id_oddzialu")
-	//  private Wypo;
-	  
-	  
-	  
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_okres_wypozyczenia")
+	private Long id_okres_wypozyczenia;
+
+	// tworzenie transakcji
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Klient klient;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Samochod samochod;
+
+	@Column(name = "termin_wypozyczenia")
+	private LocalDate terminWypozyczenia;
+
+	@Column(name = "termin_oddania")
+	private LocalDate terminOddania;
+
 	public Long getId_okres_wypozyczenia() {
 		return id_okres_wypozyczenia;
 	}
@@ -73,16 +60,6 @@ public class OkresWypozyczenia {
 		this.terminOddania = terminOddania;
 	}
 
-//	public Boolean getJestWypozyczony() {
-//		return jestWypozyczony;
-//	}
-//
-//	public void setJestWypozyczony(Boolean jestWypozyczony) {
-//		this.jestWypozyczony = jestWypozyczony;
-//	}
-	
-	//potrzebne do transakcji
-
 	public Klient getKlient() {
 		return klient;
 	}
@@ -98,7 +75,5 @@ public class OkresWypozyczenia {
 	public void setSamochod(Samochod samochod) {
 		this.samochod = samochod;
 	}
-	  
-	  
-	  
+
 }

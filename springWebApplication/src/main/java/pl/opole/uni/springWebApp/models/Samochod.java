@@ -1,7 +1,6 @@
 package pl.opole.uni.springWebApp.models;
 
-import javax.persistence.*; 
-
+import javax.persistence.*;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -14,85 +13,59 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
-
 @Entity
 @Table(name = "samochod")
 public class Samochod {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long idSamochodu;
-    
-//    @Column(name="marka")
-//    private String marka;
-//    
-    @Column(name="pojemnosc_baterii")
-    private int pojemnosc_baterii;
-    
-    @Column(name="iloscDrzwi")
-    private String ilosc_drzwi;
-    
-    @Column(name="kolor_samochodu")
-    private String kolor_samochodu;
-    
-    @Column(name="moc_silnika")
-    private int moc_silnika;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long idSamochodu;
 
-    @Column(name = "rok_produkcji")
-    private int rokProdukcji;
-    
-    @Column(name="cena_samochodu")
-    private double cenaSamochodu;
-    
-    @Column(name="czy_wypozyczony")
-    private boolean czyWypozyczony;
-//    
-    
-    @Lob
-    @Column(name="zdjecie")
-   private byte[] zdjecie;
-//    
-//    @Column(name="zdjecie")
-//    private String zdjecie;
-//    @Lob
-//    @Column
-//    private byte[] zdjecie;
-//    @Column(name="model")
-//    private String model;
-//    @Column(name="marka")
-//    private String marka;
-    
-    @ManyToMany( fetch=FetchType.LAZY, mappedBy = "samochody")
-    private List<Klient> klienci;
-    
-    @ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name = "id_oddzialu")
-    private Oddzial oddzial;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "samochody_ubezpieczenia", joinColumns = @JoinColumn(name = "id_samochodu"), inverseJoinColumns = @JoinColumn(name = "id_ubezpieczenia"))
-    private List<Ubezpieczenie> ubezpieczenia;
-    
-//    @ManyToOne
-//    @JoinColumn(name = "id_producenta")
-//    private ProducentSamochodow producent;
-    
-    
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "id_modelu")
-    private ModelSamochodu modelSamochodu;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_marka_samochodu")
-    private Marka marka;
+	@Column(name = "pojemnosc_baterii")
+	private int pojemnosc_baterii;
 
-//    @OneToOne
-//    @JoinColumn(name="id_zdjecie")
-//    private Zdjecie zdjecie;
-    
-    
+	@Column(name = "iloscDrzwi")
+	private String ilosc_drzwi;
+
+	@Column(name = "kolor_samochodu")
+	private String kolor_samochodu;
+
+	@Column(name = "moc_silnika")
+	private int moc_silnika;
+
+	@Column(name = "rok_produkcji")
+	private int rokProdukcji;
+
+	@Column(name = "cena_samochodu")
+	private double cenaSamochodu;
+
+	@Column(name = "czy_wypozyczony")
+	private boolean czyWypozyczony;
+
+	@Lob
+	@Column(name = "zdjecie")
+	private byte[] zdjecie;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "samochody")
+	private List<Klient> klienci;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_oddzialu")
+	private Oddzial oddzial;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "samochody_ubezpieczenia", joinColumns = @JoinColumn(name = "id_samochodu"), inverseJoinColumns = @JoinColumn(name = "id_ubezpieczenia"))
+	private List<Ubezpieczenie> ubezpieczenia;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_modelu")
+	private ModelSamochodu modelSamochodu;
+
+	@ManyToOne
+	@JoinColumn(name = "id_marka_samochodu")
+	private Marka marka;
+
 	public Long getIdSamochodu() {
 		return idSamochodu;
 	}
@@ -129,25 +102,9 @@ public class Samochod {
 		return ubezpieczenia;
 	}
 
-//	public String getMarka() {
-//		return marka;
-//	}
-//
-//	public void setMarka(String marka) {
-//		this.marka = marka;
-//	}
-
 	public void setUbezpieczenia(List<Ubezpieczenie> ubezpieczenia) {
 		this.ubezpieczenia = ubezpieczenia;
 	}
-
-//	public ProducentSamochodow getProducent() {
-//		return producent;
-//	}
-//
-//	public void setProducent(ProducentSamochodow producent) {
-//		this.producent = producent;
-//	}
 
 	public ModelSamochodu getModelSamochodu() {
 		return modelSamochodu;
@@ -221,55 +178,4 @@ public class Samochod {
 		this.zdjecie = zdjecie;
 	}
 
-//	public String getZdjecie() {
-//		return zdjecie;
-//	}
-
-	
-
-//	public Zdjecie getZdjecie() {
-//		return zdjecie;
-//	}
-//
-//	public void setZdjecie(Zdjecie zdjecie) {
-//		this.zdjecie = zdjecie;
-//	}
-
-	
-	
-//	public byte[] getZdjecie() {
-//		return zdjecie;
-//	}
-//
-//	public void setZdjecie(byte[] zdjecie) {
-//		this.zdjecie = zdjecie;
-//	}
-//
-//	
-	
-
-	
-	
-
-	
-//	public String getModel() {
-//		return model;
-//	}
-//
-//	public void setModel(String model) {
-//		this.model = model;
-//	}
-//
-//	public String getMarka() {
-//		return marka;
-//	}
-//
-//	public void setMarka(String marka) {
-//		this.marka = marka;
-//	}
-
-    
-	
-    
-    
 }

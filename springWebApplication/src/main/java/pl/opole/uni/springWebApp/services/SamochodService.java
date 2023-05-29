@@ -18,13 +18,13 @@ import pl.opole.uni.springWebApp.repositories.SamochodRepository;
 import pl.opole.uni.springWebApp.repositories.WypozyczenieRepository;
 
 @Service
-public class SamochodService implements MainService<Samochod>{
+public class SamochodService implements MainService<Samochod> {
 
-	
 	@Autowired
 	private SamochodRepository samochodRepo;
 	@Autowired
 	private WypozyczenieRepository okresWypozyczenia;
+
 	@Override
 	public List<Samochod> findAllItems() {
 		// TODO Auto-generated method stub
@@ -40,19 +40,19 @@ public class SamochodService implements MainService<Samochod>{
 //		// TODO Auto-generated method stub
 //		return samochodRepo.findByRokProdukcjiGreaterThan(rok_Produkcji);
 //	}
-	
+
 	@Override
 	public void addItem(Samochod samochod) {
 		// TODO Auto-generated method stub
 		try {
-			String zdjecieBase64= new String(samochod.getZdjecie());
-			byte[] zdjecieBytes=Base64.getDecoder().decode(zdjecieBase64);
+			String zdjecieBase64 = new String(samochod.getZdjecie());
+			byte[] zdjecieBytes = Base64.getDecoder().decode(zdjecieBase64);
 			samochod.setZdjecie(zdjecieBytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		samochodRepo.save(samochod);
-		
+
 	}
 
 	@Override
@@ -73,11 +73,10 @@ public class SamochodService implements MainService<Samochod>{
 		return samochodRepo.findById(id).orElse(null);
 	}
 
-
-	public List<Samochod> sortByPriceAsc(){
+	public List<Samochod> sortByPriceAsc() {
 		return samochodRepo.findByOrderByCenaSamochodu();
 	}
-	
+
 //	 public void dodajZdjecie(Long id, MultipartFile zdjecie) throws IOException {
 //	        Optional<Samochod> optionalSamochod = samochodRepo.findById(id);
 //	        if (optionalSamochod.isPresent()) {
@@ -88,7 +87,7 @@ public class SamochodService implements MainService<Samochod>{
 //	            throw new IllegalArgumentException("Samochod o podanym ID nie istnieje.");
 //	        }
 //	    }
-	
+
 //	public SamochodDTO dodajZdjecie(SamochodDTO samochod) {
 //		Samochod samochod = new Samochod();
 //		

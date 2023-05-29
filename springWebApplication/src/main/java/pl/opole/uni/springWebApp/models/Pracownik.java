@@ -1,37 +1,33 @@
 package pl.opole.uni.springWebApp.models;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name = "pracownik")
 public class Pracownik {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pracownik")
-    private Long id_pracownik;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_pracownik")
+	private Long id_pracownik;
 
-    @NotNull
-    @Column(name = "imie_pracownik")
-    private String imie_pracownik;
+	@NotNull
+	@Column(name = "imie_pracownik")
+	private String imie_pracownik;
 
-    @NotNull
-    @Column(name = "nazwisko_pracownik")
-    private String nazwisko_pracownik;
-    
-    
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+	@NotNull
+	@Column(name = "nazwisko_pracownik")
+	private String nazwisko_pracownik;
 
-    
-    
-   @ManyToOne(fetch=FetchType.LAZY)
-   @JoinColumn(name="id_klient")
-   private Klient klient;
-    
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_klient")
+	private Klient klient;
+
 	public Long getId() {
 		return id_pracownik;
 	}
@@ -96,5 +92,4 @@ public class Pracownik {
 		this.user = user;
 	}
 
-    
 }
