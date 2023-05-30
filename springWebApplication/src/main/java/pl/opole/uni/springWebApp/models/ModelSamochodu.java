@@ -19,11 +19,11 @@ public class ModelSamochodu {
 	@Column(name = "id_model_samochodu")
 	private Long id;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "nazwa_model_samochodu")
 	private String nazwaModelu;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "rok_produkcji")
 	private Integer rokProdukcji;
 

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,11 +41,39 @@ public class UwierzytelnienieController {
 			UserDetails userDetails = uzytkownikService.loadUserByUsername(user.getUsername());
 			String token = uzytkownikService.generateToken(userDetails);
 
-			return token;
+			
+			
+			
+			//return token;
+			
+			
+			
+			 // Pobieranie roli użytkownika
+            String role = userDetails.getAuthorities().iterator().next().getAuthority();
+            System.out.print(role);
+         // Zwracanie odpowiedzi w formacie String
+            return "Authenticated;Token=" + token + ";Role=" + role;
+          
+			
 		} catch (AuthenticationException e) {
 			// Obsłuż błędy uwierzytelniania
 			return "Błąd uwierzytelniania: " + e.getMessage();
 		}
 	}
 
+	@GetMapping("/check-login")
+    @ResponseBody
+    public String checkLoginStatus(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+
+            // Pobieranie roli użytkownika
+            String role = authentication.getAuthorities().iterator().next().getAuthority();
+
+            // Zwracanie odpowiedzi w formacie String
+            return "Logged In;Username=" + username + ";Role=" + role;
+        } else {
+            return "Not Logged In";
+        }
+	}
 }

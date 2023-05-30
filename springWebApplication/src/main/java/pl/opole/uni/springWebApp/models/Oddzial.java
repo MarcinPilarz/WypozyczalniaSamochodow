@@ -13,11 +13,11 @@ public class Oddzial {
 	@Column(name = "id_oddzial")
 	private Long idOddzial;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "nazwa_oddzial")
 	private String nazwaOddzial;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "adres")
 	private String adresOddzial;
 

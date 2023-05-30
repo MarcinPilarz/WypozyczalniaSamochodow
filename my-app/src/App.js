@@ -15,6 +15,8 @@ import NoPage from './components/404';
 import ToyotaSection from './components/ToyotaSection';
 import VolvoSection from './components/VolvoSection';
 import CookieSection from './components/Cookie';
+import UserPanel from './components/UserPanel';
+import CarTable from './components/CarTable';
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +26,7 @@ function App() {
   
       <Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path="/User" element={<UserPanel />} />
         <Route path="/BMW" element={<BMWSection />} />
         <Route path='/Audi' element={<ASection/>}/>
         <Route path='/Tesla' element={<TSection/>}/>
@@ -34,6 +37,7 @@ function App() {
         <Route path='/Cookies' element={<CookieSection/>}/>
         <Route path="/car-details/:carName" element={<BMWSection />} />
         <Route path='/Contact' element={<ContactSection/>}/>
+        <Route path="/add-car" element={<CarTable />} />
         <Route path="*" element={<NoPage/>} />
 
       </Routes>

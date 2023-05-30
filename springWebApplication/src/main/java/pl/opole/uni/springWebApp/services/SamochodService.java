@@ -44,14 +44,17 @@ public class SamochodService implements MainService<Samochod> {
 	@Override
 	public void addItem(Samochod samochod) {
 		// TODO Auto-generated method stub
-		try {
-			String zdjecieBase64 = new String(samochod.getZdjecie());
-			byte[] zdjecieBytes = Base64.getDecoder().decode(zdjecieBase64);
-			samochod.setZdjecie(zdjecieBytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		samochodRepo.save(samochod);
+		if (samochod.getZdjecie() != null) {
+	        try {
+	            String zdjecieBase64 = new String(samochod.getZdjecie());
+	            byte[] zdjecieBytes = Base64.getDecoder().decode(zdjecieBase64);
+	            samochod.setZdjecie(zdjecieBytes);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            System.out.print("additem error");
+	        }
+	    }
+	    samochodRepo.save(samochod);
 
 	}
 
