@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "../CarTable.css";
 
 const CarTable = () => {
   const [cars, setCars] = useState([]);
@@ -188,7 +189,7 @@ const CarTable = () => {
 
   return (
     <div>
-      <table>
+      <table className="car-table">
         <thead>
           <tr>
             <th>ID</th>
