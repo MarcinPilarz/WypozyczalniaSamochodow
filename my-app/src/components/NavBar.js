@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import BMWSection from './BMWSection';
 
 import CarTable from './CarTable';
+
 function NavBar() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -153,11 +153,11 @@ function ASection() {
         </div>
         <div className="car-details-container container">
           {filteredCarsByBrandId(1).map((car) => (
-            <div key={car.id} className={`box ${expandedBoxes.includes(car.id) ? 'expanded' : ''}`}>
+            <div key={car.idSamochodu} className={`box ${expandedBoxes.includes(car.idSamochodu) ? 'expanded' : ''}`}>
               <h3>{car.modelSamochodu.nazwa}</h3>
               <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>
-              {expandedBoxes.includes(car.id) && (
+              {expandedBoxes.includes(car.idSamochodu) && (
                 <div className="additional-details">
                   <p>Moc silnika: {car.moc_silnika}</p>
                   <p>Pojemność baterii: {car.pojemnosc_baterii}</p>
@@ -169,8 +169,8 @@ function ASection() {
               <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.model)}>
                 Wynajmij
               </a>
-              <a href="#" className="details" onClick={() => handleDetailsClick(car.id)}>
-                {getDetailsButtonText(car.id)}
+              <a href="#" className="details" onClick={() => handleDetailsClick(car.idSamochodu)}>
+                {getDetailsButtonText(car.idSamochodu)}
               </a>
             </div>
           ))}
