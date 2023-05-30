@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Home from './Home';
 import axios from 'axios';
-import Modal from 'react-modal';
 
+import { useNavigate } from 'react-router-dom';
 import BMWSection from './BMWSection';
-//Modal.setAppElement('#root');
+
+import CarTable from './CarTable';
+
 function NavBar() {
-  //const [popupLogin, setPopupLogin] = useState(false);
-  //const [popupRegister, setPopupRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [popupLogin, setPopupLogin] = useState(false);
+  const [popupRegister, setPopupRegister] = useState(false);
   const [registrationData, setRegistrationData] = useState({
     username: '',
     imie: '',
@@ -22,15 +25,20 @@ function NavBar() {
 
   const [showRegistrationSuccess, setShowRegistrationSuccess] = useState(false);
 
-
   const [loginData, setLoginData] = useState({
     username: '',
     password: ''
   });
+
+  const [role, setRole] = useState(''); // Dodana zmienna roli
+  const navigate = useNavigate();
+
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
   };
 
+
+  
   const handleButtonClick = () => {
     const element = document.getElementById('bottom');
     if (element) {
@@ -45,25 +53,30 @@ function NavBar() {
     }
   };
 
-  const [popupLogin, setPopLogin] = useState(false);
-
   const handleLoginClick = () => {
-    setPopLogin(!popupLogin);
+    setPopupLogin(true);
   };
 
-  const closePopUpLogin = () => {
-    setPopLogin(false);
+  const closePopupLogin = () => {
+    setPopupLogin(false);
   };
-  const [popupRegister, setPopRegister] = useState(false);
 
   const handleRegisterClick = () => {
-    setPopRegister(!popupRegister);
+    setPopupRegister(true);
+  };
+
+  const closePopupRegister = () => {
+    setPopupRegister(false);
+  };
+
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false);
   };
 
   const closePopUpRegister = () => {
-    setPopRegister(false);
+    setPopupRegister(false);
   };
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setRegistrationData((prevState) => ({
@@ -71,20 +84,17 @@ function NavBar() {
       [name]: value
     }));
   };
-  
+
   const handleRegistrationSuccess = () => {
     setShowRegistrationSuccess(true);
     closePopUpRegister();
   };
 
-  // const handleModalClose = () => {
-  //   setShowRegistrationSuccess(false);
-  // };
   const handleRegisterSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:8080/klienci', registrationData);
       console.log(response.data); // Odpowiedź z serwera
-  
+
       // Wyczyść pola formularza po udanym zarejestrowaniu
       setRegistrationData({
         username: '',
@@ -95,11 +105,11 @@ function NavBar() {
         password: ''
       });
       handleRegistrationSuccess(true);
-  } catch (error) {
-    console.log(error); // Obsługa błędu
-  }
+    } catch (error) {
+      console.log(error); // Obsługa błędu
+    }
   };
-  
+
   const handleLoginInputChange = (event) => {
     const { name, value } = event.target;
     setLoginData((prevState) => ({
@@ -108,26 +118,74 @@ function NavBar() {
     }));
   };
 
-
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
-    
+
     try {
-      // Wykonaj żądanie logowania na serwerze
       const response = await axios.post('http://localhost:8080/login', loginData);
-      console.log(response.data); // Odpowiedź z serwera
-  
-      // Zresetuj pola formularza logowania
+      console.log(response.data);
+
+     // const role = response.data.Role; // Użyj 'Role' zamiast 'role'
+     console.log(response.data);
+     const role = response.data.role; // Użyj 'Role' zamiast 'role'
+     console.log(role); // Dodaj ten console.log
+
+
+      const token = response.data.token;
+      console.log(token);
+      // Zapisanie tokenu w localStorage
+      localStorage.setItem('token', token);
+
       setLoginData({
         username: '',
         password: ''
       });
-  
-      // Przetwórz odpowiedź z serwera i wykonaj odpowiednie akcje (np. przechowywanie tokena, przekierowanie użytkownika itp.)
+
+      setIsLoggedIn(true);
+      console.log(response.data['Role']);
+      setRole(response.data.role);
+     // console.log(response.data.Role);
+     console.log(response.data.Role);
+      closePopupLogin();
     } catch (error) {
-      console.log(error); // Obsługa błędu
+      console.log(error);
     }
   };
+
+ 
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      // Odczytanie tokenu z localStorage
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        try {
+          // Wysłanie żądania do serwera w celu weryfikacji tokenu
+          const response = await axios.get('http://localhost:8080/check-login', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          // Sprawdzenie statusu zalogowania na podstawie odpowiedzi serwera
+          if (response.data.isLoggedIn) {
+            setIsLoggedIn(true);
+            setRole(response.data.role);
+            console.log(response.data.role); // Dodaj ten console.log
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+  const handleAddCarClick = () => {
+    // Przekierowanie do strony "Dodaj samochód"
+    navigate('/add-car');
+  };
+  
   return (
     <>
       <header>
@@ -146,7 +204,7 @@ function NavBar() {
               <a href="#Oferta">O nas</a>
             </li>
             <li>
-              <a onClick={handleButtonClick}>Oferta</a>
+            <a onClick={handleButtonClick}>Oferta</a>
             </li>
             <li>
               <a href="/Contact">Kontakt</a>
@@ -157,29 +215,51 @@ function NavBar() {
             <input type="search" placeholder="Szukaj..." />
           </div>
           <div className="btn-login-container">
-            <button className="btn-login" href="#Logowanie" onClick={handleLoginClick}>
-              Logowanie
-            </button>
-            <button className="btn-login" href="#Rejestracja" onClick={handleRegisterClick}>
-              Rejestracja
-            </button>
+            {isLoggedIn ? (
+              <div className="dropdown">
+                <button className="btn-login">Profil</button>
+                {isLoggedIn  && (
+  
+    <button className="nav__btn" onClick={handleAddCarClick}>
+        Dodaj pojazd
+      </button>
+)}
+                <div className="dropdown-content">
+                  <a href="/User">Wyświetl profil</a>
+                  <a href="#" onClick={handleLogoutClick}>
+                    Wyloguj
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <>
+                <button className="btn-login" onClick={handleLoginClick}>
+                  Logowanie
+                </button>
+                <button className="btn-login" onClick={handleRegisterClick}>
+                  Rejestracja
+                </button>
+              </>
+            )}
           </div>
         </div>
-{/* Logowanie */}
+      </header>
+
+      {/* Logowanie */}
+      {popupLogin && (
         <section className="car-details" id="car-details">
           <div>
-            {popupLogin ? (
-              <div className="popup-container">
-                <div className="popup">
-                  <div className="popup-header">
-                    <h3 className="popup-header-text">Zaloguj się</h3>
-                    <button className="close-btn" onClick={closePopUpLogin}>
-                      X
-                    </button>
-                  </div>
-                  <div className="popup-inputs-container">
-                    <p className="popup-input-headers">Nazwa użytkownika/Adres email</p>
-                    <input 
+            <div className="popup-container">
+              <div className="popup">
+                <div className="popup-header">
+                  <h3 className="popup-header-text">Zaloguj się</h3>
+                  <button className="close-btn" onClick={closePopupLogin}>
+                    X
+                  </button>
+                </div>
+                <div className="popup-inputs-container">
+                  <p className="popup-input-headers">Nazwa użytkownika/Adres email</p>
+                  <input 
                     type="text"
                     name="username"
                     placeholder="Podaj adres email"
@@ -187,8 +267,8 @@ function NavBar() {
                     onChange={handleLoginInputChange}
                   
                      />
-                    <p className="popup-input-headers">Hasło</p>
-                    <input
+                  <p className="popup-input-headers">Hasło</p>
+                  <input
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Podaj hasło"
                       name="password"
@@ -196,38 +276,39 @@ function NavBar() {
                       value={loginData.password}
                       onChange={handleLoginInputChange}
                     />
-                    <div className="popup-login-show-password">
-                      <input
-                        type="checkbox"
-                        checked={showPassword}
-                        onChange={handlePasswordToggle}
-                      />
-                      <p>Pokaż hasło</p>
-                    </div>
-                    <button type='submit' onClick={handleLoginSubmit} className="popup-inputs-button">Zaloguj</button>
-                    
+                  <div className="popup-login-show-password">
+                    <input
+                      type="checkbox"
+                      checked={showPassword}
+                      onChange={handlePasswordToggle}
+                    />
+                    <p>Pokaż hasło</p>
                   </div>
+                  <button className="popup-inputs-button" onClick={handleLoginSubmit}>
+                    Zaloguj
+                  </button>
                 </div>
               </div>
-            ) : (
-              ''
-            )}
+            </div>
           </div>
         </section>
-        {/* Logowanie end */}
-        {/* Rejestracja */}
+      )}
+      {/* Logowanie end */}
+
+      {/* Rejestracja */}
+      {popupRegister && (
         <section className="car-details" id="car-details">
           <div>
-            {popupRegister ? (
-              <div className="popup-container">
-                <div className="popup">
-                  <div className="popup-header">
-                    <h3 className="popup-header-text">Zarejestruj się</h3>
-                    <button className="close-btn" onClick={closePopUpRegister}>
-                      X
-                    </button>
-                  </div>
-                  <div className="popup-inputs-container">
+            <div className="popup-container">
+              <div className="popup">
+                <div className="popup-header">
+                  <h3 className="popup-header-text">Zarejestruj się</h3>
+                  <button className="close-btn" onClick={closePopupRegister}>
+                    X
+                  </button>
+                </div>
+                
+                <div className="popup-inputs-container">
                   <p className="popup-input-headers">Nazwa użytkownika</p>
                     <input 
                     type="text" 
@@ -237,15 +318,15 @@ function NavBar() {
                     onChange={handleInputChange}
                     />
                   <p className="popup-input-headers">Imię</p>
-                    <input 
+                  <input 
                     type="text" 
                     name="imie"
                     placeholder="Podaj Imię"
                     value={registrationData.imie}
                     onChange={handleInputChange}
                     />
-                    <p className="popup-input-headers">Nazwisko</p>
-                    <input 
+                  <p className="popup-input-headers">Nazwisko</p>
+                  <input 
                     type="text" 
                     name="nazwisko"
                     placeholder="Podaj Nazwisko"
@@ -253,27 +334,24 @@ function NavBar() {
                     onChange={handleInputChange}
                     />
 
-                    
-                    <p className="popup-input-headers">Adres email</p>
-                    <input 
+                  <p className="popup-input-headers">Adres email</p>
+                  <input 
                     type="text"
                     name="email" 
                     placeholder="Podaj adres email"
                     value={registrationData.email}
                     onChange={handleInputChange}
                     />
-
-                    
-                    <p className="popup-input-headers">Nr. kontaktowy</p>
-                    <input 
+                  <p className="popup-input-headers">Nr. kontaktowy</p>
+                  <input 
                     type="text" 
                     name="telefon"
                     placeholder="Podaj nr. kontaktowy"
                     value={registrationData.telefon}
                     onChange={handleInputChange}
                     />
-                    <p className="popup-input-headers">Ustaw hasło</p>
-                    <input
+                  <p className="popup-input-headers">Ustaw hasło</p>
+                  <input
                       type={showPassword ? 'text' : 'password'}
                       name="password"
                       placeholder="Podaj hasło"
@@ -281,11 +359,9 @@ function NavBar() {
                       value={registrationData.password}
                       onChange={handleInputChange}
                     />
-                    <div className="popup-login-show-password">
-                     
-                    </div>
-                    <p className="popup-input-headers">Powtórz hasło</p>
-                    <input
+                  <div className="popup-login-show-password"></div>
+                  <p className="popup-input-headers">Powtórz hasło</p>
+                  <input
                       type={showPassword ? 'text' : 'password'}
                       name="confirmPassword"
                       placeholder="Powtórz hasło"
@@ -293,31 +369,24 @@ function NavBar() {
                       value={registrationData.confirmPassword}
                       onChange={handleInputChange}
                     ></input>
-                    <div className="popup-login-show-password">
-                      <input
-                        type="checkbox"
-                        checked={showPassword}
-                        onChange={handlePasswordToggle}
-                      />
-                      <p>Pokaż hasło</p>
-                    </div>
-                    <button className="popup-inputs-button" onClick={handleRegisterSubmit}>Zarejestruj</button>
+                  <div className="popup-login-show-password">
+                    <input
+                      type="checkbox"
+                      checked={showPassword}
+                      onChange={handlePasswordToggle}
+                    />
+                    <p>Pokaż hasło</p>
                   </div>
+                  <button className="popup-inputs-button" onClick={handleRegisterSubmit}>Zarejestruj</button>
                 </div>
               </div>
-            ) : (
-              ''
-            )}
+            </div>
           </div>
         </section>
-        {/* Rejestracja end */}
-      </header>
-        {/* Modal z wiadomością o udanej rejestracji */}
-       {/* Okno z wiadomością o udanej rejestracji */}
-     
+      )}
+      {/* Rejestracja end */}
     </>
   );
-
 }
 
 export default NavBar;

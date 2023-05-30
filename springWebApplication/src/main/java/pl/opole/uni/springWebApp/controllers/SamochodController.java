@@ -59,24 +59,24 @@ public class SamochodController {
 		return samochodService.sortByPriceAsc();
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping(value = "/samochod/dto")
-	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto) {
+//	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PostMapping(value = "/samochod/dto")
+//	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto) {
+//
+//		Samochod samochod = new Samochod();
+//
+//		samochod.setPojemnosc_baterii(postDto.pojemnoscBaterii());
+//		samochod.setIlosc_drzwi(postDto.ilosc_Drzwi());
+//		samochod.setKolor_samochodu(postDto.kolor_samochodu());
+//		samochod.setMoc_silnika(postDto.moc_silnika());
+//		samochod.setRokProdukcji(postDto.rokProdukcji());
+//		samochod.setCenaSamochodu(postDto.cenaSamochodu());
+//		samochod.setCzyWypozyczony(postDto.czyWypozyczony());
+//		samochodService.addItem(samochod);
+//		return ResponseEntity.ok(samochod);
+//	}
 
-		Samochod samochod = new Samochod();
-
-		samochod.setPojemnosc_baterii(postDto.pojemnoscBaterii());
-		samochod.setIlosc_drzwi(postDto.ilosc_Drzwi());
-		samochod.setKolor_samochodu(postDto.kolor_samochodu());
-		samochod.setMoc_silnika(postDto.moc_silnika());
-		samochod.setRokProdukcji(postDto.rokProdukcji());
-		samochod.setCenaSamochodu(postDto.cenaSamochodu());
-		samochod.setCzyWypozyczony(postDto.czyWypozyczony());
-		samochodService.addItem(samochod);
-		return ResponseEntity.ok(samochod);
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value = "/samochod")
 	public ResponseEntity<Samochod> editSamochod(
 			@RequestPart(value = "zdjecie", required = false) MultipartFile zdjecie,
@@ -93,23 +93,32 @@ public class SamochodController {
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping(value = "/samochod/dto/{id}")
-	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto) {
-		Samochod samochod = new Samochod();
-		samochod.setIdSamochodu(id);
-		samochod.setPojemnosc_baterii(postDto.pojemnoscBaterii());
-		samochod.setIlosc_drzwi(postDto.ilosc_Drzwi());
-		samochod.setKolor_samochodu(postDto.kolor_samochodu());
-		samochod.setMoc_silnika(postDto.moc_silnika());
-		samochod.setRokProdukcji(postDto.rokProdukcji());
-		samochod.setCenaSamochodu(postDto.cenaSamochodu());
-		samochod.setCzyWypozyczony(postDto.czyWypozyczony());
-		return ResponseEntity.ok(samochod);
-	}
+	
+//	@PostMapping(value = "/samochod")
+//	public ResponseEntity<Samochod> editSamochod(
+//	        @RequestBody @Valid Samochod nowySamochod) {
+//	    nowySamochod.setCzyWypozyczony(false);
+//	    samochodService.addItem(nowySamochod);
+//	    return ResponseEntity.ok(nowySamochod);
+//	}
+//	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PutMapping(value = "/samochod/dto/{id}")
+//	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto) {
+//		Samochod samochod = new Samochod();
+//		samochod.setIdSamochodu(id);
+//		samochod.setPojemnosc_baterii(postDto.pojemnoscBaterii());
+//		samochod.setIlosc_drzwi(postDto.ilosc_Drzwi());
+//		samochod.setKolor_samochodu(postDto.kolor_samochodu());
+//		samochod.setMoc_silnika(postDto.moc_silnika());
+//		samochod.setRokProdukcji(postDto.rokProdukcji());
+//		samochod.setCenaSamochodu(postDto.cenaSamochodu());
+//		samochod.setCzyWypozyczony(postDto.czyWypozyczony());
+//		return ResponseEntity.ok(samochod);
+//	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping(value = "/samochod{id}")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PutMapping(value = "/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestParam Long id, @RequestBody Samochod updateSamochod) {
 
 		Samochod samochod = samochodService.findById(id);
@@ -121,7 +130,7 @@ public class SamochodController {
 		return ResponseEntity.ok(updateSamochod);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/samochod")
 	public ResponseEntity<Samochod> deleteSamochod(@RequestParam Long id) {
 

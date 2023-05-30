@@ -17,19 +17,19 @@ public class Klient {
 	@Column(name = "id_klient")
 	private Long idKlienta;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "imie_klient")
 	private String imie_klient;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "nazwisko_klient")
 	private String nazwisko_klient;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "email")
 	private String email;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "nr_telefonu")
 	private String nrTelefonu_klient;
 
