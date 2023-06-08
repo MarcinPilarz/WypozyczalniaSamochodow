@@ -1,5 +1,6 @@
 package pl.opole.uni.springWebApp.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -82,7 +83,7 @@ public class KlientController {
 		}
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value = "/klienci")
 	public ResponseEntity<Klient> editKlient(@Valid @RequestParam Long id, @RequestBody Klient updateKlient) {
 		Klient klient = klientService.findById(id);
@@ -99,4 +100,6 @@ public class KlientController {
 		klientService.deleteItem(klientService.findById(id));
 		return ResponseEntity.noContent().build();
 	}
+	
+
 }

@@ -101,7 +101,7 @@ public class SamochodController {
 //	    samochodService.addItem(nowySamochod);
 //	    return ResponseEntity.ok(nowySamochod);
 //	}
-//	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@PutMapping(value = "/samochod/dto/{id}")
 //	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto) {
 //		Samochod samochod = new Samochod();

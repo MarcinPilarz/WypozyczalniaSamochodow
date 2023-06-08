@@ -60,16 +60,21 @@ public class UzytkownikService implements UserDetailsService {
 		UserDetails userDetails = loadUserByUsername(username);
 		// Sprawdź poprawność hasła (może być potrzebna dodatkowa logika weryfikacji
 		// hasła)
-
+		//System.out.print(userDetails);
+		
+		
 		if (!passwordMatches(password, userDetails.getPassword())) {
 			throw new BadCredentialsException("Nieprawidłowe hasło");
 		}
 
+		
 		// Generuj token JWT
 		String token = generateToken(userDetails);
 
 		return token;
 	}
+	
+	 
 
 	private boolean passwordMatches(String rawPassword, String encodedPassword) {
 		return passwordEncoder().matches(rawPassword, encodedPassword);
@@ -79,4 +84,19 @@ public class UzytkownikService implements UserDetailsService {
 		return new BCryptPasswordEncoder();
 	}
 
+	 public User getUserByUsername(String username) throws UsernameNotFoundException {
+	        User user = uzytkownikRepo.findByUsername(username);
+	        if (user == null) {
+	            throw new UsernameNotFoundException("Użytkownik nie został znaleziony");
+	        }
+	        return user;
+	    }
+	 public User loadUserByUsernameAsUser(String username) throws UsernameNotFoundException {
+		    UserDetails userDetails = loadUserByUsername(username);
+		    if (userDetails instanceof User) {
+		        return (User) userDetails;
+		    } else {
+		        throw new IllegalStateException("Nieprawidłowa implementacja UserDetailsService");
+		    }
+		}
 }

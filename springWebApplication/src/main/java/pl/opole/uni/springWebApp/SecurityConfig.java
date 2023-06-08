@@ -10,7 +10,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +24,8 @@ import pl.opole.uni.springWebApp.models.User;
 import pl.opole.uni.springWebApp.services.UzytkownikService;
 
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
@@ -46,8 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.csrf().disable()
 		.authorizeRequests()
+		//.antMatchers(HttpMethod.POST, "/login").hasRole("USER")
         .antMatchers(HttpMethod.GET, "/klienci").hasRole("ADMIN")
-        .antMatchers("/samochod", "/model", "/rejestracjaUzytkownika","/login").permitAll()
+		
+        .antMatchers("/samochod", "/model", "/rejestracjaUzytkownika","/login", "klienci", "/login/{userId}" ).permitAll()
       //  .anyRequest().authenticated()
         //.and()
        // .formLogin()
@@ -59,37 +65,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutUrl("/logout")
            .permitAll();
 	}
-//	
-//	 @Bean
-//	    public CorsConfigurationSource corsConfigurationSource() {
-//	        CorsConfiguration configuration = new CorsConfiguration();
-//	        configuration.setAllowedOrigins(Arrays.asList("*")); // Ustaw listę dozwolonych adresów źródłowych (lub "*")
-//	        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Ustaw dozwolone metody HTTP
-//	        configuration.setAllowedHeaders(Arrays.asList("*")); // Ustaw dozwolone nagłówki
-//	        configuration.setAllowCredentials(true); // Ustaw, czy przesyłać żądania z uwierzytelnieniem (cookies, nagłówki autoryzacji)
-//
-//	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//	        source.registerCorsConfiguration("/**", configuration);
-//
-//	        return source;
-//	    }
+
 	@Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+	    return super.authenticationManagerBean();
+	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder()
 	{
 		return new BCryptPasswordEncoder();
 	}
-//	
+	
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void establishUsers()
 //	{
 //		uzytkownikService.saveUser(new User("michal", passwordEncoder().encode("michal"), "ROLE_USER"));
-//		uzytkownikService.saveUser(new User("admin1", passwordEncoder().encode("admin1"), "ADMIN"));
+//		uzytkownikService.saveUser(new User("admin2", passwordEncoder().encode("admin2"), "ROLE_ADMIN"));
 //		uzytkownikService.saveUser(new User("jan", passwordEncoder().encode("jan"), "ROLE_MODERATOR"));
 //		uzytkownikService.saveUser(new User("kuba", passwordEncoder().encode("kuba"), "ROLE_USER"));
 //	}

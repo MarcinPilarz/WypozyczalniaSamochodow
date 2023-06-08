@@ -9,10 +9,11 @@ import axios from 'axios';
 function ASection() {
 
   const [cars, setCars] = useState([]);
-
+  const [branches, setBranches] = useState([]);
 
   useEffect(() => {
     fetchCarsFromSpring();
+    fetchBranchesFromSpring();
   }, []);
 
   const fetchCarsFromSpring = async () => {
@@ -42,11 +43,22 @@ function ASection() {
   const [expandedBoxes, setExpandedBoxes] = useState([]);
   const [rentalFormVisible, setRentalFormVisible] = useState(false);
   const [rentalFormData, setRentalFormData] = useState({
-    carName: '',
-    fullName: '',
-    email: '',
-    phone: '',
+    idKlienta: '',
+    idSamochodu: '',
+    idOddzialWypozyczenia: '',
+    idOddzialOddania: '',
+    terminWypozyczenia: '',
+    terminOddania: '',
   });
+
+  const fetchBranchesFromSpring = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/oddzial');
+      setBranches(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleDetailsClick = (boxId) => {
     if (expandedBoxes.includes(boxId)) {
@@ -68,6 +80,8 @@ function ASection() {
     setRentalFormData({ ...rentalFormData, [name]: value });
   };
 
+
+ 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Przetwarzanie danych z formularza
@@ -83,9 +97,53 @@ function ASection() {
     alert('Formularz został wysłany');
   };
 
+
+  const sendRentalData = async () => {
+    try {
+      const {
+        idKlienta,
+        idSamochodu,
+        idOddzialWypozyczenia,
+        idOddzialOddania,
+        terminWypozyczenia,
+        terminOddania,
+      } = rentalFormData;
+
+      await axios.post(
+        'http://localhost:8080/wypozyczenie/nowe',
+        null,
+        {
+          params: {
+            idKlienta,
+            idSamochodu,
+            idOddzialWypozyczenia,
+            idOddzialOddania,
+            terminWypozyczenia,
+            terminOddania,
+          },
+        }
+      );
+
+      setRentalFormData({
+        idKlienta: '',
+        idSamochodu: '',
+        idOddzialWypozyczenia: '',
+        idOddzialOddania: '',
+        terminWypozyczenia: '',
+        terminOddania: '',
+      });
+      setRentalFormVisible(false);
+      alert('Formularz został wysłany');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getDetailsButtonText = (boxId) => {
     return expandedBoxes.includes(boxId) ? 'Zwiń szczegóły' : 'Wyświetl szczegóły';
   };
+
+
     return(
       <>
       <NavBar/>
@@ -135,17 +193,52 @@ function ASection() {
                 </div>
                 <div className="popup-inputs-container">
                   <p className="popup-input-headers">Data wynajmu</p>
-                  <input className="datepicker" type="date"></input>
+                  <input 
+                  className="datepicker" 
+                  type="date"
+                  name="terminWypozyczenia"
+                  value={rentalFormData.terminWypozyczenia}
+                  onChange={handleFormInputChange}
+                  />
                   <p className="popup-input-headers">Miejsce odbioru</p>
-                  <input type="text" placeholder="Podaj miejsce odbioru pojazdu"></input>
+                  <select
+                  name="idOddzialWypozyczenia"
+                   value={rentalFormData.idOddzialWypozyczenia}
+                    onChange={handleFormInputChange}
+>
+                    <option value="">Wybierz oddział</option>
+                      {branches.map((branch) => (
+                     <option key={branch.idOddzial} value={branch.idOddzial}>
+                       {branch.nazwaOddzial}
+                      </option>
+                      ))}
+                    </select>
                   <p className="popup-input-headers">Data zwrotu</p>
-                  <input type="date"></input>
+                  <input
+                      type="date"
+                      name="terminOddania"
+                      value={rentalFormData.terminOddania}
+                      onChange={handleFormInputChange}
+                    />
 
                   <p className="popup-input-headers">Miejsce zwrotu</p>
-                  <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
+                  <select
+                   name="idOddzialOddania"
+                     value={rentalFormData.idOddzialOddania}
+                     onChange={handleFormInputChange}
+                    >
+                     <option value="">Wybierz oddział</option>
+                      {branches.map((branch) => (
+                   <option key={branch.idOddzial} value={branch.idOddzial}>
+                     {branch.nazwaOddzial}
+                    </option>
+                      ))}
+                    </select>
                   <p className="popup-input-headers">Dodatkowe informacje</p>
                   <textarea type="text" placeholder=""></textarea>
-                  <button className="popup-inputs-button">Zapisz i prześlij</button>
+                   <button className="popup-inputs-button" onClick={sendRentalData}>
+                    Zapisz i prześlij
+                  </button>
                 </div>
               </div>
 
@@ -166,7 +259,7 @@ function ASection() {
                   <p>Ilość drzwi: {car.ilosc_drzwi}</p>
                 </div>
               )}
-              <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.model)}>
+              <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.idSamochodu)}>
                 Wynajmij
               </a>
               <a href="#" className="details" onClick={() => handleDetailsClick(car.idSamochodu)}>

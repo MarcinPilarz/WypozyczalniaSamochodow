@@ -1,9 +1,9 @@
-//package pl.opole.uni.springWebApp.models; 
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class BladOdpowiedz {
+package pl.opole.uni.springWebApp.models; 
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BladOdpowiedz {
 //	 private String wiadomosc;
 //	    private List<BladAtrybutu> atrybutyBledow;
 //
@@ -41,4 +41,4 @@
 //			// TODO Auto-generated method stub
 //			
 //		}
-//}
+}

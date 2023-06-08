@@ -1,7 +1,7 @@
-//package pl.opole.uni.springWebApp.models;
-//
-//public class BladAtrybutu {
-//
+package pl.opole.uni.springWebApp.models;
+
+public class BladAtrybutu {
+
 //	private String atrybut;
 //	private String wiadomosc;
 //
@@ -25,4 +25,4 @@
 //	public void setWiadomosc(String wiadomosc) {
 //		this.wiadomosc = wiadomosc;
 //	}
-//}
+}

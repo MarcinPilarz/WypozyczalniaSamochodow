@@ -1,7 +1,9 @@
 package pl.opole.uni.springWebApp.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class User implements UserDetails {
@@ -33,6 +39,9 @@ private static final long serialVersionUID=1L;
 	@Column(name="role")
 	private String role;
 	
+	@Transient
+    private String token;
+	
 	public User() {
 		super();
 	}
@@ -44,13 +53,20 @@ private static final long serialVersionUID=1L;
 		this.role=role;
 	}
 	
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return Collections.singleton(new SimpleGrantedAuthority(role));
+//	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority(role));
+	    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+	    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+	    // Dodaj inne role dla użytkownika
+	    return authorities;
 	}
-
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties("user")
     private Klient klient;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -109,5 +125,35 @@ private static final long serialVersionUID=1L;
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Klient getKlient() {
+		return klient;
+	}
+
+	public void setKlient(Klient klient) {
+		this.klient = klient;
+	}
+
+	public Pracownik getPracownik() {
+		return pracownik;
+	}
+
+	public void setPracownik(Pracownik pracownik) {
+		this.pracownik = pracownik;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 }

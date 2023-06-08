@@ -1,6 +1,8 @@
 package pl.opole.uni.springWebApp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,58 +24,80 @@ import pl.opole.uni.springWebApp.services.UzytkownikService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class UwierzytelnienieController {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private UzytkownikService uzytkownikService;
+    @Autowired
+    private UzytkownikService uzytkownikService;
 
-	@PostMapping("/login")
-	@ResponseBody
-	public String login(@RequestBody User user) {
-		try {
-			// Uwierzytelnianie użytkownika
-			Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+    
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user) {
+        try {
+            // Uwierzytelnianie użytkownika
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-			// Generowanie tokena JWT
-			UserDetails userDetails = uzytkownikService.loadUserByUsername(user.getUsername());
-			String token = uzytkownikService.generateToken(userDetails);
-
-			
-			
-			
-			//return token;
-			
-			
-			
-			 // Pobieranie roli użytkownika
-            String role = userDetails.getAuthorities().iterator().next().getAuthority();
-            System.out.print(role);
-         // Zwracanie odpowiedzi w formacie String
-            return "Authenticated;Token=" + token + ";Role=" + role;
-          
-			
-		} catch (AuthenticationException e) {
-			// Obsłuż błędy uwierzytelniania
-			return "Błąd uwierzytelniania: " + e.getMessage();
-		}
-	}
-
-	@GetMapping("/check-login")
-    @ResponseBody
-    public String checkLoginStatus(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
+            // Generowanie tokena JWT
+            UserDetails userDetails = uzytkownikService.loadUserByUsername(user.getUsername());
+            String token = uzytkownikService.generateToken(userDetails);
 
             // Pobieranie roli użytkownika
-            String role = authentication.getAuthorities().iterator().next().getAuthority();
+            String role = userDetails.getAuthorities().iterator().next().getAuthority();
+            	//String role= "USER";
+            // Pobieranie obiektu User na podstawie username
+            User loggedInUser = uzytkownikService.getUserByUsername(user.getUsername());
 
-            // Zwracanie odpowiedzi w formacie String
-            return "Logged In;Username=" + username + ";Role=" + role;
-        } else {
-            return "Not Logged In";
+            // Aktualizacja obiektu User
+            loggedInUser.setRole(role);
+            loggedInUser.setToken(token);
+
+            // Zwracanie odpowiedzi z obiektem loggedInUser i statusem HTTP 200 OK
+            return ResponseEntity.ok(loggedInUser);
+        } catch (AuthenticationException e) {
+            // Obsłuż błędy uwierzytelniania
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-	}
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<User> checkLoginStatus() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Pobieranie zalogowanego użytkownika
+            User loggedInUser = (User) authentication.getPrincipal();
+
+            // Zwracanie odpowiedzi z obiektem loggedInUser i statusem HTTP 200 OK
+            return ResponseEntity.ok(loggedInUser);
+        } else {
+            // Zwracanie pustego obiektu User i statusem HTTP 401 Unauthorized
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new User());
+        }
+    }
+    
+    @GetMapping("/user")
+    public ResponseEntity<User> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = uzytkownikService.getUserByUsername(username);
+
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+//    @GetMapping("/verify")
+//    public ResponseEntity<String> verifyToken() {
+//      // Sprawdzanie poprawności tokenu i zwracanie odpowiedzi
+//
+//    	// Token jest niepoprawny lub nie został dostarczony
+//    	
+//  }
 }
+
+    
+    
+
