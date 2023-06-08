@@ -56,7 +56,7 @@ function App() {
 
        
       </Routes>
-      {isUserLoggedIn && <NavBar idKlienta={idKlienta} />}
+      {/* {isUserLoggedIn && <NavBar idKlienta={idKlienta} />} */}
       {/* <Footer/> */}
     </BrowserRouter>
   );
