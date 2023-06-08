@@ -187,6 +187,7 @@ useEffect(() => {
     <>
       <header>
         <div className="nav container">
+          
           <i className="bx bx-menu" id="menu-icon"></i>
           <a href="/" className="logo">
             Car<span>Rent</span>

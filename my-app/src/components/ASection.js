@@ -10,11 +10,12 @@ function ASection() {
 
   const [cars, setCars] = useState([]);
   const [branches, setBranches] = useState([]);
-
+  const idKlienta = parseInt(localStorage.getItem('idKlienta'));
   useEffect(() => {
     fetchCarsFromSpring();
     fetchBranchesFromSpring();
   }, []);
+  const [selectedCarId, setSelectedCarId] = useState(null);
 
   const fetchCarsFromSpring = async () => {
     try {
@@ -43,7 +44,7 @@ function ASection() {
   const [expandedBoxes, setExpandedBoxes] = useState([]);
   const [rentalFormVisible, setRentalFormVisible] = useState(false);
   const [rentalFormData, setRentalFormData] = useState({
-    idKlienta: '',
+    idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
     idSamochodu: '',
     idOddzialWypozyczenia: '',
     idOddzialOddania: '',
@@ -68,10 +69,12 @@ function ASection() {
     }
   };
   const [popup, setPop] = useState(false);
-
-  const handleRentClick = () => {
+  
+  const handleRentClick = (carId) => {
+    setRentalFormData({ ...rentalFormData, idSamochodu: carId });
     setPop(!popup);
   }
+
   const closePopUp = () => {
     setPop(false)
   }
@@ -82,6 +85,21 @@ function ASection() {
 
 
  
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Przetwarzanie danych z formularza
+  //   console.log(rentalFormData);
+  //   // Możesz dodać tutaj kod do wysłania danych lub innych operacji
+  //   setRentalFormVisible(false);
+  //   setRentalFormData({
+  //     carName: '',
+  //     fullName: '',
+  //     email: '',
+  //     phone: '',
+  //   });
+  //   alert('Formularz został wysłany');
+  // };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Przetwarzanie danych z formularza
@@ -89,10 +107,12 @@ function ASection() {
     // Możesz dodać tutaj kod do wysłania danych lub innych operacji
     setRentalFormVisible(false);
     setRentalFormData({
-      carName: '',
-      fullName: '',
-      email: '',
-      phone: '',
+      idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
+      idSamochodu: selectedCarId, 
+      idOddzialWypozyczenia: '',
+      idOddzialOddania: '',
+      terminWypozyczenia: '',
+      terminOddania: '',
     });
     alert('Formularz został wysłany');
   };
@@ -108,7 +128,8 @@ function ASection() {
         terminWypozyczenia,
         terminOddania,
       } = rentalFormData;
-
+      console.log("idKlienta:", idKlienta); // Dodaj tę linię
+      console.log("idSamochodu:", idSamochodu); // Dodaj tę linię
       await axios.post(
         'http://localhost:8080/wypozyczenie/nowe',
         null,
@@ -125,8 +146,8 @@ function ASection() {
       );
 
       setRentalFormData({
-        idKlienta: '',
-        idSamochodu: '',
+        idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
+        idSamochodu: selectedCarId, 
         idOddzialWypozyczenia: '',
         idOddzialOddania: '',
         terminWypozyczenia: '',
@@ -191,6 +212,19 @@ function ASection() {
                   <h3 className="popup-header-text">Formularz wynajmu</h3>
                   <button className="close-btn" onClick={closePopUp}>X</button>
                 </div>
+
+                <input
+  type="hidden"
+  name="idKlienta"
+  value={rentalFormData.idKlienta || ''}
+  readOnly
+/>
+              <input
+                type="hidden"
+                name="idSamochodu"
+                value={rentalFormData.idSamochodu || ''}
+                readOnly
+                />
                 <div className="popup-inputs-container">
                   <p className="popup-input-headers">Data wynajmu</p>
                   <input 

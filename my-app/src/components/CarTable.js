@@ -64,7 +64,7 @@ const CarTable = () => {
           moc_silnika: formData.moc_silnika,
           rokProdukcji: formData.rokProdukcji,
           cenaSamochodu: formData.cenaSamochodu,
-          czyWypozyczony: true,
+          czyWypozyczony: false,
           zdjecie: '',
           klienci: [],
           oddzial: {
