@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.btn-blue {
+  background-color: blue;
+  
+}
+
+.btn-gray {
+  background-color: gray;
+  
+}
+.btn-gray:hover {
+  background-color: rgb(66, 5, 5);
+  
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

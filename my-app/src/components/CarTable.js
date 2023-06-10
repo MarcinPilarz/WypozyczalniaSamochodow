@@ -19,6 +19,8 @@ const CarTable = () => {
   const [markaList, setMarkaList] = useState([]);
   const [editCarId, setEditCarId] = useState(null);
 
+  const [isRented, setIsRented] = useState(false);
+  const [wypozyczenieList, setWypozyczenieList]= useState([]);
   useEffect(() => {
     fetchData();
   }, []);
@@ -40,11 +42,23 @@ const CarTable = () => {
       const markaResponse = await fetch('http://localhost:8080/marka');
       const markaData = await markaResponse.json();
       setMarkaList(markaData);
+   
+      const wypozyczenieResponse = await fetch('http://localhost:8080/wypozyczenie/wypozyczenia');
+      const wypozyczenieData = await wypozyczenieResponse.json();
+      setWypozyczenieList(wypozyczenieData);
+      const idOkresWypozyczeniaList = wypozyczenieData.map((wypozyczenie) => wypozyczenie.id_okres_wypozyczenia);
+      console.log("WYPOZYCZENIELIST:"+idOkresWypozyczeniaList);
+   
     } catch (error) {
       console.error(error);
+
+
     }
+
+
   };
 
+  
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -147,7 +161,7 @@ const CarTable = () => {
           moc_silnika: formData.moc_silnika,
           rokProdukcji: formData.rokProdukcji,
           cenaSamochodu: formData.cenaSamochodu,
-          czyWypozyczony: true,
+          czyWypozyczony: false,
           zdjecie: '',
           klienci: [],
           oddzial: {
@@ -187,6 +201,96 @@ const CarTable = () => {
     }
   };
 
+
+  const markAsReturned = async (idSamochodu) => {
+    try {
+      //debugger
+      console.log("Marking car with idSamochodu as returned:", idSamochodu);
+      const response = await fetch('http://localhost:8080/wypozyczenie/wypozyczenia');
+      const wypozyczeniaData = await response.json();
+  
+      const idOkresWypozyczeniaList = wypozyczeniaData.map((wypozyczenieList) => ({
+        idOkresWypozyczenia: wypozyczenieList.id_okres_wypozyczenia,
+        idSamochodu: wypozyczenieList.samochod.idSamochodu, // Pobieramy idSamochodu z obiektu samochod
+      }));
+  
+      setWypozyczenieList(idOkresWypozyczeniaList); // Aktualizacja stanu wypozyczenieList
+  
+      const pasujaceIdOkresWypozyczenia = idOkresWypozyczeniaList.find(
+        (wypozyczenieList) => wypozyczenieList.idSamochodu === idSamochodu
+      );
+  
+      if (pasujaceIdOkresWypozyczenia) {
+        const idOkresWypożyczenia = pasujaceIdOkresWypozyczenia.idOkresWypozyczenia; // Zmieniamy dostęp do pola idOkresWypozyczenia
+  
+        await deleteWypozyczenie(idOkresWypożyczenia);
+  
+        const response = await fetch(`http://localhost:8080/samochod?id=${idSamochodu}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...cars.find((car) => car.idSamochodu === idSamochodu),
+            czyWypozyczony: false
+          })
+        });
+  
+        if (response.ok) {
+          fetchData();
+          setIsRented(false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  // Przykładowe miejsce użycia markAsReturned w obszarze renderowania samochodów
+  {
+    cars.map((car) => (
+      <div key={car.idSamochodu}>
+        <p>ID: {car.idSamochodu}</p>
+        <p>Nazwa: {car.nazwa}</p>
+        <button
+          disabled={!car.czyWypozyczony}
+          onClick={() => markAsReturned(car.idSamochodu)}
+          style={{ backgroundColor: car.czyWypozyczony ? '#007bff' : 'gray' }}
+        >
+          Oznacz jako oddany
+        </button>
+      </div>
+    ))
+  }
+  
+    
+  const deleteWypozyczenie = async (idOkresWypozyczenia) => {
+    try {
+      console.log("Deleting wypozyczenie with idOkresWypozyczenia:", idOkresWypozyczenia);
+      const response = await fetch(`http://localhost:8080/wypozyczenie/anuluj/${idOkresWypozyczenia}`, {
+        method: 'DELETE'
+      });
+  
+      if (response.ok) {
+        console.log('Wypożyczenie zostało anulowane');
+        markAsReturned(idOkresWypozyczenia);
+      } else {
+        console.log('Błąd podczas anulowania wypożyczenia');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const deleteAndMarkAsReturned = async (idWypozyczenia, idSamochodu) => {
+  //   try {
+  //     await deleteWypozyczenie(idWypozyczenia); // Wywołaj funkcję deleteWypozyczenie z odpowiednim idWypozyczenia
+  
+  //     await markAsReturned(idSamochodu); // Wywołaj funkcję markAsReturned z odpowiednim idSamochodu
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <div>
       <table className="car-table">
@@ -219,18 +323,26 @@ const CarTable = () => {
               <td>{car.modelSamochodu.nazwaModelu}</td>
               <td>{car.marka.nazwaMarka}</td>
               <td>
-                {editCarId === car.idSamochodu ? (
-                  <>
-                    <button onClick={updateCar}>Zapisz</button>
-                    <button onClick={() => setEditCarId(null)}>Anuluj</button>
-                  </>
-                ) : (
-                  <>
-                    <button onClick={() => editCar(car.idSamochodu)}>Edytuj</button>
-                    <button onClick={() => deleteCar(car.idSamochodu)}>Usuń</button>
-                  </>
-                )}
-              </td>
+              {editCarId === car.idSamochodu ? (
+               <>
+      <button onClick={updateCar}>Zapisz</button>
+      <button onClick={() => setEditCarId(null)}>Anuluj</button>
+    </>
+  ) : (
+    <>
+      <button
+        disabled={!car.czyWypozyczony}
+        onClick={() => markAsReturned(car.idSamochodu)}
+        style={{ backgroundColor: car.czyWypozyczony ? '#007bff' : 'gray' }}
+      >
+        Oznacz jako oddany
+      </button>
+      <button  disabled={car.czyWypozyczony} onClick={() => editCar(car.idSamochodu)}  style={{ backgroundColor: car.czyWypozyczony ? 'gray' : '#007bff' }}>Edytuj</button>
+
+      <button  disabled={car.czyWypozyczony} onClick={() => deleteCar(car.idSamochodu)} style={{ backgroundColor: car.czyWypozyczony ? 'gray' : '#007bff' }}>Usuń</button>
+    </>
+  )}
+</td>
             </tr>
           ))}
         </tbody>

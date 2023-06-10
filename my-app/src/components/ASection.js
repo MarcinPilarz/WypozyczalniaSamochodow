@@ -20,7 +20,13 @@ function ASection() {
   const fetchCarsFromSpring = async () => {
     try {
       const response = await axios.get('http://localhost:8080/samochod'); 
+      const carsData = response.data.map((car) => ({
+        ...car,
+        czyWypozyczony: car.czyWypozyczony === 'true',
+      }));
       setCars(response.data);
+      //console.log(carsData);
+      //setCars(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -284,6 +290,7 @@ function ASection() {
               <h3>{car.modelSamochodu.nazwa}</h3>
               <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>
+              <p>Wypożyczony: {car.czyWypozyczony.toString()}</p>
               {expandedBoxes.includes(car.idSamochodu) && (
                 <div className="additional-details">
                   <p>Moc silnika: {car.moc_silnika}</p>
@@ -293,9 +300,15 @@ function ASection() {
                   <p>Ilość drzwi: {car.ilosc_drzwi}</p>
                 </div>
               )}
-              <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.idSamochodu)}>
-                Wynajmij
-              </a>
+             {car.czyWypozyczony ? (
+  <a href="#" id="111" className="btn btn-gray disabled-link">
+    Wynajęty
+  </a>
+) : (
+  <a href="#" id="111" className="btn btn-blue" onClick={() => handleRentClick(car.idSamochodu)}>
+    Wynajmij
+  </a>
+)}
               <a href="#" className="details" onClick={() => handleDetailsClick(car.idSamochodu)}>
                 {getDetailsButtonText(car.idSamochodu)}
               </a>
