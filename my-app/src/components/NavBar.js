@@ -145,6 +145,7 @@ const handleLoginSubmit = async (event) => {
     setLoggedInUser(response.data.username);
     setUserRole(role);
 
+    debugger
     if (response.data.klient) {
       const idKlienta = response.data.klient.idKlienta;
       setKlientId(idKlienta);

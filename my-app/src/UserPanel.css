@@ -1,0 +1,102 @@
+:root {
+    --main-color: blue;
+    --text-color: #020102;
+    --bg-color: #fff;
+}
+.user-panel-container {
+    background-color: #f0f5ff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-panel-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    margin-left: 2%;
+  }
+  
+  .user-panel-email {
+    margin-bottom: 10px;
+    margin-top: 3%;
+    margin-left: 2%;
+  }
+  
+  .user-panel-phone {
+    margin-bottom: 10px;
+    margin-top: 3%;
+    margin-left: 2%;
+  }
+  
+  .user-panel-edit-button {
+    margin-left: 2%;
+    margin-top: 2%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .user-panel-save-button {
+    margin-left: 2%;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .user-panel-title {
+    position: relative;
+  }
+  
+  .user-panel-title::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+  }
+  
+
+  .user-panel-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .user-panel-input:focus {
+    outline: none;
+    border-color: #555;
+    
+    box-shadow: 0 0 5px #555;
+  }
+
+
+  .logo2 {
+    font-size: calc(33.33vw / 3);
+    font-weight: 650;
+    position: absolute;
+    top: 10%;
+    left: 70%;
+    transform: translateX(-50%);
+    color: var(--text-color);
+    text-decoration: underline; /* Dodane podkreślenie */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Dodany cień */
+  }
+  
+  .logo2 span {
+    color: var(--main-color);
+  }
+  .error {
+    color: #dc3545;
+  }
+  

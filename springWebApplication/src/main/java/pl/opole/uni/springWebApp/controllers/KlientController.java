@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,15 @@ public class KlientController {
 		return klientService.findAllItems();
 	}
 
+	@GetMapping(value = "/kliencit/{idKlienta}")
+	public ResponseEntity<Klient> getKlientById(@PathVariable("idKlienta") Long idKlienta) {
+	    Klient klient = klientService.findById(idKlienta);
+	    if (klient != null) {
+	        return ResponseEntity.ok(klient);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 	@PostMapping(value = "/klienci")
 	public ResponseEntity<String> createKlientWithUser(@RequestBody TworzenieKlientazUzytkownikiemDTO dto) {
 		try {
@@ -84,17 +94,22 @@ public class KlientController {
 	}
 
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping(value = "/klienci")
-	public ResponseEntity<Klient> editKlient(@Valid @RequestParam Long id, @RequestBody Klient updateKlient) {
-		Klient klient = klientService.findById(id);
-		if (klient == null) {
-			return ResponseEntity.notFound().build();
-		}
-		updateKlient.setIdKlienta(klient.getIdKlienta());
-		klientService.updateItem(updateKlient);
-		return ResponseEntity.ok(updateKlient);
+	@PutMapping(value = "/klienci/{id}")
+	public ResponseEntity<Klient> editKlient(@PathVariable Long id, @Valid @RequestBody Klient updateKlient) {
+	    Klient klient = klientService.findById(id);
+	    if (klient == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    if (updateKlient.getEmail() != null) {
+	        klient.setEmail(updateKlient.getEmail());
+	    }
+	    if (updateKlient.getNrTelefonu_klient() != null) {
+	        klient.setNrTelefonu_klient(updateKlient.getNrTelefonu_klient());
+	    }
+	    klientService.updateItem(klient);
+	    return ResponseEntity.ok(klient);
 	}
-
+	
 	@DeleteMapping(value = "/klienci")
 	public ResponseEntity<Klient> deleteKlient(@RequestParam Long id) {
 		klientService.deleteItem(klientService.findById(id));
