@@ -42,9 +42,29 @@
   
 }
 
+.sort-button {
+  float: right; 
+  font-size: 16px;
+  background: none;
+  border: none; 
+  color: rgb(40, 158, 231); 
+  padding: 10px 20px; 
+  cursor: pointer;
+  margin-top: -14px;
+  margin-right: 33px; 
+}
 
-
-
+.nav__btn{
+padding-top: 10px;
+padding-bottom: 13px;
+padding-right: 15px;
+padding-left: 15px;
+background: var(--main-color);
+border-style: none;
+color: var(--bg-color);
+font-weight: 400;
+border-radius: 20px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

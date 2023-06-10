@@ -79,7 +79,12 @@ public class SamochodService implements MainService<Samochod> {
 	public List<Samochod> sortByPriceAsc() {
 		return samochodRepo.findByOrderByCenaSamochodu();
 	}
+	
+	public List<Samochod> sortByPriceDesc(){
+		return samochodRepo.findByOrderByCenaSamochoduDesc();
+	}
 
+	
 //	 public void dodajZdjecie(Long id, MultipartFile zdjecie) throws IOException {
 //	        Optional<Samochod> optionalSamochod = samochodRepo.findById(id);
 //	        if (optionalSamochod.isPresent()) {

@@ -16,7 +16,7 @@ function ASection() {
     fetchBranchesFromSpring();
   }, []);
   const [selectedCarId, setSelectedCarId] = useState(null);
-
+  const [sortByPriceAsc, setSortByPriceAsc] = useState(false);
   const fetchCarsFromSpring = async () => {
     try {
       const response = await axios.get('http://localhost:8080/samochod'); 
@@ -170,46 +170,32 @@ function ASection() {
     return expandedBoxes.includes(boxId) ? 'Zwiń szczegóły' : 'Wyświetl szczegóły';
   };
 
+  const fetchCars = async () => {
+    try {
+      const endpoint = sortByPriceAsc ? '/sortowanie/Cena' : '/sortowanie/Cena/malejaco';
+      const response = await axios.get(`http://localhost:8080${endpoint}`);
+      setCars(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSortByPrice = async () => {
+    setSortByPriceAsc(!sortByPriceAsc);
+    fetchCars();
+  };
 
     return(
       <>
-      <NavBar/>
-     
-        {/* <section className="car-details" id="car-details">
-        <div className="car-details-heading" id="111">
-          <h2 style={{ margin: '30px' }}>AUDI</h2>
-          <p>Elektryczne</p>
-        </div>
-        <div className="car-details-container container">
-          <div className="box">
-            <h3> e-tron</h3>
-            <img src="img/etrontrans2.png" alt="" />
-            <span>399 PLN</span>
-            <a href="#" id='111' className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-          <div className="box">
-            <h3>Q8 e-tron</h3>
-            <img src="img/q8etrontrans.png" alt="" />
-            <span>1099 PLN</span>
-            <a href="#" className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-          <div className="box">
-            <h3> RS e-tron GT</h3>
-            <img src="img/rsetrontrans.png" alt="" />
-            <span>1049 PLN</span>
-            <a href="#" className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-        </div>
-      </section> */}
-      
+      <NavBar/>     
 <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
           <h2 style={{ margin: '30px' }}>AUDI</h2>
           <p>Elektryczne</p>
         </div>
+        <button className='sort-button' onClick={handleSortByPrice}>
+        {sortByPriceAsc ? 'Sortuj malejąco' : 'Sortuj rosnąco'}
+      </button>
         <div>
           {popup ?
             <div className="popup-container">
@@ -285,8 +271,10 @@ function ASection() {
             </div> : ""}
         </div>
         <div className="car-details-container container">
+          
           {filteredCarsByBrandId(1).map((car) => (
             <div key={car.idSamochodu} className={`box ${expandedBoxes.includes(car.idSamochodu) ? 'expanded' : ''}`}>
+              
               <h3>{car.modelSamochodu.nazwa}</h3>
               <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>

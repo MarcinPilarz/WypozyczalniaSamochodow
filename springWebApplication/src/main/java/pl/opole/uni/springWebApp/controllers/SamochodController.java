@@ -59,6 +59,11 @@ public class SamochodController {
 		return samochodService.sortByPriceAsc();
 	}
 
+	@GetMapping("/sortowanie/Cena/malejaco")
+	public List<Samochod> sortByPriceDesc() {
+	    return samochodService.sortByPriceDesc();
+	}
+
 //	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@PostMapping(value = "/samochod/dto")
 //	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto) {
