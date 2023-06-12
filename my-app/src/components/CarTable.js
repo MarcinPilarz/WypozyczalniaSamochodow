@@ -12,13 +12,14 @@ const CarTable = () => {
     cenaSamochodu: '',
     oddzial: '',
     modelSamochodu: '',
-    marka: ''
+    marka: '',
+
   });
   const [oddzialList, setOddzialList] = useState([]);
   const [modelSamochoduList, setModelSamochoduList] = useState([]);
   const [markaList, setMarkaList] = useState([]);
   const [editCarId, setEditCarId] = useState(null);
-
+  const [imageData, setImageData] = useState('');
   const [isRented, setIsRented] = useState(false);
   const [wypozyczenieList, setWypozyczenieList]= useState([]);
   useEffect(() => {
@@ -79,7 +80,8 @@ const CarTable = () => {
           rokProdukcji: formData.rokProdukcji,
           cenaSamochodu: formData.cenaSamochodu,
           czyWypozyczony: false,
-          zdjecie: '',
+          // zdjecie: '',
+          zdjecie: imageData,
           klienci: [],
           oddzial: {
             idOddzial: formData.oddzial,
@@ -110,7 +112,9 @@ const CarTable = () => {
           oddzial: '',
           modelSamochodu: '',
           marka: ''
+         
         });
+       setImageData('');
       }
     } catch (error) {
       console.error(error);
@@ -141,8 +145,11 @@ const CarTable = () => {
       moc_silnika: carToEdit.moc_silnika,
       rokProdukcji: carToEdit.rokProdukcji,
       cenaSamochodu: carToEdit.cenaSamochodu,
+      //dodane
+      zdjecie:carToEdit.zdjecie,
       oddzial: carToEdit.oddzial.idOddzial,
       modelSamochodu: carToEdit.modelSamochodu.id,
+     //modelSamochodu: carToEdit.modelSamochodu.nazwaModelu,
       marka: carToEdit.marka.idMarka
     });
   };
@@ -162,7 +169,8 @@ const CarTable = () => {
           rokProdukcji: formData.rokProdukcji,
           cenaSamochodu: formData.cenaSamochodu,
           czyWypozyczony: false,
-          zdjecie: '',
+         // zdjecie: '',
+         zdjecie:imageData,
           klienci: [],
           oddzial: {
             idOddzial: formData.oddzial,
@@ -394,6 +402,19 @@ const CarTable = () => {
             ))}
           </select>
         </label>
+
+{/* <td>
+  {editCarId === cars.idSamochodu ? (
+    <input
+      type="text"
+      name="modelSamochodu"
+      value={formData.modelSamochodu}
+      onChange={handleInputChange}
+    />
+  ) : (
+    cars.modelSamochodu.nazwaModelu
+  )}
+</td> */}
         <label>
           Marka:
           <select name="marka" value={formData.marka} onChange={handleInputChange}>
@@ -404,6 +425,10 @@ const CarTable = () => {
               </option>
             ))}
           </select>
+        </label>
+        <label>
+        Zdjęcie:
+        <input type="text" name="zdjecie" value={imageData} onChange={(e) => setImageData(e.target.value)} />
         </label>
         <button type="submit">Dodaj</button>
       </form>

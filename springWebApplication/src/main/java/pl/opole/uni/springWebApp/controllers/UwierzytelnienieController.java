@@ -34,17 +34,32 @@ public class UwierzytelnienieController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
+        	
+        	System.out.println("1 - " + user.getUsername());
+        	
             // Uwierzytelnianie użytkownika
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            
+            System.out.println(authentication);
+            
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            
+            System.out.println("2");
             // Generowanie tokena JWT
             UserDetails userDetails = uzytkownikService.loadUserByUsername(user.getUsername());
             String token = uzytkownikService.generateToken(userDetails);
 
+            
+            System.out.println("3");
+            
             // Pobieranie roli użytkownika
             String role = userDetails.getAuthorities().iterator().next().getAuthority();
+            
+            
+            System.out.println("ROLA:      " + role);
+            
             	//String role= "USER";
             // Pobieranie obiektu User na podstawie username
             User loggedInUser = uzytkownikService.getUserByUsername(user.getUsername());

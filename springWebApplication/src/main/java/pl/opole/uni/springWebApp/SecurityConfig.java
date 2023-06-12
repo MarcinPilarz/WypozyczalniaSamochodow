@@ -24,8 +24,8 @@ import pl.opole.uni.springWebApp.models.User;
 import pl.opole.uni.springWebApp.services.UzytkownikService;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
@@ -44,16 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception
 	{
 		httpSecurity
-		.cors()
-		.and()
+		//.cors()
+		//.and()
 		.httpBasic()
 		.and()
 		.csrf().disable()
 		.authorizeRequests()
+		.anyRequest().permitAll()
 		//.antMatchers(HttpMethod.POST, "/login").hasRole("USER")
-        .antMatchers().hasRole("ADMIN")
-		
-        .antMatchers("/samochod", "/model", "/rejestracjaUzytkownika","/login", "klienci", "/login/{userId}" ).permitAll()
+        //.antMatchers().hasRole("ADMIN")
+		//.antMatchers("/login").hasRole("USER")
+        //.antMatchers("/samochod", "/model", "/rejestracjaUzytkownika","/login", "klienci", "/login/{userId}" ).permitAll()
       //  .anyRequest().authenticated()
         //.and()
        // .formLogin()
@@ -78,12 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 	
-//	@EventListener(ApplicationReadyEvent.class)
-//	public void establishUsers()
-//	{
+	@EventListener(ApplicationReadyEvent.class)
+	public void establishUsers()
+	{
 //		uzytkownikService.saveUser(new User("michal", passwordEncoder().encode("michal"), "ROLE_USER"));
 //		uzytkownikService.saveUser(new User("admin2", passwordEncoder().encode("admin2"), "ROLE_ADMIN"));
 //		uzytkownikService.saveUser(new User("jan", passwordEncoder().encode("jan"), "ROLE_MODERATOR"));
-//		uzytkownikService.saveUser(new User("kuba", passwordEncoder().encode("kuba"), "ROLE_USER"));
-//	}
+		//uzytkownikService.saveUser(new User("aaa", passwordEncoder().encode("aaa"), "ROLE_USER"));
+	}
 }

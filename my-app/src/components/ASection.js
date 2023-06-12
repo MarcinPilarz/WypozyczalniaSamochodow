@@ -194,7 +194,7 @@ function ASection() {
           <p>Elektryczne</p>
         </div>
         <button className='sort-button' onClick={handleSortByPrice}>
-        {sortByPriceAsc ? 'Sortuj malejąco' : 'Sortuj rosnąco'}
+        {sortByPriceAsc ? 'Sortuj rosnąco' : 'Sortuj malejąco'}
       </button>
         <div>
           {popup ?
@@ -278,7 +278,7 @@ function ASection() {
               <h3>{car.modelSamochodu.nazwa}</h3>
               <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>
-              <p>Wypożyczony: {car.czyWypozyczony.toString()}</p>
+              {/* <p>Wypożyczony: {car.czyWypozyczony.toString()}</p> */}
               {expandedBoxes.includes(car.idSamochodu) && (
                 <div className="additional-details">
                   <p>Moc silnika: {car.moc_silnika}</p>

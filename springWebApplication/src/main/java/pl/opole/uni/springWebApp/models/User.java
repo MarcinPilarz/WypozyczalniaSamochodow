@@ -53,17 +53,17 @@ private static final long serialVersionUID=1L;
 		this.role=role;
 	}
 	
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		return Collections.singleton(new SimpleGrantedAuthority(role));
-//	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-	    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-	    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-	    // Dodaj inne role dla użytkownika
-	    return authorities;
+		return Collections.singleton(new SimpleGrantedAuthority(role));
 	}
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//	    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//	    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//	    // Dodaj inne role dla użytkownika
+//	    return authorities;
+//	}
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	 @JsonIgnoreProperties("user")

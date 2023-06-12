@@ -95,6 +95,7 @@ public class SamochodController {
 			}
 
 		}
+		
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
