@@ -146,7 +146,7 @@ const CarTable = () => {
       rokProdukcji: carToEdit.rokProdukcji,
       cenaSamochodu: carToEdit.cenaSamochodu,
       //dodane
-      zdjecie:carToEdit.zdjecie,
+     zdjecie:carToEdit.zdjecie,
       oddzial: carToEdit.oddzial.idOddzial,
       modelSamochodu: carToEdit.modelSamochodu.id,
      //modelSamochodu: carToEdit.modelSamochodu.nazwaModelu,
