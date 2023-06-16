@@ -9,16 +9,24 @@ import axios from 'axios';
 function ASection() {
 
   const [cars, setCars] = useState([]);
-
-
+  const [branches, setBranches] = useState([]);
+  const idKlienta = parseInt(localStorage.getItem('idKlienta'));
   useEffect(() => {
     fetchCarsFromSpring();
+    fetchBranchesFromSpring();
   }, []);
-
+  const [selectedCarId, setSelectedCarId] = useState(null);
+  const [sortByPriceAsc, setSortByPriceAsc] = useState(false);
   const fetchCarsFromSpring = async () => {
     try {
       const response = await axios.get('http://localhost:8080/samochod'); 
+      const carsData = response.data.map((car) => ({
+        ...car,
+        czyWypozyczony: car.czyWypozyczony === 'true',
+      }));
       setCars(response.data);
+      //console.log(carsData);
+      //setCars(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -42,11 +50,22 @@ function ASection() {
   const [expandedBoxes, setExpandedBoxes] = useState([]);
   const [rentalFormVisible, setRentalFormVisible] = useState(false);
   const [rentalFormData, setRentalFormData] = useState({
-    carName: '',
-    fullName: '',
-    email: '',
-    phone: '',
+    idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
+    idSamochodu: '',
+    idOddzialWypozyczenia: '',
+    idOddzialOddania: '',
+    terminWypozyczenia: '',
+    terminOddania: '',
   });
+
+  const fetchBranchesFromSpring = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/oddzial');
+      setBranches(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleDetailsClick = (boxId) => {
     if (expandedBoxes.includes(boxId)) {
@@ -56,10 +75,12 @@ function ASection() {
     }
   };
   const [popup, setPop] = useState(false);
-
-  const handleRentClick = () => {
+  
+  const handleRentClick = (carId) => {
+    setRentalFormData({ ...rentalFormData, idSamochodu: carId });
     setPop(!popup);
   }
+
   const closePopUp = () => {
     setPop(false)
   }
@@ -68,6 +89,23 @@ function ASection() {
     setRentalFormData({ ...rentalFormData, [name]: value });
   };
 
+
+ 
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Przetwarzanie danych z formularza
+  //   console.log(rentalFormData);
+  //   // Możesz dodać tutaj kod do wysłania danych lub innych operacji
+  //   setRentalFormVisible(false);
+  //   setRentalFormData({
+  //     carName: '',
+  //     fullName: '',
+  //     email: '',
+  //     phone: '',
+  //   });
+  //   alert('Formularz został wysłany');
+  // };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Przetwarzanie danych z formularza
@@ -75,56 +113,89 @@ function ASection() {
     // Możesz dodać tutaj kod do wysłania danych lub innych operacji
     setRentalFormVisible(false);
     setRentalFormData({
-      carName: '',
-      fullName: '',
-      email: '',
-      phone: '',
+      idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
+      idSamochodu: selectedCarId, 
+      idOddzialWypozyczenia: '',
+      idOddzialOddania: '',
+      terminWypozyczenia: '',
+      terminOddania: '',
     });
     alert('Formularz został wysłany');
+  };
+
+
+  const sendRentalData = async () => {
+    try {
+      const {
+        idKlienta,
+        idSamochodu,
+        idOddzialWypozyczenia,
+        idOddzialOddania,
+        terminWypozyczenia,
+        terminOddania,
+      } = rentalFormData;
+      console.log("idKlienta:", idKlienta); // Dodaj tę linię
+      console.log("idSamochodu:", idSamochodu); // Dodaj tę linię
+      await axios.post(
+        'http://localhost:8080/wypozyczenie/nowe',
+        null,
+        {
+          params: {
+            idKlienta,
+            idSamochodu,
+            idOddzialWypozyczenia,
+            idOddzialOddania,
+            terminWypozyczenia,
+            terminOddania,
+          },
+        }
+      );
+
+      setRentalFormData({
+        idKlienta: idKlienta || '', // Ustawienie wartości początkowej na idKlienta z localStorage lub pustą wartość, jeśli nie ma wartości w localStorage
+        idSamochodu: selectedCarId, 
+        idOddzialWypozyczenia: '',
+        idOddzialOddania: '',
+        terminWypozyczenia: '',
+        terminOddania: '',
+      });
+      setRentalFormVisible(false);
+      alert('Formularz został wysłany');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getDetailsButtonText = (boxId) => {
     return expandedBoxes.includes(boxId) ? 'Zwiń szczegóły' : 'Wyświetl szczegóły';
   };
+
+  const fetchCars = async () => {
+    try {
+      const endpoint = sortByPriceAsc ? '/sortowanie/Cena' : '/sortowanie/Cena/malejaco';
+      const response = await axios.get(`http://localhost:8080${endpoint}`);
+      setCars(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSortByPrice = async () => {
+    setSortByPriceAsc(!sortByPriceAsc);
+    fetchCars();
+  };
+
     return(
       <>
-      <NavBar/>
-     
-        {/* <section className="car-details" id="car-details">
-        <div className="car-details-heading" id="111">
-          <h2 style={{ margin: '30px' }}>AUDI</h2>
-          <p>Elektryczne</p>
-        </div>
-        <div className="car-details-container container">
-          <div className="box">
-            <h3> e-tron</h3>
-            <img src="img/etrontrans2.png" alt="" />
-            <span>399 PLN</span>
-            <a href="#" id='111' className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-          <div className="box">
-            <h3>Q8 e-tron</h3>
-            <img src="img/q8etrontrans.png" alt="" />
-            <span>1099 PLN</span>
-            <a href="#" className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-          <div className="box">
-            <h3> RS e-tron GT</h3>
-            <img src="img/rsetrontrans.png" alt="" />
-            <span>1049 PLN</span>
-            <a href="#" className="btn">Wynajmij</a>
-            <a href="#" className="details">Wyświetl szczegóły</a>
-          </div>
-        </div>
-      </section> */}
-      
+      <NavBar/>     
 <section className="car-details" id="car-details">
         <div className="car-details-heading" id="111">
           <h2 style={{ margin: '30px' }}>AUDI</h2>
           <p>Elektryczne</p>
         </div>
+        <button className='sort-button' onClick={handleSortByPrice}>
+        {sortByPriceAsc ? 'Sortuj rosnąco' : 'Sortuj malejąco'}
+      </button>
         <div>
           {popup ?
             <div className="popup-container">
@@ -133,30 +204,81 @@ function ASection() {
                   <h3 className="popup-header-text">Formularz wynajmu</h3>
                   <button className="close-btn" onClick={closePopUp}>X</button>
                 </div>
+
+                <input
+  type="hidden"
+  name="idKlienta"
+  value={rentalFormData.idKlienta || ''}
+  readOnly
+/>
+              <input
+                type="hidden"
+                name="idSamochodu"
+                value={rentalFormData.idSamochodu || ''}
+                readOnly
+                />
                 <div className="popup-inputs-container">
                   <p className="popup-input-headers">Data wynajmu</p>
-                  <input className="datepicker" type="date"></input>
+                  <input 
+                  className="datepicker" 
+                  type="date"
+                  name="terminWypozyczenia"
+                  value={rentalFormData.terminWypozyczenia}
+                  onChange={handleFormInputChange}
+                  />
                   <p className="popup-input-headers">Miejsce odbioru</p>
-                  <input type="text" placeholder="Podaj miejsce odbioru pojazdu"></input>
+                  <select
+                  name="idOddzialWypozyczenia"
+                   value={rentalFormData.idOddzialWypozyczenia}
+                    onChange={handleFormInputChange}
+>
+                    <option value="">Wybierz oddział</option>
+                      {branches.map((branch) => (
+                     <option key={branch.idOddzial} value={branch.idOddzial}>
+                       {branch.nazwaOddzial}
+                      </option>
+                      ))}
+                    </select>
                   <p className="popup-input-headers">Data zwrotu</p>
-                  <input type="date"></input>
+                  <input
+                      type="date"
+                      name="terminOddania"
+                      value={rentalFormData.terminOddania}
+                      onChange={handleFormInputChange}
+                    />
 
                   <p className="popup-input-headers">Miejsce zwrotu</p>
-                  <input type="text" placeholder="Podaj miejsce zwrotu pojazdu"></input>
+                  <select
+                   name="idOddzialOddania"
+                     value={rentalFormData.idOddzialOddania}
+                     onChange={handleFormInputChange}
+                    >
+                     <option value="">Wybierz oddział</option>
+                      {branches.map((branch) => (
+                   <option key={branch.idOddzial} value={branch.idOddzial}>
+                     {branch.nazwaOddzial}
+                    </option>
+                      ))}
+                    </select>
                   <p className="popup-input-headers">Dodatkowe informacje</p>
                   <textarea type="text" placeholder=""></textarea>
-                  <button className="popup-inputs-button">Zapisz i prześlij</button>
+                   <button className="popup-inputs-button" onClick={sendRentalData}>
+                    Zapisz i prześlij
+                  </button>
                 </div>
               </div>
 
             </div> : ""}
         </div>
         <div className="car-details-container container">
+          
           {filteredCarsByBrandId(1).map((car) => (
             <div key={car.idSamochodu} className={`box ${expandedBoxes.includes(car.idSamochodu) ? 'expanded' : ''}`}>
+              
               <h3>{car.modelSamochodu.nazwa}</h3>
               <img src={`data:image/jpeg;base64,${car.zdjecie}`} alt="" />
               <span>{car.cenaSamochodu} PLN</span>
+              {/* <p>Wypożyczony: {car.czyWypozyczony.toString()}</p> */}
               {expandedBoxes.includes(car.idSamochodu) && (
                 <div className="additional-details">
                   <p>Moc silnika: {car.moc_silnika}</p>
@@ -166,9 +288,15 @@ function ASection() {
                   <p>Ilość drzwi: {car.ilosc_drzwi}</p>
                 </div>
               )}
-              <a href="#" id="111" className="btn" onClick={() => handleRentClick(car.model)}>
-                Wynajmij
-              </a>
+             {car.czyWypozyczony ? (
+  <a href="#" id="111" className="btn btn-gray disabled-link">
+    Wynajęty
+  </a>
+) : (
+  <a href="#" id="111" className="btn btn-blue" onClick={() => handleRentClick(car.idSamochodu)}>
+    Wynajmij
+  </a>
+)}
               <a href="#" className="details" onClick={() => handleDetailsClick(car.idSamochodu)}>
                 {getDetailsButtonText(car.idSamochodu)}
               </a>

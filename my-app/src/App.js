@@ -17,18 +17,32 @@ import VolvoSection from './components/VolvoSection';
 import CookieSection from './components/Cookie';
 import UserPanel from './components/UserPanel';
 import CarTable from './components/CarTable';
+//import ASection from './components/ASection';
+import React, { useEffect, useState } from 'react';
 function App() {
+  const [idKlienta, setIdKlienta] = useState(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedIdKlienta = localStorage.getItem('idKlienta');
+    if (storedIdKlienta) {
+      setIdKlienta(storedIdKlienta);
+      setIsUserLoggedIn(true);
+    } else {
+      setIsUserLoggedIn(false);
+    }
+  }, []);
   return (
     <BrowserRouter>
       
- 
+   
 
   
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path="/User" element={<UserPanel />} />
         <Route path="/BMW" element={<BMWSection />} />
-        <Route path='/Audi' element={<ASection/>}/>
+        <Route path='/Audi' element={<ASection idKlienta={idKlienta}/>}/>
         <Route path='/Tesla' element={<TSection/>}/>
         <Route path='/Toyota' element={<ToyotaSection/>}/>
         <Route path='/Volvo' element={<VolvoSection/>}/>
@@ -40,8 +54,10 @@ function App() {
         <Route path="/add-car" element={<CarTable />} />
         <Route path="*" element={<NoPage/>} />
 
+       
       </Routes>
-     
+      {/* {isUserLoggedIn && <NavBar idKlienta={idKlienta} />} */}
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }

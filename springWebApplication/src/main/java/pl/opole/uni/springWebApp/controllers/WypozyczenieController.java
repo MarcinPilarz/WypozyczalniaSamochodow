@@ -7,7 +7,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +21,13 @@ import pl.opole.uni.springWebApp.services.WypozyczeniaService;
 
 @RestController
 @RequestMapping("/wypozyczenie")
+@CrossOrigin(origins = "http://localhost:3000")
 public class WypozyczenieController {
 
 	private WypozyczeniaService wypozyczeniaService;
 
 	@Autowired
 	public WypozyczenieController(WypozyczeniaService wypozyczeniaService) {
-
 		this.wypozyczeniaService = wypozyczeniaService;
 	}
 
@@ -35,10 +38,16 @@ public class WypozyczenieController {
 
 	@PostMapping("/nowe")
 	public void wypozyczSamochod(@Valid @RequestParam Long idKlienta, @Valid @RequestParam Long idSamochodu,
+			@Valid @RequestParam Long idOddzialWypozyczenia, @Valid @RequestParam Long idOddzialOddania,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminWypozyczenia,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate terminOddania) {
 
-		wypozyczeniaService.wypozyczSamochod(idKlienta, idSamochodu, terminWypozyczenia, terminOddania);
+		wypozyczeniaService.wypozyczSamochod(idKlienta, idSamochodu, idOddzialWypozyczenia, idOddzialOddania,
+				terminWypozyczenia, terminOddania);
 	}
-} 
-//
+
+	@DeleteMapping("/anuluj/{idWypozyczenia}")
+	public void anulujWypozyczenie(@PathVariable Long idWypozyczenia) {
+		wypozyczeniaService.anulujWypozyczenie(idWypozyczenia);
+	}
+}

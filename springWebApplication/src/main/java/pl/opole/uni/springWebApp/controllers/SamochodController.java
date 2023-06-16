@@ -59,6 +59,11 @@ public class SamochodController {
 		return samochodService.sortByPriceAsc();
 	}
 
+	@GetMapping("/sortowanie/Cena/malejaco")
+	public List<Samochod> sortByPriceDesc() {
+	    return samochodService.sortByPriceDesc();
+	}
+
 //	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@PostMapping(value = "/samochod/dto")
 //	public ResponseEntity<Samochod> editSamochodDTO(@RequestBody @Valid PostDTO postDto) {
@@ -90,6 +95,7 @@ public class SamochodController {
 			}
 
 		}
+		
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
@@ -101,7 +107,7 @@ public class SamochodController {
 //	    samochodService.addItem(nowySamochod);
 //	    return ResponseEntity.ok(nowySamochod);
 //	}
-//	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@PutMapping(value = "/samochod/dto/{id}")
 //	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto) {
 //		Samochod samochod = new Samochod();

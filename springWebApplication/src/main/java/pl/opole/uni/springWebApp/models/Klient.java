@@ -44,6 +44,7 @@ public class Klient {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
+	 @JsonIgnoreProperties("klient")
 	private User user;
 
 //    @ManyToOne

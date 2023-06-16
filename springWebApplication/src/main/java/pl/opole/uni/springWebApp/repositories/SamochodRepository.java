@@ -16,7 +16,7 @@ public interface SamochodRepository extends JpaRepository<Samochod, Long> {
 
 	List<Samochod> findByOrderByCenaSamochodu();
 	List<Samochod> findByMarka(String marka);
-//	
+	 List<Samochod> findByOrderByCenaSamochoduDesc(); // Dodaj tę metodę
 //	List<ModelSamochodu> findByModel(String model);
 //	
 	//@Query("SELECT Samochod FROM Samochod Samochod WHERE Samochod.rokProdukcji > :rok_produkcji")

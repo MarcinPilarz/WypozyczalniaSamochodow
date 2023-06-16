@@ -29,16 +29,15 @@ function NavBar() {
     username: '',
     password: ''
   });
-
-  const [role, setRole] = useState(''); // Dodana zmienna roli
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [userRole, setUserRole] = useState(''); // Dodany stan userRole
   const navigate = useNavigate();
 
+  const [klientId, setKlientId] = useState(null);
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
   };
 
-
-  
   const handleButtonClick = () => {
     const element = document.getElementById('bottom');
     if (element) {
@@ -69,14 +68,23 @@ function NavBar() {
     setPopupRegister(false);
   };
 
-  const handleLogoutClick = () => {
-    setIsLoggedIn(false);
-  };
-
+  
   const closePopUpRegister = () => {
     setPopupRegister(false);
   };
 
+  const handleLogoutClick = () => {
+    // Wyczyść token i role z localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('idKlienta');
+    // Zaktualizuj stany
+    setIsLoggedIn(false);
+    setUserRole('');
+    setKlientId(null);
+  };
+
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setRegistrationData((prevState) => ({
@@ -117,79 +125,70 @@ function NavBar() {
       [name]: value
     }));
   };
+//debugger
 
-  const handleLoginSubmit = async (event) => {
-    event.preventDefault();
+const handleLoginSubmit = async (event) => {
+  event.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:8080/login', loginData);
-      console.log(response.data);
+  try {
+    const response = await axios.post('http://localhost:8080/login', loginData);
+    console.log(response.data);
 
-     // const role = response.data.Role; // Użyj 'Role' zamiast 'role'
-     console.log(response.data);
-     const role = response.data.role; // Użyj 'Role' zamiast 'role'
-     console.log(role); // Dodaj ten console.log
+    const { role, token } = response.data;
+    console.log(role);
+    console.log(token);
 
+    localStorage.setItem('token', token);
+    localStorage.setItem('userRole', role);
+    setLoggedInUser(response.data);
+    setIsLoggedIn(true);
+    setLoggedInUser(response.data.username);
+    setUserRole(role);
 
-      const token = response.data.token;
-      console.log(token);
-      // Zapisanie tokenu w localStorage
-      localStorage.setItem('token', token);
-
-      setLoginData({
-        username: '',
-        password: ''
-      });
-
-      setIsLoggedIn(true);
-      console.log(response.data['Role']);
-      setRole(response.data.role);
-     // console.log(response.data.Role);
-     console.log(response.data.Role);
-      closePopupLogin();
-    } catch (error) {
-      console.log(error);
+    debugger
+    if (response.data.klient) {
+      const idKlienta = response.data.klient.idKlienta;
+      setKlientId(idKlienta);
+      localStorage.setItem('idKlienta', idKlienta)
+      console.log(idKlienta);
     }
-  };
 
- 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      // Odczytanie tokenu z localStorage
-      const token = localStorage.getItem('token');
+    setLoginData({
+      username: '',
+      password: ''
+    });
 
-      if (token) {
-        try {
-          // Wysłanie żądania do serwera w celu weryfikacji tokenu
-          const response = await axios.get('http://localhost:8080/check-login', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+    closePopupLogin();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-          // Sprawdzenie statusu zalogowania na podstawie odpowiedzi serwera
-          if (response.data.isLoggedIn) {
-            setIsLoggedIn(true);
-            setRole(response.data.role);
-            console.log(response.data.role); // Dodaj ten console.log
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('userRole');
+  const idKlienta = localStorage.getItem('idKlienta'); 
+  if (token && role) {
+    setIsLoggedIn(true);
+    setUserRole(role);
+  }
+  if (idKlienta) {
+    setKlientId(idKlienta);
+  }
+}, []);
 
-    checkLoginStatus();
-  }, []);
+
+
   const handleAddCarClick = () => {
     // Przekierowanie do strony "Dodaj samochód"
     navigate('/add-car');
   };
-  
+
   return (
     <>
       <header>
         <div className="nav container">
+          
           <i className="bx bx-menu" id="menu-icon"></i>
           <a href="/" className="logo">
             Car<span>Rent</span>
@@ -204,7 +203,7 @@ function NavBar() {
               <a href="#Oferta">O nas</a>
             </li>
             <li>
-            <a onClick={handleButtonClick}>Oferta</a>
+              <a onClick={handleButtonClick}>Oferta</a>
             </li>
             <li>
               <a href="/Contact">Kontakt</a>
@@ -218,12 +217,11 @@ function NavBar() {
             {isLoggedIn ? (
               <div className="dropdown">
                 <button className="btn-login">Profil</button>
-                {isLoggedIn  && (
-  
-    <button className="nav__btn" onClick={handleAddCarClick}>
-        Dodaj pojazd
-      </button>
-)}
+                {isLoggedIn && userRole === 'ROLE_ADMIN' && (
+                <button className="nav__btn" onClick={handleAddCarClick}>
+                          Dodaj pojazd
+                     </button>
+                    )}
                 <div className="dropdown-content">
                   <a href="/User">Wyświetl profil</a>
                   <a href="#" onClick={handleLogoutClick}>

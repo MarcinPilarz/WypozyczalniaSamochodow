@@ -36,6 +36,16 @@ public class OkresWypozyczenia {
 	@Column(name = "termin_oddania")
 	private LocalDate terminOddania;
 
+	
+	@ManyToOne
+    @JoinColumn(name = "oddzial_wypozyczenia_id")
+    private Oddzial oddzialWypozyczenia;
+
+    @ManyToOne
+    @JoinColumn(name = "oddzial_oddania_id")
+    private Oddzial oddzialOddania;
+    
+    
 	public Long getId_okres_wypozyczenia() {
 		return id_okres_wypozyczenia;
 	}
@@ -74,6 +84,22 @@ public class OkresWypozyczenia {
 
 	public void setSamochod(Samochod samochod) {
 		this.samochod = samochod;
+	}
+
+	public Oddzial getOddzialWypozyczenia() {
+		return oddzialWypozyczenia;
+	}
+
+	public void setOddzialWypozyczenia(Oddzial oddzialWypozyczenia) {
+		this.oddzialWypozyczenia = oddzialWypozyczenia;
+	}
+
+	public Oddzial getOddzialOddania() {
+		return oddzialOddania;
+	}
+
+	public void setOddzialOddania(Oddzial oddzialOddania) {
+		this.oddzialOddania = oddzialOddania;
 	}
 
 }
