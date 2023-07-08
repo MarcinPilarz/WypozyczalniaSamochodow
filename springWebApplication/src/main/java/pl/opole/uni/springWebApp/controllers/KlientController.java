@@ -62,36 +62,7 @@ public class KlientController {
 	        return ResponseEntity.notFound().build();
 	    }
 	}
-	@PostMapping(value = "/klienci")
-	public ResponseEntity<String> createKlientWithUser(@RequestBody TworzenieKlientazUzytkownikiemDTO dto) {
-		try {
-			// Tworzenie obiektu User na podstawie przesłanych danych
-			User user = new User();
-			user.setUsername(dto.getUsername());
-			String encodedPassword = passwordEncoder.encode(dto.getPassword());
-			user.setPassword(encodedPassword);
-			user.setRole("USER");
-
-			uzytkownikService.saveUser(user);
-
-			// Tworzenie obiektu Klient na podstawie przesłanych danych
-			Klient klient = new Klient();
-			klient.setImie_klient(dto.getImie());
-			klient.setNazwisko_klient(dto.getNazwisko());
-			klient.setEmail(dto.getEmail());
-			klient.setNrTelefonu_klient(dto.getTelefon());
-			klient.setUser(user);
-			// Zapisanie użytkownika
-
-			// Zapisanie klienta
-			klientService.addItem(klient);
-
-			return ResponseEntity.ok("Klient i użytkownik zostali pomyślnie zapisani.");
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Wystąpił błąd podczas tworzenia klienta i użytkownika.");
-		}
-	}
+	
 
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value = "/klienci/{id}")

@@ -31,30 +31,37 @@ public class SamochodService implements MainService<Samochod> {
 		return samochodRepo.findAll();
 	}
 
+	/**
+	 * Pobiera listę samochodów na podstawie marki.
+	 *
+	 * @param marka marka samochodu
+	 * @return lista samochodów pasujących do podanej marki
+	 */
 	public List<Samochod> findSamochody(String marka) {
-		// TODO Auto-generated method stub
+
 		return samochodRepo.findByMarkaNative(marka);
 	}
-//	
-//	public List<Samochod> findRokProduckji(Integer rok_Produkcji) {
-//		// TODO Auto-generated method stub
-//		return samochodRepo.findByRokProdukcjiGreaterThan(rok_Produkcji);
-//	}
 
+	/**
+	 * Dodaje nowy samochód.
+	 *
+	 * @param samochod samochód do dodania
+	 * @throws IOException w przypadku błędu podczas konwersji obrazka samochodu
+	 */
 	@Override
 	public void addItem(Samochod samochod) {
-		// TODO Auto-generated method stub
+
 		if (samochod.getZdjecie() != null) {
-	        try {
-	            String zdjecieBase64 = new String(samochod.getZdjecie());
-	            byte[] zdjecieBytes = Base64.getDecoder().decode(zdjecieBase64);
-	            samochod.setZdjecie(zdjecieBytes);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            System.out.print("additem error");
-	        }
-	    }
-	    samochodRepo.save(samochod);
+			try {
+				String zdjecieBase64 = new String(samochod.getZdjecie());
+				byte[] zdjecieBytes = Base64.getDecoder().decode(zdjecieBase64);
+				samochod.setZdjecie(zdjecieBytes);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.print("additem error");
+			}
+		}
+		samochodRepo.save(samochod);
 
 	}
 
@@ -76,28 +83,22 @@ public class SamochodService implements MainService<Samochod> {
 		return samochodRepo.findById(id).orElse(null);
 	}
 
+	/**
+	 * Sortuje samochody w kolejności rosnącej według ceny.
+	 *
+	 * @return lista samochodów posortowana rosnąco według ceny
+	 */
 	public List<Samochod> sortByPriceAsc() {
 		return samochodRepo.findByOrderByCenaSamochodu();
 	}
-	
-	public List<Samochod> sortByPriceDesc(){
+
+	/**
+	 * Sortuje samochody w kolejności malejącej według ceny.
+	 *
+	 * @return lista samochodów posortowana malejąco według ceny
+	 */
+	public List<Samochod> sortByPriceDesc() {
 		return samochodRepo.findByOrderByCenaSamochoduDesc();
 	}
 
-	
-//	 public void dodajZdjecie(Long id, MultipartFile zdjecie) throws IOException {
-//	        Optional<Samochod> optionalSamochod = samochodRepo.findById(id);
-//	        if (optionalSamochod.isPresent()) {
-//	            Samochod samochod = optionalSamochod.get();
-//	            samochod.setZdjecie(zdjecie.getBytes());
-//	            samochodRepo.save(samochod);
-//	        } else {
-//	            throw new IllegalArgumentException("Samochod o podanym ID nie istnieje.");
-//	        }
-//	    }
-
-//	public SamochodDTO dodajZdjecie(SamochodDTO samochod) {
-//		Samochod samochod = new Samochod();
-//		
-//	}
 }
