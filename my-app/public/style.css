@@ -37,6 +37,8 @@ header{
     z-index: 100;
 }
 .nav{
+    background-color: rgba(236, 228, 228, 0.5);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
