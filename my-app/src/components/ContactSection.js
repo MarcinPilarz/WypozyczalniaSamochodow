@@ -4,6 +4,9 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useEffect } from 'react';
 
+/**
+ * Komponent NontactSection - sekcja wyświetlająca możliwość kontaktowania się z wypożyczalnią.
+ */
 function ContactSection() {
 
 

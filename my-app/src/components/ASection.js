@@ -6,6 +6,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 //import base64Img from 'base64-img';
 
+/**
+ * Komponent ASection - sekcja wyświetlająca samochody (Audi) i formularz wynajmu.
+ */
 function ASection() {
 
   const [cars, setCars] = useState([]);
@@ -17,6 +20,10 @@ function ASection() {
   }, []);
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [sortByPriceAsc, setSortByPriceAsc] = useState(false);
+
+  /**
+ * Pobiera szczegóły samochodów z serwera Spring.
+ */
   const fetchCarsFromSpring = async () => {
     try {
       const response = await axios.get('http://localhost:8080/samochod'); 
@@ -37,6 +44,11 @@ function ASection() {
   //   return `data:image/jpeg;base64,${base64Data}`;
   // };
   
+  /**
+ * Filtruje samochody na podstawie identyfikatora marki.
+ * @param {number} brandId - Identyfikator marki.
+ * @returns {Array} - Tablica samochodów spełniających kryteria filtrowania.
+ */
   const filteredCarsByBrandId = (brandId) => {
     
     //
@@ -76,6 +88,10 @@ function ASection() {
   };
   const [popup, setPop] = useState(false);
   
+  /**
+ * Obsługuje kliknięcie przycisku "Wynajmij".
+ * @param {number} carId - Identyfikator samochodu.
+ */
   const handleRentClick = (carId) => {
     setRentalFormData({ ...rentalFormData, idSamochodu: carId });
     setPop(!popup);

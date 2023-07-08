@@ -4,6 +4,10 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+
+/**
+ * Komponent VolvoSection - sekcja na stronie dotycząca samochodów marki Volvo.
+ */
 function VolvoSection() {
 
  

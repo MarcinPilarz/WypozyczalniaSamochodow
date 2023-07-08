@@ -5,6 +5,9 @@ import Footer from './Footer';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+/**
+ * Komponent TSection - sekcja na stronie dotycząca samochodów marki Tesla.
+ */
 function TSection() {
  
   const [cars, setCars] = useState([]);
