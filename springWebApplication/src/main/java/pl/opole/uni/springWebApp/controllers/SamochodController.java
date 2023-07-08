@@ -38,6 +38,12 @@ public class SamochodController {
 	@Autowired
 	private SamochodService samochodService;
 
+	/**
+	 * Pobiera samochody.
+	 *
+	 * @param marka Opcjonalny parametr określający markę samochodu.
+	 * @return Lista samochodów.
+	 */
 	@GetMapping("/samochod")
 	public List<Samochod> getSamochod(@RequestParam(required = false) String marka) {
 
@@ -48,20 +54,35 @@ public class SamochodController {
 
 	}
 
+	/**
+	 * Pobiera przemapowane samochody .
+	 *
+	 * @return Lista przemapowanych samochodów .
+	 */
 	@GetMapping("/samochod/samochoddto")
 	public List<SamochodDTO> getSamochodDto() {
 		return mapSamochodToSamochodDTO(samochodService.findAllItems());
 
 	}
 
+	/**
+	 * Sortuje samochody rosnąco po cenie.
+	 *
+	 * @return Lista samochodów posortowana rosnąco po cenie.
+	 */
 	@GetMapping("/sortowanie/Cena")
 	public List<Samochod> sortByPriceAsc() {
 		return samochodService.sortByPriceAsc();
 	}
 
+	/**
+	 * Sortuje samochody malejąco po cenie.
+	 *
+	 * @return Lista samochodów posortowana malejąco po cenie.
+	 */
 	@GetMapping("/sortowanie/Cena/malejaco")
 	public List<Samochod> sortByPriceDesc() {
-	    return samochodService.sortByPriceDesc();
+		return samochodService.sortByPriceDesc();
 	}
 
 //	//@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -81,7 +102,14 @@ public class SamochodController {
 //		return ResponseEntity.ok(samochod);
 //	}
 
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	/**
+	 * Dodaje nowy samochód.
+	 *
+	 * @param zdjecie      Opcjonalne zdjęcie samochodu.
+	 * @param nowySamochod Nowy samochód.
+	 * @return Odpowiedź z nowym samochodem.
+	 */
+	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(value = "/samochod")
 	public ResponseEntity<Samochod> editSamochod(
 			@RequestPart(value = "zdjecie", required = false) MultipartFile zdjecie,
@@ -95,11 +123,11 @@ public class SamochodController {
 			}
 
 		}
-		
+
 		samochodService.addItem(nowySamochod);
 		return ResponseEntity.ok(nowySamochod);
 	}
-	
+
 //	@PostMapping(value = "/samochod")
 //	public ResponseEntity<Samochod> editSamochod(
 //	        @RequestBody @Valid Samochod nowySamochod) {
@@ -107,7 +135,7 @@ public class SamochodController {
 //	    samochodService.addItem(nowySamochod);
 //	    return ResponseEntity.ok(nowySamochod);
 //	}
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@PutMapping(value = "/samochod/dto/{id}")
 //	public ResponseEntity<Samochod> editSamochodDTO(@RequestParam Long id, @RequestBody @Valid PostDTO postDto) {
 //		Samochod samochod = new Samochod();
@@ -122,7 +150,14 @@ public class SamochodController {
 //		return ResponseEntity.ok(samochod);
 //	}
 
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	/**
+	 * Aktualizuje samochód.
+	 *
+	 * @param id             Identyfikator samochodu.
+	 * @param updateSamochod Aktualizowany samochód.
+	 * @return Odpowiedź z zaktualizowanym samochodem.
+	 */
+	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping(value = "/samochod")
 	public ResponseEntity<Samochod> editSamochod(@RequestParam Long id, @RequestBody Samochod updateSamochod) {
@@ -136,7 +171,13 @@ public class SamochodController {
 		return ResponseEntity.ok(updateSamochod);
 	}
 
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	/**
+	 * Usuwa samochód.
+	 *
+	 * @param id Identyfikator samochodu.
+	 * @return Odpowiedź z usuniętym samochodem.
+	 */
+	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/samochod")
 	public ResponseEntity<Samochod> deleteSamochod(@RequestParam Long id) {
 
@@ -151,9 +192,14 @@ public class SamochodController {
 			return ResponseEntity.notFound().build();
 		}
 
-
 	}
 
+	/**
+	 * Obsługa wyjątku MethodArgumentNotValidException.
+	 *
+	 * @param ex Wyjątek MethodArgumentNotValidException.
+	 * @return Odpowiedź z komunikatem błędu walidacji.
+	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		// Zbieranie komunikatów błędów walidacji
@@ -162,6 +208,5 @@ public class SamochodController {
 
 		return ResponseEntity.badRequest().body(errors.toString());
 	}
-
 
 }

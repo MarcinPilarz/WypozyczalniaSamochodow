@@ -2,6 +2,10 @@ import React from 'react'
 import CarSection from './CarSection'
 import { useEffect } from 'react';
 
+
+/**
+ * Komponent Footer - sekcja stopki strony.
+ */
 function Footer() {
     // let header=document.querySelector('header');
     // window.addEventListener('scroll', () =>{

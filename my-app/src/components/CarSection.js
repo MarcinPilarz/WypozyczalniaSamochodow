@@ -4,7 +4,9 @@ import '../App.css';
 import './BMWSection';
 import '../components/Footer'
 
-//import './LogoBrandsImg';
+/**
+ * Komponent CarSection - sekcja wyświetlająca wszystkie marki.
+ */
 function CarSection() {
 
 

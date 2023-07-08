@@ -2,7 +2,9 @@ import '../App.css';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useEffect } from 'react';
-
+/**
+ * Komponent CookieSection - sekcja polityki cookie.
+ */
 function CookieSection() {
   useEffect(() => {
     window.scrollTo(0, 0);

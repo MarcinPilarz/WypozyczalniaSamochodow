@@ -7,7 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import BMWSection from './BMWSection';
 
 import CarTable from './CarTable';
-
+/**
+ * Komponent NavBar - pasek nawigacyjny.
+ */
 function NavBar() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +54,9 @@ function NavBar() {
     }
   };
 
+  /**
+   * Funkcja obsługująca przycisk "Zaloguj".
+   */
   const handleLoginClick = () => {
     setPopupLogin(true);
   };

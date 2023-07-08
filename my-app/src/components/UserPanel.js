@@ -4,6 +4,10 @@ import '../UserPanel.css';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
+
+/**
+ * Komponent UserPanel - panel użytkownika na stronie.
+ */
 function UserPanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [klient, setKlient] = useState(null);

@@ -25,6 +25,12 @@ public class ModelController {
 	@Autowired
 	private ModelService modelService;
 
+	/**
+	 * Pobiera listę modeli samochodów.
+	 * 
+	 * @param nazwaModelu opcjonalny parametr - nazwa modelu do filtrowania
+	 * @return lista modeli samochodów
+	 */
 	@GetMapping("/model")
 	public List<ModelSamochodu> getModelSamochodu(@RequestParam(required = false) String nazwaModelu) {
 
@@ -34,12 +40,25 @@ public class ModelController {
 			return modelService.findNazwaModelu(nazwaModelu);
 	}
 
+	/**
+	 * Dodaje nowy model samochodu.
+	 * 
+	 * @param nowyModel obiekt nowego modelu samochodu
+	 * @return obiekt ResponseEntity zawierający dodany model samochodu
+	 */
 	@PostMapping(value = "/model")
 	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestBody ModelSamochodu nowyModel) {
 		modelService.addItem(nowyModel);
 		return ResponseEntity.ok(nowyModel);
 	}
 
+	/**
+	 * Aktualizuje istniejący model samochodu.
+	 * 
+	 * @param id          identyfikator modelu samochodu do aktualizacji
+	 * @param updateModel obiekt zaktualizowanego modelu samochodu
+	 * @return obiekt ResponseEntity zawierający zaktualizowany model samochodu
+	 */
 	@PutMapping(value = "/model")
 	public ResponseEntity<ModelSamochodu> editModelSamochodu(@Valid @RequestParam Long id,
 			@RequestBody ModelSamochodu updateModel) {
@@ -53,6 +72,12 @@ public class ModelController {
 		return ResponseEntity.ok(updateModel);
 	}
 
+	/**
+	 * Usuwa model samochodu.
+	 * 
+	 * @param id identyfikator modelu samochodu do usunięcia
+	 * @return obiekt ResponseEntity z pustą treścią
+	 */
 	@DeleteMapping(value = "/model")
 	public ResponseEntity<ModelSamochodu> deleteModelSamochodu(@RequestParam Long id) {
 		modelService.deleteItem(modelService.findById(id));

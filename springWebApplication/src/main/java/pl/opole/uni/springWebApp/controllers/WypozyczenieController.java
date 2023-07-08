@@ -31,11 +31,27 @@ public class WypozyczenieController {
 		this.wypozyczeniaService = wypozyczeniaService;
 	}
 
+	 /**
+     * Pobiera wszystkie wypożyczenia.
+     *
+     * @return Lista wypożyczeń.
+     */
 	@GetMapping("/wypozyczenia")
 	public List<OkresWypozyczenia> getWypozyczenie() {
 		return wypozyczeniaService.getWypozyczenie();
 	}
 
+	
+	 /**
+     * Wypożycza samochód.
+     *
+     * @param idKlienta             Identyfikator klienta.
+     * @param idSamochodu           Identyfikator samochodu.
+     * @param idOddzialWypozyczenia Identyfikator oddziału wypożyczenia.
+     * @param idOddzialOddania      Identyfikator oddziału oddania.
+     * @param terminWypozyczenia    Data rozpoczęcia wypożyczenia.
+     * @param terminOddania         Data zakończenia wypożyczenia.
+     */
 	@PostMapping("/nowe")
 	public void wypozyczSamochod(@Valid @RequestParam Long idKlienta, @Valid @RequestParam Long idSamochodu,
 			@Valid @RequestParam Long idOddzialWypozyczenia, @Valid @RequestParam Long idOddzialOddania,
@@ -46,6 +62,12 @@ public class WypozyczenieController {
 				terminWypozyczenia, terminOddania);
 	}
 
+	
+	/**
+     * Anuluje wypożyczenie.
+     *
+     * @param idWypozyczenia Identyfikator wypożyczenia.
+     */
 	@DeleteMapping("/anuluj/{idWypozyczenia}")
 	public void anulujWypozyczenie(@PathVariable Long idWypozyczenia) {
 		wypozyczeniaService.anulujWypozyczenie(idWypozyczenia);

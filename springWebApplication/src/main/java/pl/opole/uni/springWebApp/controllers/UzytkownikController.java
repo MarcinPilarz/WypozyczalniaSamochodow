@@ -24,6 +24,12 @@ public class UzytkownikController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	/**
+	 * Tworzy nowego użytkownika.
+	 *
+	 * @param user Obiekt użytkownika do zapisania.
+	 * @return ResponseEntity z komunikatem o powodzeniu lub błędzie.
+	 */
 	@PostMapping(value = "/rejestracjaUzytkownika")
 	public ResponseEntity<String> createUser(@RequestBody User user) {
 		try {

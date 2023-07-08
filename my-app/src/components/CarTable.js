@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import "../CarTable.css";
 
+
+/**
+ * Komponent CarTable - tabela wyświetlająca dane samochodów.
+ */
 const CarTable = () => {
   const [cars, setCars] = useState([]);
   const [formData, setFormData] = useState({
@@ -26,6 +30,9 @@ const CarTable = () => {
     fetchData();
   }, []);
 
+   /**
+   * Pobiera dane samochodów z serwera.
+   */
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:8080/samochod');
@@ -59,11 +66,18 @@ const CarTable = () => {
 
   };
 
-  
+  /**
+   * Obsługuje zmianę wartości formularza.
+   * @param {Object} e - Obiekt zdarzenia zmiany wartości formularza.
+   */
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  /**
+   * Obsługuje przesłanie formularza.
+   * @param {Object} e - Obiekt zdarzenia przesłania formularza.
+   */
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -121,6 +135,10 @@ const CarTable = () => {
     }
   };
 
+  /**
+   * Usuwa samochód na podstawie identyfikatora.
+   * @param {number} id - Identyfikator samochodu.
+   */
   const deleteCar = async (id) => {
     try {
       const response = await fetch(`http://localhost:8080/samochod?id=${id}`, {
@@ -134,7 +152,10 @@ const CarTable = () => {
       console.error(error);
     }
   };
-
+/**
+   * Edytuje samochód na podstawie identyfikatora.
+   * @param {number} id - Identyfikator samochodu.
+   */
   const editCar = (id) => {
     setEditCarId(id);
     const carToEdit = cars.find((car) => car.idSamochodu === id);
@@ -153,7 +174,9 @@ const CarTable = () => {
       marka: carToEdit.marka.idMarka
     });
   };
-
+ /**
+   * Aktualizuje dane samochodu.
+   */
   const updateCar = async () => {
     try {
       const response = await fetch(`http://localhost:8080/samochod?id=${editCarId}`, {
@@ -209,7 +232,10 @@ const CarTable = () => {
     }
   };
 
-
+/**
+   * Oznacza samochód jako oddany na podstawie identyfikatora samochodu.
+   * @param {number} idSamochodu - Identyfikator samochodu.
+   */
   const markAsReturned = async (idSamochodu) => {
     try {
       //debugger
@@ -271,7 +297,10 @@ const CarTable = () => {
     ))
   }
   
-    
+    /**
+   * Usuwa wypożyczenie na podstawie identyfikatora okresu wypożyczenia.
+   * @param {number} idOkresWypozyczenia - Identyfikator okresu wypożyczenia.
+   */
   const deleteWypozyczenie = async (idOkresWypozyczenia) => {
     try {
       console.log("Deleting wypozyczenie with idOkresWypozyczenia:", idOkresWypozyczenia);

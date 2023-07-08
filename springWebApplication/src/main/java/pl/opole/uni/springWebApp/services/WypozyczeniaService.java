@@ -34,10 +34,30 @@ public class WypozyczeniaService {
 		this.oddzialRepo = oddzialRepo;
 	}
 
+	
+	/**
+     * Pobiera listę wszystkich okresów wypożyczeń.
+     *
+     * @return lista wszystkich okresów wypożyczeń
+     */
 	public List<OkresWypozyczenia> getWypozyczenie() {
+		
+		
 		return wypozyczenieRepo.findAll();
 	}
-
+	
+	
+	 /**
+     * Wypożycza samochód na podstawie podanych danych.
+     *
+     * @param idKlienta              identyfikator klienta
+     * @param idSamochodu            identyfikator samochodu
+     * @param idOddzialWypozyczenia  identyfikator oddziału wypożyczenia
+     * @param idOddzialOddania       identyfikator oddziału oddania
+     * @param terminWypozyczenia     termin wypożyczenia
+     * @param terminOddania          termin oddania
+     * @throws RuntimeException jeśli wystąpił błąd podczas wypożyczania samochodu
+     */
 	public void wypozyczSamochod(Long idKlienta, Long idSamochodu, Long idOddzialWypozyczenia, Long idOddzialOddania,
 			LocalDate terminWypozyczenia, LocalDate terminOddania) {
 		Klient klient = klientRepo.findById(idKlienta)
@@ -66,6 +86,13 @@ public class WypozyczeniaService {
 		wypozyczenieRepo.save(wypozyczenia);
 	}
 
+	
+	/**
+     * Anuluje wypożyczenie na podstawie podanego identyfikatora.
+     *
+     * @param idWypozyczenia identyfikator wypożyczenia
+     * @throws RuntimeException jeśli wystąpił błąd podczas anulowania wypożyczenia
+     */
 	public void anulujWypozyczenie(Long idWypozyczenia) {
 		OkresWypozyczenia wypozyczenie = wypozyczenieRepo.findById(idWypozyczenia)
 				.orElseThrow(() -> new RuntimeException("Nie znaleziono wypożyczenia o id: " + idWypozyczenia));

@@ -18,14 +18,18 @@ public class MarkaController {
 
 	@Autowired
 	private MarkaService markaService;
-	
+
+	/**
+	 * Pobiera listę marek samochodów.
+	 * 
+	 * @param nazwaMarka opcjonalny parametr - nazwa marki do filtrowania
+	 * @return lista marek samochodów
+	 */
 	@GetMapping("/marka")
 	public List<Marka> getModelSamochodu(@RequestParam(required = false) String nazwaMarka) {
 
-		
-			return markaService.findAllItems();
-	
-		
+		return markaService.findAllItems();
+
 	}
-	
+
 }

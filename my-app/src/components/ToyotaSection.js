@@ -4,6 +4,10 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+
+/**
+ * Komponent ToyotaSection - sekcja na stronie dotycząca samochodów marki Toyota.
+ */
 function ToyotaSection() {
 
   const [cars, setCars] = useState([]);
